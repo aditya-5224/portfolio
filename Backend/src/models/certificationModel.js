@@ -15,7 +15,7 @@ const certificationSchema = new mongoose.Schema(
     },
     dateObtained: {
       type: Date,
-      required: [true, 'Date obtained is required']
+      required: null
     },
     credentialId: {
       type: String,

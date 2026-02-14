@@ -15,8 +15,9 @@ const achievementSchema = new mongoose.Schema(
     },
     date: {
       type: Date,
-      required: [true, 'Achievement date is required']
+      default: null
     },
+    
     category: {
       type: String,
       enum: {

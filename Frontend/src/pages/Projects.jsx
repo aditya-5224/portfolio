@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import ElectricBorder from '../components/ElectricBorder'
 import { motion } from 'framer-motion'
 import api from '../services/api'
+import { getLinkIcon } from '../utils/getLinkIcon'
 
 export default function Projects() {
   const [currentPage, setCurrentPage] = useState(1)
@@ -151,13 +152,14 @@ export default function Projects() {
                       display: 'flex',
                       flexDirection: 'column',
                       gap: '12px',
-                      marginTop: 'auto'
+                      marginTop: 'auto',
+                      alignItems: 'flex-start'
                     }}
                   >
-                    {/* Live Button */}
-                    <button
+                    {/* Live Badge */}
+                    <div
                       style={{
-                        padding: '8px 16px',
+                        padding: '6px 12px',
                         background: '#1a1a1a',
                         color: '#888888',
                         border: '1px solid #333333',
@@ -166,53 +168,40 @@ export default function Projects() {
                         fontWeight: '600',
                         textTransform: 'uppercase',
                         letterSpacing: '0.5px',
-                        cursor: 'pointer',
-                        transition: 'all 0.3s ease',
                         width: 'fit-content'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.target.style.borderColor = '#ff80f4'
-                        e.target.style.color = '#ff80f4'
-                      }}
-                      onMouseLeave={(e) => {
-                        e.target.style.borderColor = '#333333'
-                        e.target.style.color = '#888888'
                       }}
                     >
                       Live {project.version || 'v1.0'}
-                    </button>
+                    </div>
 
-                    {/* Get Started Button */}
-                    <a
-                      href={project.link || '#'}
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        padding: '12px 24px',
-                        background: '#ffffff',
-                        color: '#000000',
-                        border: 'none',
-                        borderRadius: '8px',
-                        fontSize: '14px',
-                        fontWeight: '700',
-                        cursor: 'pointer',
-                        textDecoration: 'none',
-                        transition: 'all 0.3s ease',
-                        boxShadow: '0 0 20px rgba(255, 128, 244, 0.3)',
-                        width: '100%'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.target.style.boxShadow = '0 0 30px rgba(255, 128, 244, 0.6)'
-                        e.target.style.transform = 'translateY(-2px)'
-                      }}
-                      onMouseLeave={(e) => {
-                        e.target.style.boxShadow = '0 0 20px rgba(255, 128, 244, 0.3)'
-                        e.target.style.transform = 'translateY(0)'
-                      }}
-                    >
-                      Get Started
-                    </a>
+                    {/* External Link Icon */}
+                    {project.link && (() => {
+                      const IconComponent = getLinkIcon(project.link)
+                      return (
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            width: '40px',
+                            height: '40px',
+                            background: 'rgba(255, 128, 244, 0.1)',
+                            color: '#ff80f4',
+                            border: '1px solid #ff80f4',
+                            borderRadius: '8px',
+                            cursor: 'pointer',
+                            textDecoration: 'none',
+                            transition: 'all 0.3s ease'
+                          }}
+                          title="View Project"
+                        >
+                          <IconComponent size={18} />
+                        </a>
+                      )
+                    })()}
                   </div>
                 </div>
               </ElectricBorder>

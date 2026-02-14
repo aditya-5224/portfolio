@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Debug Backend",
-            // "preLaunchTask": "Kill Ports and Node",
+            "preLaunchTask": "Kill Ports and Node",
             "skipFiles": ["<node_internals>/**"],
             "program": "${workspaceFolder}\\Backend\\app.js",
             "cwd": "${workspaceFolder}\\Backend",

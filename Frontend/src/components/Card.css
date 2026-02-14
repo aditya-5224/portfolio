@@ -18,15 +18,14 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   transform-style: preserve-3d;
   
-  /* ONLY transition background and shadow. 
-     DO NOT put 'transform' or 'all' here. */
-  transition: background 0.3s ease, box-shadow 0.3s ease;
+  /* NO hover effects - disable all transitions on hover */
+  transition: none;
 }
 
 .card:hover {
-  background: rgba(20, 30, 50, 0.5);
-  box-shadow: 0 0 40px rgba(125, 249, 255, 0.2);
-  /* DO NOT ADD transform: scale or translateY here */
+  /* No changes on hover */
+  background: rgba(15, 23, 42, 0.4);
+  box-shadow: none;
 }
 
 .card-title {

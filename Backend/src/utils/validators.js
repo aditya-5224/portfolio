@@ -16,7 +16,7 @@ const projectValidationSchema = Joi.object({
 const certificationValidationSchema = Joi.object({
   name: Joi.string().min(3).max(200).required(),
   issuer: Joi.string().min(2).max(200).required(),
-  dateObtained: Joi.date().required(),
+  dateObtained: Joi.alternatives().try(Joi.date(), Joi.allow(null, '')),
   credentialId: Joi.string().optional().allow(null, ''),
   credentialUrl: Joi.string().uri().optional().allow(null, ''),
   link: Joi.string().uri().optional().allow(null, ''),
@@ -27,7 +27,7 @@ const certificationValidationSchema = Joi.object({
 const achievementValidationSchema = Joi.object({
   title: Joi.string().min(3).max(200).required(),
   description: Joi.string().min(10).max(2000).optional().allow(null, ''),
-  date: Joi.date().required(),
+  date: Joi.date().optional().allow(null, ''),
   category: Joi.string().valid('awards', 'publications', 'recognition', 'other').default('other'),
   imageUrl: Joi.string().uri().optional().allow(null, ''),
   link: Joi.string().uri().optional().allow(null, '')

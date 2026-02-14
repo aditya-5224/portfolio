@@ -215,7 +215,7 @@ export default function PixelSnow({
 
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     renderer.setSize(width, height, false)
-    renderer.setClearColor(0x000000, 1)
+    renderer.setClearColor(0x000000, 0)
     rendererRef.current = renderer
 
     const geometry = new THREE.PlaneGeometry(2, 2)
@@ -225,6 +225,9 @@ export default function PixelSnow({
     const material = new THREE.ShaderMaterial({
       vertexShader,
       fragmentShader,
+      transparent: true,
+      blending: THREE.NoBlending,
+      depthWrite: false,
       uniforms: {
         uTime: { value: 0 },
         uResolution: { value: new THREE.Vector2(width, height) },
@@ -285,7 +288,12 @@ export default function PixelSnow({
     const visibilityObserver = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
+          const wasVisible = isVisibleRef.current
           isVisibleRef.current = entry.isIntersecting
+          // Restart animation loop if it was stopped
+          if (!wasVisible && entry.isIntersecting && !frameRef.current) {
+            frameRef.current = requestAnimationFrame(animate)
+          }
         })
       },
       { threshold: 0 }
@@ -328,7 +336,6 @@ export default function PixelSnow({
       style={{
         position: 'relative',
         overflow: 'hidden',
-        contain: 'layout style paint',
         width: '100%',
         height: '100%',
         ...style

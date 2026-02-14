@@ -1,0 +1,117 @@
+/* ============================================
+   EXAMPLE CARDS CONTAINER
+   ============================================ */
+
+.example-cards-container {
+  background: #0f0f18;
+  min-height: 100vh;
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+
+.example-cards-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.example-cards-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, #7df9ff, #ff006e, #00f5ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 16px 0;
+  letter-spacing: -1px;
+}
+
+.example-cards-subtitle {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================
+   CARDS GRID
+   ============================================ */
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ============================================
+   CARD EXAMPLE CONTENT
+   ============================================ */
+
+.card-example-content {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 1024px) {
+  .example-cards-container {
+    padding: 50px 32px;
+  }
+
+  .example-cards-header {
+    margin-bottom: 50px;
+  }
+}
+
+@media (max-width: 768px) {
+  .example-cards-container {
+    padding: 40px 24px;
+  }
+
+  .example-cards-title {
+    font-size: 2rem;
+  }
+
+  .example-cards-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .example-cards-header {
+    margin-bottom: 40px;
+  }
+
+  .cards-grid {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .example-cards-container {
+    padding: 30px 16px;
+  }
+
+  .example-cards-title {
+    font-size: 1.5rem;
+  }
+
+  .example-cards-header {
+    margin-bottom: 30px;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

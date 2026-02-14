@@ -1,0 +1,54 @@
+/* ============================================
+   CUSTOM CURSOR STYLES
+   ============================================ */
+
+.custom-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--accent-primary);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform;
+  transform: translate(-50%, -50%);
+  box-shadow: 
+    0 0 15px rgba(124, 92, 255, 0.6),
+    inset 0 0 10px rgba(124, 92, 255, 0.3);
+  transition: box-shadow 0.3s ease;
+}
+
+.custom-cursor::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  background: var(--accent-primary);
+  border-radius: 50%;
+}
+
+/* Show default cursor */
+html, body {
+  cursor: auto;
+}
+
+input, textarea, button, select, [role='button'] {
+  cursor: pointer;
+}
+
+/* Mobile optimization - show default cursor */
+@media (max-width: 768px) {
+  html, body {
+    cursor: auto;
+  }
+
+  .custom-cursor {
+    display: none !important;
+  }
+}
+

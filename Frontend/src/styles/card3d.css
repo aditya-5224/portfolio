@@ -1,0 +1,285 @@
+/* ============================================
+   3D CARD COMPONENT STYLES
+   ============================================ */
+
+.card-3d-wrapper {
+  perspective: 1000px;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.card-3d-inner {
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 32px 28px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+  transition: all 0.3s ease;
+  will-change: backdrop-filter, box-shadow, border-color;
+  min-height: auto;
+  display: flex;
+  flex-direction: column;
+  transform: translateZ(0);
+  transform-style: preserve-3d;
+}
+
+.card-3d-wrapper:hover .card-3d-inner {
+  border-color: rgba(139, 92, 246, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 0, 0, 0.8),
+    inset 0 0 30px rgba(139, 92, 246, 0.15),
+    0 0 50px rgba(139, 92, 246, 0.3);
+}
+
+.card-3d-inner::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(124, 92, 255, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  will-change: opacity;
+}
+
+.card-3d-wrapper:hover .card-3d-inner::before {
+  opacity: 1;
+}
+
+/* ============================================
+   CARD CONTENT STYLING
+   ============================================ */
+
+.card-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+  transform: translateZ(50px);
+  will-change: transform;
+  position: relative;
+}
+
+.card-subtitle {
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  margin: 0 0 16px 0;
+  opacity: 0.9;
+  transform: translateZ(25px);
+  will-change: transform;
+}
+
+.card-description {
+  color: #9ca3af;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 12px 0;
+  transform: translateZ(30px);
+  will-change: transform;
+  position: relative;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0;
+  transform: translateZ(20px);
+  will-change: transform;
+}
+
+.tag {
+  display: inline-block;
+  padding: 4px 10px;
+  background: rgba(139, 92, 246, 0.12);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: #cbd5e1;
+  transition: all 0.3s ease;
+  will-change: background, border-color;
+}
+
+.tag:hover {
+  background: rgba(139, 92, 246, 0.25);
+  border-color: rgba(139, 92, 246, 0.6);
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.3);
+}
+
+/* ============================================
+   CARD BUTTONS & ACTIONS
+   ============================================ */
+
+.card-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  transform: translateZ(20px);
+  will-change: transform;
+}
+
+.card-btn {
+  flex: 1;
+  padding: 10px 16px;
+  border: 1.5px solid rgba(139, 92, 246, 0.4);
+  background: rgba(139, 92, 246, 0.1);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform, box-shadow, background, border-color;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.card-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: left 0.3s ease;
+  z-index: -1;
+}
+
+.card-btn:hover {
+  border-color: rgba(139, 92, 246, 0.8);
+  background: rgba(139, 92, 246, 0.2);
+  box-shadow: 
+    0 0 20px rgba(139, 92, 246, 0.4),
+    inset 0 0 15px rgba(139, 92, 246, 0.1);
+  transform: translateY(-2px);
+}
+
+.card-btn:hover::before {
+  left: 100%;
+}
+
+.card-btn-primary {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(124, 92, 255, 0.3);
+}
+
+.card-btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 35px rgba(124, 92, 255, 0.5);
+}
+
+.card-btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(77, 208, 225, 0.3);
+  color: var(--accent-secondary);
+}
+
+.card-btn-secondary:hover {
+  background: rgba(77, 208, 225, 0.1);
+  box-shadow: var(--glow-cyan);
+  transform: translateY(-2px);
+  border-color: var(--accent-secondary);
+}
+
+/* ============================================
+   BADGE STYLES
+   ============================================ */
+
+.credential-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: rgba(139, 92, 246, 0.15);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #cbd5e1;
+  margin: 8px 0;
+  transform: translateZ(25px);
+  will-change: transform;
+  transition: all 0.3s ease;
+}
+
+.card-3d-wrapper:hover .credential-badge {
+  border-color: rgba(139, 92, 246, 0.6);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+  background: rgba(139, 92, 246, 0.25);
+}
+
+/* ============================================
+   ICON STYLING IN CARDS
+   ============================================ */
+
+.card-icon {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  transition: all 0.3s ease;
+  will-change: transform;
+}
+
+.card-3d-wrapper:hover .card-icon {
+  transform: translateZ(30px) scale(1.1);
+}
+
+.icon-github, .icon-github-alt {
+  width: 20px;
+  height: 20px;
+}
+
+.icon-external {
+  width: 18px;
+  height: 18px;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .card-3d-inner {
+    padding: 20px 16px;
+  }
+
+  .card-title {
+    font-size: 1.2rem;
+  }
+
+  .card-actions {
+    flex-direction: column;
+  }
+
+  /* Disable 3D tilts on mobile */
+  .card-3d-wrapper {
+    transform: rotateX(0) rotateY(0) !important;
+    perspective: none;
+  }
+
+  .card-3d-inner {
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-3d-wrapper:hover .card-3d-inner {
+    border-color: rgba(124, 92, 255, 0.3);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  }
+}

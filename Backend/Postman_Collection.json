@@ -1,0 +1,329 @@
+{
+  "info": {
+    "_postman_id": "portfolio-backend-api",
+    "name": "Portfolio Backend API",
+    "description": "Complete API collection for portfolio backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Projects",
+      "item": [
+        {
+          "name": "Get All Projects",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/projects?page=1&limit=10",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "projects"],
+              "query": [
+                {"key": "page", "value": "1"},
+                {"key": "limit", "value": "10"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Project by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/projects/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "projects", ":id"],
+              "variable": [
+                {"key": "id", "value": ""}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Project",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{jwt_token}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"E-Commerce Platform\",\n  \"description\": \"A full-stack e-commerce application built with React and Node.js with MongoDB database\",\n  \"technologies\": [\"React\", \"Node.js\", \"MongoDB\", \"Express\"],\n  \"link\": \"https://github.com/example/ecommerce\",\n  \"imageUrl\": \"https://example.com/images/ecommerce.jpg\",\n  \"startDate\": \"2023-01-15\",\n  \"endDate\": \"2023-06-30\",\n  \"featured\": true\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/projects",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "projects"]
+            }
+          }
+        },
+        {
+          "name": "Update Project",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{jwt_token}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"E-Commerce Platform - Updated\",\n  \"featured\": false\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/projects/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "projects", ":id"],
+              "variable": [
+                {"key": "id", "value": ""}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Project",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{jwt_token}}"}
+            ],
+            "url": {
+              "raw": "http://localhost:5000/api/projects/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "projects", ":id"],
+              "variable": [
+                {"key": "id", "value": ""}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Certifications",
+      "item": [
+        {
+          "name": "Get All Certifications",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/certifications?page=1&limit=10",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "certifications"],
+              "query": [
+                {"key": "page", "value": "1"},
+                {"key": "limit", "value": "10"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Certification by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/certifications/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "certifications", ":id"],
+              "variable": [
+                {"key": "id", "value": ""}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Certification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{jwt_token}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"AWS Certified Solutions Architect\",\n  \"issuer\": \"Amazon Web Services\",\n  \"dateObtained\": \"2023-05-20\",\n  \"credentialId\": \"AWS-12345678\",\n  \"credentialUrl\": \"https://aws.amazon.com/verify\",\n  \"link\": \"https://www.credly.com/badges/aws-certified\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/certifications",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "certifications"]
+            }
+          }
+        },
+        {
+          "name": "Update Certification",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{jwt_token}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"AWS Certified Solutions Architect - Professional\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/certifications/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "certifications", ":id"],
+              "variable": [
+                {"key": "id", "value": ""}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Certification",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{jwt_token}}"}
+            ],
+            "url": {
+              "raw": "http://localhost:5000/api/certifications/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "certifications", ":id"],
+              "variable": [
+                {"key": "id", "value": ""}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Achievements",
+      "item": [
+        {
+          "name": "Get All Achievements",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/achievements?page=1&limit=10",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "achievements"],
+              "query": [
+                {"key": "page", "value": "1"},
+                {"key": "limit", "value": "10"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Achievement by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/achievements/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "achievements", ":id"],
+              "variable": [
+                {"key": "id", "value": ""}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Achievement",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{jwt_token}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Employee of the Quarter\",\n  \"description\": \"Recognized for exceptional performance and leadership in Q1 2023\",\n  \"date\": \"2023-03-31\",\n  \"category\": \"awards\",\n  \"link\": \"https://example.com/award\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/achievements",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "achievements"]
+            }
+          }
+        },
+        {
+          "name": "Update Achievement",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{jwt_token}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"category\": \"recognition\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/achievements/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "achievements", ":id"],
+              "variable": [
+                {"key": "id", "value": ""}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Achievement",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{jwt_token}}"}
+            ],
+            "url": {
+              "raw": "http://localhost:5000/api/achievements/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "achievements", ":id"],
+              "variable": [
+                {"key": "id", "value": ""}
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "jwt_token",
+      "value": "your_jwt_token_here",
+      "type": "string"
+    }
+  ]
+}

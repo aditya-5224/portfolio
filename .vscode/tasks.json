@@ -1,0 +1,16 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Kill Ports and Node",
+            "type": "shell",
+            "command": "powershell -NoProfile -Command \"Get-NetTCPConnection -LocalPort 5000,9229 -ErrorAction SilentlyContinue | ForEach-Object { if ($_.OwningProcess) { Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue } }; Get-Process node -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue\"",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "echo": true
+            },
+            "problemMatcher": []
+        }
+    ]
+}

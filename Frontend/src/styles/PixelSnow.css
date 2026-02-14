@@ -1,0 +1,16 @@
+/* ============================================
+   PIXEL SNOW WEBGL CANVAS
+   ============================================ */
+
+.pixel-snow-container {
+  contain: layout style paint;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.pixel-snow-container canvas {
+  display: block;
+  contain: layout style paint;
+  transform: translateZ(0);
+  will-change: transform;
+}

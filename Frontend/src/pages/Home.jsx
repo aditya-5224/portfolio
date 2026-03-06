@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import api from '../services/api'
 import { motion, AnimatePresence } from 'framer-motion'
+import PixelSnow from '../components/PixelSnow'
 import GlareHover from '../components/GlareHover'
 import Folder from '../components/Folder'
 import { getLinkIcon } from '../utils/getLinkIcon'
@@ -232,7 +233,24 @@ export default function Home() {
   }, [])
 
   return (
-    <section className="container home" style={{ overflow: 'visible' }}>
+    <div style={{ position: 'relative', width: '100%', minHeight: '100vh' }}>
+      {/* PixelSnow Background */}
+      <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: -1, pointerEvents: 'none', width: '100%', height: '100%', background: '#020617' }}>
+        <PixelSnow
+          color="#ffffff"
+          flakeSize={0.018}
+          minFlakeSize={1.25}
+          pixelResolution={440}
+          speed={2}
+          density={0.3}
+          direction={270}
+          brightness={1.6}
+          depthFade={6}
+          variant="square"
+        />
+      </div>
+
+      <section className="container home" style={{ overflow: 'visible' }}>
 
       {/* ─── HERO ─── */}
       <GlareHover
@@ -335,6 +353,7 @@ export default function Home() {
         />
 
       </div>
-    </section>
+      </section>
+    </div>
   )
 }

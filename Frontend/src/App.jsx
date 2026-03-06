@@ -1,7 +1,7 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
-import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
+import { useEffect } from 'react'
 import Nav from './components/Nav'
-import PixelSnow from './components/PixelSnow'
 import Home from './pages/Home'
 import Projects from './pages/Projects'
 import Achievements from './pages/Achievements'
@@ -10,61 +10,83 @@ import './styles/global.css'
 import './App.css'
 
 const pageVariants = {
-  initial: { opacity: 0, y: 20, z: -50 },
-  in: { opacity: 1, y: 0, z: 0 },
-  out: { opacity: 0, y: -20, z: -50 }
+  initial: { opacity: 0, y: 20 },
+  in: { opacity: 1, y: 0 },
+  out: { opacity: 0, y: -20 }
 }
 
-const pageTransition = { type: 'spring', stiffness: 300, damping: 30 }
+const pageTransition = { 
+  type: 'tween',
+  duration: 0.3,
+  ease: 'easeInOut'
+}
 
 function App() {
   const location = useLocation()
-  const { scrollY } = useScroll()
-  const parallaxY = useTransform(scrollY, [0, 500], [0, -50])
+
+  // Scroll to top on route change
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }, [location.pathname])
 
   return (
     <div id="app-root">
-      {/* Global PixelSnow Background Layer */}
-      <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none', width: '100vw', height: '100vh', background: '#020617' }}>
-        <PixelSnow
-          color="#ffffff"
-          flakeSize={0.018}
-          minFlakeSize={1.25}
-          pixelResolution={440}
-          speed={2}
-          density={0.3}
-          direction={270}
-          brightness={1.6}
-          depthFade={6}
-          variant="square"
-        />
+      <div className="nav-wrapper">
+        <Nav />
       </div>
 
-      <motion.div 
-        style={{ y: parallaxY }}
-        className="parallax-layer"
-      >
-        <Nav />
-      </motion.div>
-
-      <main style={{ perspective: '1200px', overflowX: 'hidden' }}>
-        <AnimatePresence mode='wait'>
-          <motion.div
-            className="page"
-            initial="initial"
-            animate="in"
-            exit="out"
-            variants={pageVariants}
-            transition={pageTransition}
-            key={location.pathname}
-          >
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/achievements" element={<Achievements />} />
-              <Route path="/certifications" element={<Certifications />} />
-            </Routes>
-          </motion.div>
+      <main>
+        <AnimatePresence mode='wait' initial={false}>
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={
+              <motion.div
+                className="page"
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <Home />
+              </motion.div>
+            } />
+            <Route path="/projects" element={
+              <motion.div
+                className="page"
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <Projects />
+              </motion.div>
+            } />
+            <Route path="/achievements" element={
+              <motion.div
+                className="page"
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <Achievements />
+              </motion.div>
+            } />
+            <Route path="/certifications" element={
+              <motion.div
+                className="page"
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <Certifications />
+              </motion.div>
+            } />
+          </Routes>
         </AnimatePresence>
       </main>
     </div>

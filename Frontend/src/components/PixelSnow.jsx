@@ -338,6 +338,7 @@ export default function PixelSnow({
         overflow: 'hidden',
         width: '100%',
         height: '100%',
+        pointerEvents: 'none',
         ...style
       }}
     />

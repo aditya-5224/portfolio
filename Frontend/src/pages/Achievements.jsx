@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import PixelSnow from '../components/PixelSnow'
 import ElectricBorder from '../components/ElectricBorder'
 import { motion } from 'framer-motion'
 import api from '../services/api'
@@ -27,7 +28,24 @@ export default function Achievements() {
   }, [])
 
   return (
-    <section style={{ paddingTop: '80px', paddingBottom: '80px', overflow: 'visible' }}>
+    <div style={{ position: 'relative', width: '100%', minHeight: '100vh' }}>
+      {/* PixelSnow Background */}
+      <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: -1, pointerEvents: 'none', width: '100%', height: '100%', background: '#020617' }}>
+        <PixelSnow
+          color="#ffffff"
+          flakeSize={0.018}
+          minFlakeSize={1.25}
+          pixelResolution={440}
+          speed={2}
+          density={0.3}
+          direction={270}
+          brightness={1.6}
+          depthFade={6}
+          variant="square"
+        />
+      </div>
+
+      <section style={{ paddingTop: '80px', paddingBottom: '80px', overflow: 'visible' }}>
       {loading ? (
         <div
           style={{
@@ -187,6 +205,7 @@ export default function Achievements() {
           ))}
         </motion.div>
       )}
-    </section>
+      </section>
+    </div>
   )
 }

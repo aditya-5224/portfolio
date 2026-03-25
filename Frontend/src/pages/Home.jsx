@@ -1,359 +1,377 @@
-import { useEffect, useState, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
-import api from '../services/api'
-import { motion, AnimatePresence } from 'framer-motion'
-import PixelSnow from '../components/PixelSnow'
-import GlareHover from '../components/GlareHover'
-import Folder from '../components/Folder'
-import { getLinkIcon } from '../utils/getLinkIcon'
+import { portfolioData } from '../data/portfolioData'
+import { Linkedin, Mail, ExternalLink } from 'lucide-react'
 
-/* ─── Paper Card (rendered INSIDE the folder paper) ─── */
-function PaperCard({ title, subtitle, accentColor, link }) {
-  const IconComponent = link ? getLinkIcon(link) : null
+const iconMap = {
+  github: Linkedin,
+  linkedin: Linkedin,
+  mail: Mail,
+  twitter: ExternalLink
+}
 
+const BRAND_COLOR = '#FF5B6E';
+
+export default function Home() {
   return (
-    <div
-      style={{
-        width: '100%',
-        height: '100%',
-        background: `linear-gradient(145deg, rgba(18,12,38,0.97) 0%, rgba(10,8,26,0.97) 100%)`,
-        borderRadius: 'inherit',
-        padding: '8px 6px',
+    <div style={{
+      position: 'relative',
+      width: '100%',
+      height: '100vh',
+      backgroundColor: '#ffffff',
+      overflow: 'hidden',
+      display: 'flex',
+      fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
+    }}>
+      
+      {/* ═══ LEFT SIDE - NAVIGATION + PHOTO + TITLES (60%) ═══ */}
+      <div style={{
+        position: 'relative',
+        flex: '0 0 60%',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center',
-        overflow: 'hidden',
-        position: 'relative',
-        boxSizing: 'border-box'
-      }}
-    >
-      {/* Accent glow top */}
-      <div style={{
-        position: 'absolute', top: 0, left: 0, right: 0, height: '2px',
-        background: `linear-gradient(90deg, transparent, ${accentColor}, transparent)`
-      }} />
-
-      <h4 style={{
-        fontSize: '7px', fontWeight: '800', color: '#fff',
-        margin: '0 0 3px 0', lineHeight: '1.2',
-        whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
-        maxWidth: '100%', letterSpacing: '0.2px'
+        overflow: 'hidden'
       }}>
-        {title}
-      </h4>
-
-      <p style={{
-        fontSize: '5px', color: '#aaa', margin: 0,
-        lineHeight: '1.3', display: '-webkit-box',
-        WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden',
-        maxWidth: '100%'
-      }}>
-        {subtitle || ''}
-      </p>
-
-      {IconComponent && (
-        <div style={{
-          position: 'absolute', bottom: '4px', right: '4px',
-          color: accentColor, opacity: 0.8
+        
+        {/* Navigation Header */}
+        <header style={{
+          padding: '30px 60px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '40px',
+          fontSize: '11px',
+          fontWeight: '700',
+          letterSpacing: '1px',
+          color: '#333',
+          zIndex: 10
         }}>
-          <IconComponent size={6} />
+          {/* Mock Logo */}
+          <div style={{ color: BRAND_COLOR, fontSize: '20px', marginRight: '20px' }}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+              <circle cx="12" cy="12" r="5"/>
+            </svg>
+          </div>
+          <span style={{ cursor: 'pointer' }}>SERVICES</span>
+          <span style={{ color: BRAND_COLOR, borderBottom: `2px solid ${BRAND_COLOR}`, paddingBottom: '4px', cursor: 'pointer' }}>OFFICES</span>
+          <span style={{ cursor: 'pointer' }}>TEAM</span>
+          <span style={{ cursor: 'pointer' }}>PHILOSOPHY</span>
+          <span style={{ cursor: 'pointer' }}>SPACES</span>
+        </header>
+
+        {/* Main Content Layout */}
+        <div style={{
+          flex: 1,
+          display: 'flex',
+          alignItems: 'center',
+          padding: '0 60px',
+          position: 'relative'
+        }}>
+          
+          {/* Left Text Block */}
+          <div style={{ width: '180px', zIndex: 10, position: 'relative', top: '20px' }}>
+            {/* "OUR TEAM" with line */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '20px' }}>
+              <span style={{ fontSize: '10px', fontWeight: 'bold', color: '#666', letterSpacing: '1.5px', whiteSpace: 'nowrap' }}>
+                OUR TEAM
+              </span>
+              <div style={{ height: '1px', background: '#ccc', flex: 1 }}></div>
+            </div>
+            
+            <p style={{ fontSize: '12px', color: '#888', margin: '0 0 8px 0', fontWeight: '500' }}>
+              {portfolioData.subtitle || 'Profile'}
+            </p>
+            <h1 style={{ 
+              fontSize: '36px', 
+              color: '#333', 
+              margin: '0 0 5px 0', 
+              fontFamily: 'Georgia, serif',
+              fontWeight: 'normal',
+              lineHeight: '1.1'
+            }}>
+              {portfolioData.name}
+            </h1>
+            <h2 style={{ 
+              fontSize: '20px', 
+              color: '#555', 
+              fontWeight: 'normal', 
+              margin: '0 0 35px 0', 
+              fontFamily: 'Georgia, serif' 
+            }}>
+              {portfolioData.title}
+            </h2>
+            <a href="#explore" style={{ 
+              color: BRAND_COLOR, 
+              textDecoration: 'none', 
+              borderBottom: `1px solid ${BRAND_COLOR}`, 
+              paddingBottom: '2px', 
+              fontSize: '13px',
+              fontWeight: '500'
+            }}>
+              Explore
+            </a>
+          </div>
+
+          {/* Center Graphic Composition */}
+          <div style={{ 
+            flex: 1, 
+            height: '100%', 
+            position: 'relative', 
+            display: 'flex', 
+            justifyContent: 'center', 
+            alignItems: 'center',
+            marginLeft: '-40px' 
+          }}>
+            {/* Big Main Circle */}
+            <div style={{ 
+              width: '420px', 
+              height: '420px', 
+              backgroundColor: BRAND_COLOR, 
+              borderRadius: '50%', 
+              position: 'absolute',
+              zIndex: 1
+            }} />
+
+            {/* Dot Pattern Square */}
+            <div style={{ 
+              width: '100px', 
+              height: '100px', 
+              backgroundImage: 'radial-gradient(#000 2px, transparent 2px)', 
+              backgroundSize: '12px 12px', 
+              position: 'absolute', 
+              right: '15%', 
+              top: '40%',
+              zIndex: 2,
+              opacity: 0.8
+            }} />
+
+            {/* Small Floating Circle */}
+            <div style={{ 
+              width: '35px', 
+              height: '35px', 
+              backgroundColor: BRAND_COLOR, 
+              borderRadius: '50%', 
+              position: 'absolute', 
+              right: '12%', 
+              top: '28%',
+              zIndex: 2
+            }} />
+
+            {/* Left Half Circle */}
+            <div style={{ 
+              width: '120px', 
+              height: '60px', 
+              backgroundColor: BRAND_COLOR, 
+              borderTopLeftRadius: '120px', 
+              borderTopRightRadius: '120px', 
+              position: 'absolute', 
+              left: '10%', 
+              top: '35%',
+              zIndex: 2,
+              transform: 'rotate(-90deg)'
+            }} />
+
+            {/* Profile Photo */}
+            <img 
+              src="/images/aditya.png" 
+              alt={portfolioData.name} 
+              style={{ 
+                width: '340px', 
+                height: '340px', 
+                borderRadius: '50%', 
+                objectFit: 'cover', 
+                position: 'relative', 
+                zIndex: 5,
+                boxShadow: '0 20px 40px rgba(0,0,0,0.1)'
+              }} 
+            />
+          </div>
         </div>
-      )}
+      </div>
+
+      {/* ═══ RIGHT SIDE - SOLID COLOR + SUMMARY + DATA (40%) ═══ */}
+      <div style={{
+        flex: '0 0 40%',
+        backgroundColor: BRAND_COLOR,
+        color: '#ffffff',
+        padding: '30px 60px',
+        display: 'flex',
+        flexDirection: 'column',
+        overflowY: 'auto'
+      }}>
+        
+        {/* Top Login Button */}
+        <div style={{ 
+          alignSelf: 'flex-end', 
+          border: '1px solid rgba(255,255,255,0.7)', 
+          padding: '10px 30px', 
+          borderRadius: '30px', 
+          fontSize: '11px', 
+          fontWeight: '700', 
+          letterSpacing: '1px', 
+          cursor: 'pointer',
+          transition: 'all 0.3s ease'
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.backgroundColor = '#ffffff';
+          e.currentTarget.style.color = BRAND_COLOR;
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.backgroundColor = 'transparent';
+          e.currentTarget.style.color = '#ffffff';
+        }}>
+          LOGIN
+        </div>
+
+        {/* Main Right Content */}
+        <div style={{ marginTop: '50px', display: 'flex', flexDirection: 'column', gap: '45px' }}>
+          
+          {/* Summary Section */}
+          <div>
+            <h2 style={{ 
+              fontSize: '42px', 
+              lineHeight: '1.2', 
+              margin: '0 0 20px 0', 
+              fontFamily: 'Georgia, serif',
+              fontWeight: 'normal'
+            }}>
+              Your summary<br/>for the problems<br/>of this century
+            </h2>
+            <p style={{ 
+              fontSize: '15px', 
+              lineHeight: '1.6', 
+              opacity: 0.9,
+              margin: 0
+            }}>
+              {portfolioData.summary}
+            </p>
+          </div>
+
+          {/* Socials Block */}
+          <div>
+            <div style={{ display: 'flex', gap: '12px' }}>
+              {portfolioData.socials.map((social, idx) => {
+                const IconComponent = iconMap[social.icon] || ExternalLink
+                return (
+                  <a
+                    key={idx}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '45px',
+                      height: '45px',
+                      borderRadius: '8px',
+                      backgroundColor: 'rgba(255, 255, 255, 0.15)',
+                      color: '#ffffff',
+                      textDecoration: 'none',
+                      transition: 'all 0.3s ease',
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.3)'}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.15)'}
+                  >
+                    <IconComponent size={20} />
+                  </a>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* LeetCode Data */}
+          <div>
+            <div style={{
+              padding: '20px',
+              border: '1px solid rgba(255, 255, 255, 0.3)',
+              borderRadius: '8px',
+              backgroundColor: 'rgba(255, 255, 255, 0.05)'
+            }}>
+              <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+                <div style={{ fontSize: '28px', marginBottom: '5px' }}>🏆</div>
+                <h4 style={{ fontSize: '15px', fontWeight: '700', margin: '0 0 4px 0' }}>
+                  {portfolioData.leetcode.badge}
+                </h4>
+                <p style={{ fontSize: '12px', opacity: 0.8, margin: 0 }}>
+                  {portfolioData.leetcode.badgeText}
+                </p>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                <StatBoxLight label="Problems" value={portfolioData.leetcode.problems} />
+                <StatBoxLight label="Contest Rating" value={portfolioData.leetcode.rating} />
+                <StatBoxLight label="Medium" value={portfolioData.leetcode.medium} />
+                <StatBoxLight label="Hard" value={portfolioData.leetcode.hard} />
+              </div>
+
+              <a
+                href={portfolioData.leetcode.profile}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'block',
+                  textAlign: 'center',
+                  marginTop: '15px',
+                  padding: '12px',
+                  backgroundColor: '#ffffff',
+                  color: BRAND_COLOR,
+                  textDecoration: 'none',
+                  borderRadius: '5px',
+                  fontSize: '11px',
+                  fontWeight: '700',
+                  letterSpacing: '1px',
+                  transition: 'opacity 0.2s'
+                }}
+                onMouseEnter={(e) => e.target.style.opacity = '0.9'}
+                onMouseLeave={(e) => e.target.style.opacity = '1'}
+              >
+                VIEW MORE
+              </a>
+            </div>
+          </div>
+          
+        </div>
+      </div>
     </div>
   )
 }
 
-/* ─── Folder Section ─── */
-function FolderSection({ title, accentColor, items, folderColor, renderPaperCard, navPath, delay = 0 }) {
-  const [isOpen, setIsOpen] = useState(false)
-  const navigate = useNavigate()
-  const sectionRef = useRef(null)
-
-  // Auto-close folder when scrolled out of view
-  useEffect(() => {
-    if (!sectionRef.current) return
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting && isOpen) {
-          setIsOpen(false)
-        }
-      },
-      { threshold: 0.15 }
-    )
-    observer.observe(sectionRef.current)
-    return () => observer.disconnect()
-  }, [isOpen])
-
-  // Build folder items array: fill with card content, leave null for remaining (white paper)
-  // Paper positions when open: 1=left, 2=right, 3=center
-  // If only 1 item → place it at center (slot 3)
-  // If 2 items → left (slot 1) + center (slot 3)
-  // If 3 items → fill all
-  const folderItems = [null, null, null]
-  if (items.length === 1) {
-    folderItems[2] = renderPaperCard(items[0]) // center
-  } else if (items.length === 2) {
-    folderItems[0] = renderPaperCard(items[0]) // left
-    folderItems[2] = renderPaperCard(items[1]) // center
-  } else if (items.length >= 3) {
-    folderItems[0] = renderPaperCard(items[0])
-    folderItems[1] = renderPaperCard(items[1])
-    folderItems[2] = renderPaperCard(items[2])
-  }
-
+// Updated Stat Box Component tailored for the solid right panel
+function StatBoxLight({ label, value }) {
   return (
-    <motion.div
-      ref={sectionRef}
-      initial={{ opacity: 0, y: 100, scale: 0.92 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: '-120px' }}
-      transition={{ type: 'spring', stiffness: 140, damping: 22, delay }}
+    <div
       style={{
-        minHeight: '85vh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'relative',
-        perspective: '1200px'
+        padding: '12px',
+        border: '1px solid rgba(255, 255, 255, 0.2)',
+        borderRadius: '6px',
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        textAlign: 'center',
+        transition: 'all 0.2s ease'
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.2)'
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)'
       }}
     >
-      {/* Section Title */}
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: delay + 0.1, type: 'spring', stiffness: 200 }}
-        style={{
-          fontSize: '2.2rem', fontWeight: '800', color: accentColor,
-          margin: '0 0 8px 0', letterSpacing: '-0.02em', textAlign: 'center',
-          textTransform: 'uppercase', lineHeight: 1.1
-        }}
-      >
-        {title}
-      </motion.h2>
-
-      <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: delay + 0.2 }}
-        style={{
-          fontSize: '13px', color: '#555', margin: '0 0 40px 0',
-          fontStyle: 'italic', textAlign: 'center'
-        }}
-      >
-        {isOpen ? 'Click folder to close' : 'Click folder to explore'}
-      </motion.p>
-
-      {/* Centered Folder */}
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
+      <p style={{
+        fontSize: '18px',
+        fontWeight: 'bold',
+        color: '#ffffff',
+        margin: '0 0 4px 0'
       }}>
-        <Folder
-          color={folderColor}
-          size={2.5}
-          items={folderItems}
-          isOpen={isOpen}
-          onToggle={(open) => setIsOpen(open)}
-        />
-      </div>
-
-      {/* View All button – appears below when open */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ delay: 0.4, duration: 0.3 }}
-            style={{ marginTop: '30px', textAlign: 'center' }}
-          >
-            <button
-              onClick={() => navigate(navPath)}
-              style={{
-                background: 'transparent',
-                border: `1px solid ${accentColor}55`,
-                color: accentColor,
-                padding: '10px 28px',
-                borderRadius: '24px',
-                cursor: 'pointer',
-                fontSize: '13px',
-                fontWeight: '600',
-                letterSpacing: '0.5px',
-                transition: 'all 0.3s ease'
-              }}
-              onMouseEnter={e => {
-                e.target.style.background = `${accentColor}18`
-                e.target.style.borderColor = accentColor
-              }}
-              onMouseLeave={e => {
-                e.target.style.background = 'transparent'
-                e.target.style.borderColor = `${accentColor}55`
-              }}
-            >
-              View All →
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
-  )
-}
-
-/* ─── Home Page ─── */
-export default function Home() {
-  const [projects, setProjects] = useState([])
-  const [achievements, setAchievements] = useState([])
-  const [certifications, setCertifications] = useState([])
-  const [error, setError] = useState(null)
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    let mounted = true
-
-    Promise.allSettled([
-      api.get('/projects?limit=6'),
-      api.get('/achievements?limit=6'),
-      api.get('/certifications?limit=6')
-    ]).then(([projRes, achRes, certRes]) => {
-      if (!mounted) return
-      if (projRes.status === 'fulfilled') setProjects(projRes.value.data.data || [])
-      if (achRes.status === 'fulfilled') setAchievements(achRes.value.data.data || [])
-      if (certRes.status === 'fulfilled') setCertifications(certRes.value.data.data || [])
-    }).catch(err => {
-      if (mounted) setError(err.message)
-    })
-
-    return () => { mounted = false }
-  }, [])
-
-  return (
-    <div style={{ position: 'relative', width: '100%', minHeight: '100vh' }}>
-      {/* PixelSnow Background */}
-      <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: -1, pointerEvents: 'none', width: '100%', height: '100%', background: '#020617' }}>
-        <PixelSnow
-          color="#ffffff"
-          flakeSize={0.018}
-          minFlakeSize={1.25}
-          pixelResolution={440}
-          speed={2}
-          density={0.3}
-          direction={270}
-          brightness={1.6}
-          depthFade={6}
-          variant="square"
-        />
-      </div>
-
-      <section className="container home" style={{ overflow: 'visible' }}>
-
-      {/* ─── HERO ─── */}
-      <GlareHover
-        glareColor="#ffffff"
-        glareOpacity={0.3}
-        glareAngle={-30}
-        glareSize={300}
-        transitionDuration={1800}
-        playOnce={false}
-      >
-        <motion.header
-          style={{
-            fontSize: '3rem', fontWeight: '900', color: '#333',
-            margin: 0, width: 'fit-content', height: 'fit-content'
-          }}
-          className="hero-section"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ type: 'spring', stiffness: 250, damping: 25, delay: 0.2 }}
-        >
-          <h1 className="hero">Aditya Yadav</h1>
-          <p className="lead">
-            A high-performance 3D-immersive portfolio experience built with
-            React, Framer Motion & pure CSS
-          </p>
-        </motion.header>
-      </GlareHover>
-
-      {/* ─── ERROR ─── */}
-      {error && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          style={{
-            padding: '16px 20px',
-            background: 'rgba(255, 107, 157, 0.1)',
-            border: '1px solid rgba(255, 107, 157, 0.3)',
-            borderRadius: '8px', color: '#ff9fb2', marginBottom: '30px'
-          }}
-        >
-          Error loading data: {error}
-        </motion.div>
-      )}
-
-      {/* ─── FOLDER SECTIONS ─── */}
-      <div style={{ marginTop: '60px' }}>
-
-        {/* Projects Folder */}
-        <FolderSection
-          title="Projects"
-          accentColor="#ff80f4"
-          folderColor="#ff80f4"
-          items={projects}
-          navPath="/projects"
-          delay={0.1}
-          renderPaperCard={(p) => (
-            <PaperCard
-              title={p.title}
-              subtitle={p.subtitle || p.description}
-              accentColor="#ff80f4"
-              link={p.link || p.githubUrl}
-            />
-          )}
-        />
-
-        {/* Achievements Folder */}
-        <FolderSection
-          title="Achievements"
-          accentColor="#ff006e"
-          folderColor="#ff006e"
-          items={achievements}
-          navPath="/achievements"
-          delay={0.15}
-          renderPaperCard={(a) => (
-            <PaperCard
-              title={a.title}
-              subtitle={a.description}
-              accentColor="#ff006e"
-              link={a.link}
-            />
-          )}
-        />
-
-        {/* Certifications Folder */}
-        <FolderSection
-          title="Certifications"
-          accentColor="#00f5ff"
-          folderColor="#00f5ff"
-          items={certifications}
-          navPath="/certifications"
-          delay={0.2}
-          renderPaperCard={(c) => (
-            <PaperCard
-              title={c.name}
-              subtitle={`Issued by ${c.issuer}`}
-              accentColor="#00f5ff"
-              link={c.credentialUrl}
-            />
-          )}
-        />
-
-      </div>
-      </section>
+        {value}
+      </p>
+      <p style={{
+        fontSize: '9px',
+        color: 'rgba(255, 255, 255, 0.8)',
+        fontWeight: '600',
+        margin: 0,
+        letterSpacing: '0.5px',
+        textTransform: 'uppercase'
+      }}>
+        {label}
+      </p>
     </div>
   )
 }

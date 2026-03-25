@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import '../styles/nav.css'
 
@@ -23,6 +23,13 @@ const itemVariants = {
 }
 
 export default function Nav() {
+  const location = useLocation()
+
+  // Hide navbar on home page
+  if (location.pathname === '/') {
+    return null
+  }
+
   return (
     <nav className="top-nav">
       <motion.div 

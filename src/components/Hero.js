@@ -9,14 +9,12 @@ export default function Hero({ personalInfo }) {
     }
 
     try {
-      // Convert base64 to binary
       const binaryString = atob(personalInfo.resume);
       const bytes = new Uint8Array(binaryString.length);
       for (let i = 0; i < binaryString.length; i++) {
         bytes[i] = binaryString.charCodeAt(i);
       }
 
-      // Create blob and download
       const blob = new Blob([bytes], { type: 'application/pdf' });
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -31,91 +29,126 @@ export default function Hero({ personalInfo }) {
       alert('Failed to download resume');
     }
   };
+
   return (
     <div className="relative min-h-screen flex flex-col md:flex-row overflow-hidden">
+
       {/* Left Side - White */}
-      <div className="flex-1 bg-white flex flex-col justify-center px-12 md:px-24 py-32 relative">
-        <motion.div 
-          initial={{ opacity: 0, x: -50 }}
+      <div className="flex-1 bg-white flex flex-col justify-center px-17 md:px-24 py-32 relative overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, x: -70 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          className="z-10"
+          className="z-10 relative"
         >
-          
           <h1 className="text-3xl text-gray-400 mb-2 font-medium">{personalInfo.name}</h1>
           <h1 className="text-5xl md:text-6xl font-serif italic text-gray-900 mb-8 leading-tight">
             Software<br />Developer
           </h1>
-          
-          <a href="#experience" className="text-brand-red text-sm font-bold tracking-widest uppercase border-b border-brand-red pb-1 hover:text-red-600 hover:border-red-600 transition-colors">
+
+          <a
+            href="#experience"
+            className="text-brand-red text-sm font-bold tracking-widest uppercase border-b border-brand-red pb-1 hover:text-red-600 hover:border-red-600 transition-colors"
+          >
             Explore
           </a>
         </motion.div>
 
-        {/* Abstract Shapes */}
+        {/* Abstract Shapes - kept within left panel */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <motion.div 
-            animate={{ 
-              scale: [1, 1.1, 1],
-              rotate: [0, 5, 0]
-            }}
+          <motion.div
+            animate={{ scale: [1, 1.1, 1], rotate: [0, 5, 0] }}
             transition={{ duration: 10, repeat: Infinity }}
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-brand-red rounded-full opacity-10"
-          ></motion.div>
-          
-          <motion.div 
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.5, duration: 1 }}
-            className="absolute top-1/3 left-[60%] w-24 h-24 bg-brand-red rounded-full"
-          ></motion.div>
-
-          <motion.div 
+          />
+          <motion.div
             initial={{ x: -100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.7, duration: 1 }}
             className="absolute bottom-1/4 left-1/4 w-32 h-16 bg-brand-red rounded-t-full"
-          ></motion.div>
+          />
         </div>
+      </div>
 
-        {/* Profile Image Container */}
-        <motion.div 
+      {/* ── Center Profile Circle ── sits above both panels */}
+      <div className="
+        hidden md:flex
+        absolute left-[44%] top-[40%]
+        -translate-x-1/2 -translate-y-1/2
+        z-30
+        items-end justify-center
+        w-[280px] lg:w-[340px]
+        h-[280px] lg:h-[340px]
+      ">
+        <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1 }}
-          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 md:translate-x-1/4 z-20 w-[300px] md:w-[450px]"
+          className="relative w-full h-full"
         >
-          <div className="relative">
-            <div className="absolute inset-0 bg-brand-red rounded-full -z-10 translate-x-4 translate-y-4"></div>
-            <img 
-              src={personalInfo.profilePic ? `data:image/png;base64,${personalInfo.profilePic}` : "https://picsum.photos/seed/dev/800/1000"}
+          {/* Red circle background */}
+          <div className="absolute inset-0 bg-brand-red rounded-full" />
+
+          {/* Profile photo clipped to circle */}
+          <div className="absolute inset-0 rounded-full overflow-hidden">
+            <img
+              src={
+                personalInfo.profilePic
+                  ? `data:image/png;base64,${personalInfo.profilePic}`
+                  : "https://picsum.photos/seed/dev/800/1000"
+              }
               alt={personalInfo.name}
-              className="w-full h-auto grayscale filter contrast-125"
-              onError={(e) => {
-                e.target.src = "https://picsum.photos/seed/dev/800/1000";
-              }}
+              className="w-full h-full object-cover object-top grayscale contrast-125"
+              onError={(e) => { e.target.src = "https://picsum.photos/seed/dev/800/1000"; }}
+            />
+          </div>
+
+          {/* Subtle shadow ring */}
+          <div className="absolute inset-0 rounded-full ring-4 ring-brand-red/30 ring-offset-2" />
+        </motion.div>
+      </div>
+
+      {/* Mobile profile (stacked layout) */}
+      <div className="flex md:hidden justify-center items-center py-8 bg-white">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1 }}
+          className="relative w-[220px] h-[220px]"
+        >
+          <div className="absolute inset-0 bg-brand-red rounded-full" />
+          <div className="absolute inset-0 rounded-full overflow-hidden">
+            <img
+              src={
+                personalInfo.profilePic
+                  ? `data:image/png;base64,${personalInfo.profilePic}`
+                  : "https://picsum.photos/seed/dev/800/1000"
+              }
+              alt={personalInfo.name}
+              className="w-full h-full object-cover object-top grayscale contrast-125"
+              onError={(e) => { e.target.src = "https://picsum.photos/seed/dev/800/1000"; }}
             />
           </div>
         </motion.div>
       </div>
 
       {/* Right Side - Red */}
-      <div className="flex-1 bg-brand-red flex flex-col justify-center px-12 md:px-24 py-32 text-white">
+      <div className="flex-1 bg-brand-red flex flex-col justify-center px-12 md:px-24 py-32 text-white overflow-hidden">
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="max-w-md"
+          className="max-w-md md:ml-16 lg:ml-24"  /* push text right to clear the circle */
         >
           <h2 className="text-4xl md:text-5xl font-serif font-medium leading-tight mb-8">
             Building scalable solutions for the problems of this century
           </h2>
-          
+
           <p className="text-white/80 text-sm mb-12 leading-relaxed">
             {personalInfo.summary}
           </p>
-          
-          <motion.button 
+
+          <motion.button
             onClick={handleDownloadResume}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -125,6 +158,7 @@ export default function Hero({ personalInfo }) {
           </motion.button>
         </motion.div>
       </div>
+
     </div>
   );
 }

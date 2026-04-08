@@ -41,8 +41,8 @@ export default function Hero({ personalInfo }) {
           transition={{ duration: 0.8 }}
           className="z-10 relative"
         >
-          <h1 className="text-3xl text-gray-400 mb-2 font-medium">{personalInfo.name}</h1>
-          <h1 className="text-5xl md:text-6xl font-serif italic text-gray-900 mb-8 leading-tight">
+          <h1 className="text-3xl text-gray-400 mb-2  translate-x-20 font-medium">{personalInfo.name}</h1>
+          <h1 className="text-5xl md:text-6xl font-serif italic  translate-x-20 text-gray-900 mb-8 leading-tight">
             Software<br />Developer
           </h1>
 
@@ -58,14 +58,14 @@ export default function Hero({ personalInfo }) {
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <motion.div
             animate={{ scale: [1, 1.1, 1], rotate: [0, 5, 0] }}
-            transition={{ duration: 10, repeat: Infinity }}
+            transition={{ duration: 3, repeat: Infinity }}
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-brand-red rounded-full opacity-10"
           />
           <motion.div
             initial={{ x: -100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.7, duration: 1 }}
-            className="absolute bottom-1/4 left-1/4 w-32 h-16 bg-brand-red rounded-t-full"
+            transition={{ delay: 0.5, duration: 1 }}
+            className="absolute bottom-1/4 left-1/4 w-40 h-20 bg-brand-red rounded-t-full"
           />
         </div>
       </div>
@@ -83,7 +83,7 @@ export default function Hero({ personalInfo }) {
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 0.7 }}
           className="relative w-full h-full"
         >
           {/* Red circle background */}

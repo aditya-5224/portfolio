@@ -5,6 +5,11 @@
   --font-serif: "Georgia", serif;
 }
 
+html, body {
+  overflow: hidden;
+  height: 100%;
+}
+
 body {
   @apply bg-white text-gray-900 overflow-x-hidden;
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;

@@ -31,7 +31,7 @@ export default function Hero({ personalInfo }) {
   };
 
   return (
-    <div className="relative min-h-screen flex flex-col md:flex-row overflow-hidden">
+    <div className="relative w-full h-full flex flex-col md:flex-row overflow-hidden">
 
       {/* Left Side - White */}
       <div className="flex-1 bg-white flex flex-col justify-center px-17 md:px-24 py-32 relative overflow-hidden">

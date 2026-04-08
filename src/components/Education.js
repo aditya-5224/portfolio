@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 
 export default function Education({ education }) {
   return (
-    <section id="education" className="py-24 px-8 md:px-24 bg-gray-50">
+    <section id="education" className="w-full h-full overflow-hidden py-24 px-8 md:px-24 bg-gray-50">
       <div className="max-w-6xl mx-auto">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}

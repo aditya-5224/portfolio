@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 
 export default function Experience({ experience }) {
   return (
-    <section id="experience" className="py-24 px-8 md:px-24 bg-gray-50">
+    <section id="experience" className="w-full h-full overflow-y-auto py-24 px-8 md:px-24 bg-gray-50">
       <div className="max-w-6xl mx-auto">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}

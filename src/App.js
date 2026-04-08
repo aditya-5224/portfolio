@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
+import FullPageScroll from './components/FullPageScroll';
 import Hero from './components/Hero';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
@@ -16,7 +17,7 @@ export default function App() {
     setData(staticData);
   }, []);
 
-  if (!data) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+  if (!data) return <div className="h-screen flex items-center justify-center">Loading...</div>;
 
   // Merge profilePic and resume from root level into personalInfo if they exist
   const personalInfoWithPic = {
@@ -29,12 +30,14 @@ export default function App() {
     <div className="antialiased">
       <Navbar />
       <main>
-        <Hero personalInfo={personalInfoWithPic} />
-        <Experience experience={data.experience} />
-        <Skills skills={data.skills} />
-        <Projects projects={data.projects} />
-        <Education education={data.education} />
-        <Certifications certifications={data.certifications} />
+        <FullPageScroll>
+          <Hero personalInfo={personalInfoWithPic} />
+          <Experience experience={data.experience} />
+          <Projects projects={data.projects} />
+          <Skills skills={data.skills} />
+          <Education education={data.education} />
+          <Certifications certifications={data.certifications} />
+        </FullPageScroll>
       </main>
       
       <footer className="py-12 px-8 md:px-24 bg-white border-t border-gray-100">

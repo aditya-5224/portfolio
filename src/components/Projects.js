@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 
 export default function Projects({ projects }) {
   return (
-    <section id="projects" className="py-24 px-8 md:px-24 bg-white">
+    <section id="projects" className="w-full h-full overflow-hidden py-24 px-8 md:px-24 bg-white">
       <div className="max-w-6xl mx-auto">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}

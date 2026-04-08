@@ -7,7 +7,7 @@ export default function Certifications({ certifications }) {
   }
 
   return (
-    <section id="certifications" className="py-24 px-8 md:px-24 bg-white">
+    <section id="certifications" className="w-full h-full overflow-hidden py-24 px-8 md:px-24 bg-white">
       <div className="max-w-6xl mx-auto">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}

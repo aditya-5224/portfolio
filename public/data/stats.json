@@ -508,12 +508,12 @@
             "maxStreak": 12,
             "totalActiveDays": 57,
             "error": null,
-            "timestamp": 685455886,
+            "timestamp": 617091279,
             "ratingWiseDistribution": null,
             "topicWiseDistribution": null
           },
           "certificateStats": null,
-          "lastUpdatedAt": 402808181,
+          "lastUpdatedAt": 159355806,
           "categoryQuestionStats": null,
           "isVerified": null,
           "sheetProgress": null
@@ -543,7 +543,7 @@
           },
           "topicAnalysisStats": null,
           "totalQuestionStats": {
-            "totalQuestionCounts": 67,
+            "totalQuestionCounts": 69,
             "easyQuestionCounts": null,
             "mediumQuestionCounts": null,
             "hardQuestionCounts": null,
@@ -620,14 +620,16 @@
               "1775520000": 1,
               "1775606400": 1,
               "1775692800": 2,
-              "1776124800": 1
+              "1776124800": 1,
+              "1776211200": 1,
+              "1776297600": 1
             },
             "maxStreak": 20,
             "totalActiveDays": null,
             "error": null,
             "timestamp": null,
             "ratingWiseDistribution": {
-              "800": 45,
+              "800": 47,
               "900": 5,
               "1000": 5,
               "1100": 3,
@@ -640,7 +642,7 @@
               "binary search": 1,
               "expression parsing": 1,
               "graph matchings": 1,
-              "implementation": 42,
+              "implementation": 44,
               "hashing": 1,
               "constructive algorithms": 3,
               "dp": 3,
@@ -655,14 +657,14 @@
               "games": 2,
               "sortings": 9,
               "greedy": 17,
-              "math": 20,
+              "math": 21,
               "bitmasks": 1,
               "combinatorics": 1,
               "number theory": 1
             }
           },
           "certificateStats": null,
-          "lastUpdatedAt": 126366943,
+          "lastUpdatedAt": 177193038,
           "categoryQuestionStats": null,
           "isVerified": null,
           "sheetProgress": null
@@ -697,6 +699,7 @@
               "two-pointer-algorithm": 3,
               "BFS": 1,
               "sliding-window": 6,
+              "Design-Pattern": 1,
               "Backtracking": 1,
               "Matrix": 3,
               "Dynamic Programming": 5,
@@ -712,7 +715,7 @@
               "Queue and Stacks": 8,
               "Recursion": 2,
               "Binary Search": 2,
-              "Strings": 9,
+              "Strings": 10,
               "Sorting": 7,
               "Greedy Algorithms": 4,
               "Algorithms": 40,
@@ -722,9 +725,9 @@
             }
           },
           "totalQuestionStats": {
-            "totalQuestionCounts": 106,
+            "totalQuestionCounts": 107,
             "easyQuestionCounts": 34,
-            "mediumQuestionCounts": 60,
+            "mediumQuestionCounts": 61,
             "hardQuestionCounts": 10,
             "basicQuestionCounts": 2,
             "schoolQuestionCounts": 0,
@@ -826,7 +829,8 @@
               "1775692800": 1,
               "1775779200": 1,
               "1776124800": 1,
-              "1776211200": 1
+              "1776211200": 1,
+              "1776297600": 1
             },
             "maxStreak": 27,
             "totalActiveDays": null,
@@ -836,7 +840,7 @@
             "topicWiseDistribution": null
           },
           "certificateStats": null,
-          "lastUpdatedAt": 530736704,
+          "lastUpdatedAt": 615799414,
           "categoryQuestionStats": null,
           "isVerified": null,
           "sheetProgress": null
@@ -909,7 +913,7 @@
               }
             ]
           },
-          "lastUpdatedAt": 250830973,
+          "lastUpdatedAt": 729326536,
           "categoryQuestionStats": {
             "categoryQuestionStatList": [
               {

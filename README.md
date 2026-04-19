@@ -282,6 +282,43 @@ npm run clean
 
 # Lint TypeScript
 npm run lint
+
+# Manually sync Codolio stats to public/data/stats.json
+npm run sync:stats
+
+# Start the midnight cron runner
+npm run sync:stats:cron
+```
+
+---
+
+## 📊 Automated Coding Stats Sync
+
+This portfolio uses a Node cron runner for automated Codolio sync:
+
+1. Script: `scripts/sync-stats.js`
+2. Output file: `public/data/stats.json`
+3. Scheduler: `scripts/cron-sync.js`
+
+### How it works
+
+- The cron runner waits and runs every day at midnight UTC (`0 0 * * *`).
+- It reads `CODOLIO_TOKEN` from your local environment or runtime environment.
+- It fetches latest stats from `https://api.codolio.com/user`.
+
+### Local run
+
+Set your environment variable and run:
+
+```bash
+# macOS/Linux
+CODOLIO_TOKEN=your_token_here npm run sync:stats
+
+# Windows PowerShell
+$env:CODOLIO_TOKEN="your_token_here"; npm run sync:stats
+
+# Keep syncing every midnight while the process stays alive
+npm run sync:stats:cron
 ```
 
 ---

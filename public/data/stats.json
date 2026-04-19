@@ -1,0 +1,933 @@
+{
+  "status": {
+    "success": true,
+    "code": 200,
+    "message": ""
+  },
+  "data": {
+    "id": 90074,
+    "email": "yadi.tya5224@gmail.com",
+    "password": null,
+    "firstName": "Aditya",
+    "secondName": "Yadav",
+    "profileName": "vegeta",
+    "profileViews": 0,
+    "imageUrl": "https://lh3.googleusercontent.com/a/ACg8ocL3bnHd_fvSr7PdHo3cbbm77zftGfX6i0Qei_ZL9FnN8ZZXBGkX=s96-c",
+    "userDetails": {
+      "email": "yadi.tya5224@gmail.com",
+      "socialLogin": true,
+      "githubProfile": null,
+      "userPersonalDetails": {
+        "bio": null,
+        "country": "India",
+        "college": null,
+        "degree": "Bachelor of Technology",
+        "branch": "Computer Science",
+        "imageUrl": null,
+        "yearOfGraduation": "2029",
+        "jobPreference": 1,
+        "collegeDetails": {
+          "id": "676321c72a7094ce517ac0f4",
+          "collegeName": "PSIT-Pranveer Singh Institute of Technology"
+        }
+      },
+      "socialMediaProfileList": null
+    },
+    "profileVisibilityConfig": {
+      "email": "yadi.tya5224@gmail.com",
+      "profileVisibility": 2,
+      "platformProfileConfigList": [
+        {
+          "platform": "leetcode",
+          "platformEnabled": false,
+          "dsaEnabled": null,
+          "contestEnabled": null
+        },
+        {
+          "platform": "geeksforgeeks",
+          "platformEnabled": false,
+          "dsaEnabled": null,
+          "contestEnabled": null
+        },
+        {
+          "platform": "codechef",
+          "platformEnabled": false,
+          "dsaEnabled": null,
+          "contestEnabled": null
+        },
+        {
+          "platform": "codeforces",
+          "platformEnabled": false,
+          "dsaEnabled": null,
+          "contestEnabled": null
+        },
+        {
+          "platform": "interviewbit",
+          "platformEnabled": false,
+          "dsaEnabled": null,
+          "contestEnabled": null
+        },
+        {
+          "platform": "codestudio",
+          "platformEnabled": false,
+          "dsaEnabled": null,
+          "contestEnabled": null
+        },
+        {
+          "platform": "hackerrank",
+          "platformEnabled": false,
+          "dsaEnabled": null,
+          "contestEnabled": null
+        },
+        {
+          "platform": "atcoder",
+          "platformEnabled": false,
+          "dsaEnabled": null,
+          "contestEnabled": null
+        },
+        {
+          "platform": "tuf",
+          "platformEnabled": false,
+          "dsaEnabled": null,
+          "contestEnabled": null
+        }
+      ]
+    },
+    "platformProfiles": {
+      "id": "yadi.tya5224@gmail.com",
+      "platformProfiles": [
+        {
+          "platform": "leetcode",
+          "email": null,
+          "userStats": {
+            "stars": null,
+            "currentRating": 1463,
+            "maxRating": 1471,
+            "rank": null,
+            "maxRank": "488227",
+            "titlePhoto": "https://assets.leetcode.com/users/aditya-5224/avatar_1744610841.png",
+            "handle": "aditya-5224",
+            "university": null,
+            "contestBadgeName": null,
+            "languageList": [
+              "C++",
+              "Python",
+              "C",
+              "Python3"
+            ],
+            "level": null,
+            "userLevelName": null
+          },
+          "badgeStats": {
+            "error": null,
+            "badgeList": [
+              {
+                "name": "Annual Badge",
+                "shortName": "50 Days Badge 2026",
+                "displayName": "50 Days Badge 2026",
+                "hoverText": "50 Days Badge 2026",
+                "creationDate": 1774483200,
+                "category": "ANNUAL",
+                "icon": "https://assets.leetcode.com/static_assets/others/50_1080_1080.png",
+                "stars": null
+              },
+              {
+                "name": "Annual Badge",
+                "shortName": "100 Days Badge 2025",
+                "displayName": "100 Days Badge 2025",
+                "hoverText": "100 Days Badge 2025",
+                "creationDate": 1758758400,
+                "category": "ANNUAL",
+                "icon": "https://assets.leetcode.com/static_assets/others/lg25100.png",
+                "stars": null
+              },
+              {
+                "name": "Annual Badge",
+                "shortName": "50 Days Badge 2025",
+                "displayName": "50 Days Badge 2025",
+                "hoverText": "50 Days Badge 2025",
+                "creationDate": 1753747200,
+                "category": "ANNUAL",
+                "icon": "https://assets.leetcode.com/static_assets/others/lg2550.png",
+                "stars": null
+              }
+            ]
+          },
+          "platformDetails": {
+            "types": [
+              "CP",
+              "DSA"
+            ]
+          },
+          "topicAnalysisStats": {
+            "topicWiseDistribution": {
+              "Quickselect": 2,
+              "Two Pointers": 40,
+              "String": 60,
+              "Math": 45,
+              "BFS": 4,
+              "DFS": 11,
+              "Design": 1,
+              "Backtracking": 10,
+              "Monotonic Queue": 1,
+              "Matrix": 15,
+              "Rolling Hash": 1,
+              "Dynamic Programming": 11,
+              "Bit Manipulation": 23,
+              "Divide and Conquer": 9,
+              "Sliding Window": 8,
+              "HashMap and Set": 53,
+              "Trie": 1,
+              "Trees": 10,
+              "Enumeration": 5,
+              "Binary Tree": 10,
+              "Queue and Stacks": 2,
+              "Binary Search": 28,
+              "Recursion": 8,
+              "Sorting": 28,
+              "Greedy Algorithms": 17,
+              "Simulation": 24,
+              "Monotonic Stack": 5,
+              "Linked Lists": 18,
+              "Arrays": 161
+            }
+          },
+          "totalQuestionStats": {
+            "totalQuestionCounts": 269,
+            "easyQuestionCounts": 163,
+            "mediumQuestionCounts": 96,
+            "hardQuestionCounts": 10,
+            "basicQuestionCounts": null,
+            "schoolQuestionCounts": null,
+            "error": null
+          },
+          "contestActivityStats": {
+            "contestActivityList": [
+              {
+                "contestName": "Biweekly Contest 166",
+                "rating": 1471,
+                "contestDate": 1758983400,
+                "rank": 13384
+              },
+              {
+                "contestName": "Biweekly Contest 167",
+                "rating": 1441,
+                "contestDate": 1760193000,
+                "rank": 17964
+              },
+              {
+                "contestName": "Weekly Contest 478",
+                "rating": 1417,
+                "contestDate": 1764469800,
+                "rank": 14453
+              },
+              {
+                "contestName": "Biweekly Contest 171",
+                "rating": 1373,
+                "contestDate": 1765031400,
+                "rank": 23612
+              },
+              {
+                "contestName": "Biweekly Contest 172",
+                "rating": 1377,
+                "contestDate": 1766241000,
+                "rank": 14174
+              },
+              {
+                "contestName": "Biweekly Contest 175",
+                "rating": 1409,
+                "contestDate": 1769869800,
+                "rank": 12745
+              },
+              {
+                "contestName": "Biweekly Contest 176",
+                "rating": 1420,
+                "contestDate": 1771079400,
+                "rank": 17154
+              },
+              {
+                "contestName": "Weekly Contest 489",
+                "rating": 1451,
+                "contestDate": 1771122600,
+                "rank": 11141
+              },
+              {
+                "contestName": "Weekly Contest 490",
+                "rating": 1437,
+                "contestDate": 1771727400,
+                "rank": 22803
+              },
+              {
+                "contestName": "Biweekly Contest 177",
+                "rating": 1428,
+                "contestDate": 1772289000,
+                "rank": 18707
+              },
+              {
+                "contestName": "Biweekly Contest 178",
+                "rating": 1439,
+                "contestDate": 1773498600,
+                "rank": 15307
+              },
+              {
+                "contestName": "Weekly Contest 493",
+                "rating": 1464,
+                "contestDate": 1773541800,
+                "rank": 12596
+              },
+              {
+                "contestName": "Biweekly Contest 179",
+                "rating": 1463,
+                "contestDate": 1774708200,
+                "rank": 15919
+              },
+              {
+                "contestName": "Weekly Contest 495",
+                "rating": 1462,
+                "contestDate": 1774751400,
+                "rank": 18184
+              },
+              {
+                "contestName": "Weekly Contest 496",
+                "rating": 1463,
+                "contestDate": 1775356200,
+                "rank": 16154
+              }
+            ]
+          },
+          "dailyActivityStatsResponse": {
+            "activeYears": [
+              2025,
+              2026
+            ],
+            "submissionCalendar": {
+              "1744502400": 1,
+              "1744588800": 6,
+              "1744675200": 6,
+              "1744761600": 2,
+              "1744848000": 3,
+              "1744934400": 3,
+              "1745020800": 4,
+              "1745107200": 2,
+              "1745280000": 3,
+              "1745366400": 1,
+              "1745452800": 3,
+              "1745539200": 4,
+              "1745625600": 5,
+              "1745884800": 4,
+              "1745971200": 7,
+              "1746230400": 3,
+              "1746316800": 5,
+              "1746403200": 7,
+              "1746489600": 2,
+              "1746576000": 5,
+              "1746662400": 6,
+              "1746748800": 3,
+              "1746921600": 1,
+              "1747008000": 2,
+              "1747094400": 2,
+              "1747180800": 1,
+              "1747267200": 1,
+              "1747353600": 3,
+              "1747612800": 3,
+              "1747699200": 2,
+              "1747785600": 4,
+              "1747872000": 2,
+              "1747958400": 3,
+              "1748044800": 2,
+              "1748217600": 5,
+              "1748304000": 4,
+              "1748390400": 1,
+              "1748476800": 1,
+              "1748563200": 3,
+              "1748736000": 3,
+              "1748908800": 4,
+              "1748995200": 2,
+              "1749081600": 1,
+              "1749168000": 5,
+              "1749427200": 1,
+              "1749513600": 1,
+              "1749600000": 6,
+              "1749772800": 2,
+              "1753660800": 3,
+              "1753747200": 1,
+              "1753833600": 4,
+              "1753920000": 1,
+              "1754006400": 6,
+              "1754092800": 7,
+              "1754179200": 2,
+              "1754352000": 4,
+              "1754438400": 4,
+              "1754611200": 1,
+              "1754784000": 3,
+              "1754956800": 1,
+              "1755043200": 5,
+              "1755129600": 4,
+              "1755302400": 2,
+              "1755388800": 1,
+              "1755475200": 10,
+              "1755561600": 1,
+              "1755648000": 1,
+              "1755734400": 2,
+              "1755907200": 1,
+              "1756080000": 1,
+              "1756166400": 1,
+              "1756252800": 4,
+              "1756339200": 5,
+              "1756425600": 2,
+              "1756512000": 4,
+              "1756598400": 3,
+              "1756684800": 2,
+              "1756771200": 3,
+              "1756857600": 1,
+              "1757030400": 1,
+              "1757116800": 3,
+              "1757203200": 1,
+              "1757289600": 3,
+              "1757376000": 2,
+              "1757462400": 3,
+              "1757548800": 1,
+              "1757635200": 1,
+              "1757721600": 5,
+              "1757808000": 1,
+              "1757894400": 3,
+              "1757980800": 2,
+              "1758067200": 1,
+              "1758153600": 1,
+              "1758240000": 2,
+              "1758326400": 3,
+              "1758412800": 1,
+              "1758499200": 2,
+              "1758585600": 1,
+              "1758672000": 1,
+              "1758758400": 1,
+              "1758844800": 1,
+              "1758931200": 4,
+              "1759017600": 3,
+              "1759104000": 1,
+              "1759190400": 1,
+              "1759276800": 1,
+              "1759363200": 2,
+              "1759449600": 1,
+              "1759536000": 1,
+              "1759622400": 2,
+              "1759708800": 3,
+              "1759795200": 1,
+              "1760140800": 1,
+              "1760227200": 1,
+              "1761177600": 1,
+              "1761264000": 2,
+              "1761955200": 1,
+              "1762128000": 1,
+              "1762646400": 1,
+              "1762732800": 3,
+              "1763769600": 4,
+              "1763856000": 12,
+              "1763942400": 4,
+              "1764028800": 1,
+              "1764115200": 2,
+              "1764288000": 1,
+              "1764374400": 3,
+              "1764460800": 5,
+              "1764547200": 1,
+              "1764633600": 1,
+              "1764806400": 2,
+              "1764979200": 6,
+              "1765065600": 3,
+              "1765152000": 1,
+              "1765238400": 2,
+              "1765670400": 1,
+              "1765756800": 3,
+              "1765843200": 1,
+              "1766016000": 1,
+              "1766188800": 4,
+              "1766361600": 3,
+              "1766534400": 1,
+              "1766620800": 2,
+              "1766707200": 1,
+              "1766880000": 4,
+              "1766966400": 1,
+              "1767225600": 1,
+              "1767312000": 1,
+              "1767398400": 2,
+              "1767484800": 8,
+              "1767571200": 1,
+              "1767657600": 2,
+              "1767744000": 2,
+              "1767830400": 2,
+              "1767916800": 2,
+              "1768003200": 2,
+              "1768089600": 1,
+              "1768176000": 1,
+              "1769385600": 9,
+              "1769558400": 5,
+              "1769644800": 3,
+              "1769731200": 2,
+              "1769817600": 9,
+              "1769904000": 1,
+              "1770076800": 5,
+              "1770249600": 1,
+              "1770336000": 2,
+              "1771027200": 2,
+              "1771113600": 5,
+              "1771200000": 3,
+              "1771286400": 3,
+              "1771372800": 2,
+              "1771545600": 2,
+              "1771632000": 3,
+              "1771718400": 4,
+              "1771804800": 3,
+              "1771891200": 1,
+              "1772150400": 1,
+              "1772236800": 2,
+              "1772323200": 2,
+              "1772409600": 1,
+              "1772668800": 1,
+              "1772755200": 1,
+              "1772841600": 2,
+              "1772928000": 1,
+              "1773014400": 1,
+              "1773187200": 2,
+              "1773360000": 1,
+              "1773446400": 2,
+              "1773532800": 2,
+              "1774051200": 1,
+              "1774137600": 1,
+              "1774224000": 1,
+              "1774310400": 2,
+              "1774396800": 1,
+              "1774483200": 1,
+              "1774569600": 1,
+              "1774656000": 3,
+              "1774742400": 2,
+              "1774828800": 2,
+              "1774915200": 1,
+              "1775001600": 1,
+              "1775347200": 1
+            },
+            "maxStreak": 12,
+            "totalActiveDays": 57,
+            "error": null,
+            "timestamp": 617091279,
+            "ratingWiseDistribution": null,
+            "topicWiseDistribution": null
+          },
+          "certificateStats": null,
+          "lastUpdatedAt": 159355806,
+          "categoryQuestionStats": null,
+          "isVerified": null,
+          "sheetProgress": null
+        },
+        {
+          "platform": "codeforces",
+          "email": null,
+          "userStats": {
+            "stars": null,
+            "currentRating": 851,
+            "maxRating": 851,
+            "rank": "newbie",
+            "maxRank": "newbie",
+            "titlePhoto": "https://userpic.codeforces.org/5136129/title/940e38b1dfcd2046.jpg",
+            "handle": "yadi.tya5224",
+            "university": null,
+            "contestBadgeName": null,
+            "languageList": null,
+            "level": null,
+            "userLevelName": null
+          },
+          "badgeStats": null,
+          "platformDetails": {
+            "types": [
+              "CP"
+            ]
+          },
+          "topicAnalysisStats": null,
+          "totalQuestionStats": {
+            "totalQuestionCounts": 69,
+            "easyQuestionCounts": null,
+            "mediumQuestionCounts": null,
+            "hardQuestionCounts": null,
+            "basicQuestionCounts": null,
+            "schoolQuestionCounts": null,
+            "error": null
+          },
+          "contestActivityStats": {
+            "contestActivityList": [
+              {
+                "contestName": "Codeforces Round 1084 (Div. 3)",
+                "rating": 378,
+                "contestDate": 1772211000,
+                "rank": 12290
+              },
+              {
+                "contestName": "Codeforces Round 1089 (Div. 2)",
+                "rating": 607,
+                "contestDate": 1774803000,
+                "rank": 14659
+              },
+              {
+                "contestName": "Codeforces Round 1090 (Div. 4)",
+                "rating": 785,
+                "contestDate": 1775321400,
+                "rank": 14022
+              },
+              {
+                "contestName": "Codeforces Round 1091 (Div. 2) and CodeCraft 26",
+                "rating": 851,
+                "contestDate": 1775580600,
+                "rank": 14564
+              }
+            ]
+          },
+          "dailyActivityStatsResponse": {
+            "activeYears": null,
+            "submissionCalendar": {
+              "1758067200": 4,
+              "1772064000": 3,
+              "1772150400": 13,
+              "1772236800": 1,
+              "1772668800": 5,
+              "1772755200": 4,
+              "1772841600": 5,
+              "1772928000": 3,
+              "1773014400": 1,
+              "1773100800": 3,
+              "1773187200": 2,
+              "1773273600": 1,
+              "1773360000": 1,
+              "1773446400": 1,
+              "1773532800": 1,
+              "1773619200": 1,
+              "1773705600": 2,
+              "1773792000": 1,
+              "1773878400": 1,
+              "1773964800": 1,
+              "1774051200": 1,
+              "1774137600": 1,
+              "1774224000": 1,
+              "1774310400": 1,
+              "1774483200": 1,
+              "1774656000": 1,
+              "1774742400": 1,
+              "1774828800": 1,
+              "1774915200": 1,
+              "1775001600": 2,
+              "1775088000": 3,
+              "1775174400": 1,
+              "1775260800": 3,
+              "1775347200": 1,
+              "1775433600": 1,
+              "1775520000": 1,
+              "1775606400": 1,
+              "1775692800": 2,
+              "1776124800": 1,
+              "1776211200": 1,
+              "1776297600": 1
+            },
+            "maxStreak": 20,
+            "totalActiveDays": null,
+            "error": null,
+            "timestamp": null,
+            "ratingWiseDistribution": {
+              "800": 47,
+              "900": 5,
+              "1000": 5,
+              "1100": 3,
+              "1200": 2,
+              "1300": 5,
+              "1400": 1,
+              "1500": 1
+            },
+            "topicWiseDistribution": {
+              "binary search": 1,
+              "expression parsing": 1,
+              "graph matchings": 1,
+              "implementation": 44,
+              "hashing": 1,
+              "constructive algorithms": 3,
+              "dp": 3,
+              "brute force": 15,
+              "graphs": 1,
+              "strings": 10,
+              "dfs and similar": 1,
+              "*special": 1,
+              "shortest paths": 2,
+              "two pointers": 1,
+              "schedules": 1,
+              "games": 2,
+              "sortings": 9,
+              "greedy": 17,
+              "math": 21,
+              "bitmasks": 1,
+              "combinatorics": 1,
+              "number theory": 1
+            }
+          },
+          "certificateStats": null,
+          "lastUpdatedAt": 177193038,
+          "categoryQuestionStats": null,
+          "isVerified": null,
+          "sheetProgress": null
+        },
+        {
+          "platform": "geeksforgeeks",
+          "email": null,
+          "userStats": {
+            "stars": null,
+            "currentRating": null,
+            "maxRating": null,
+            "rank": null,
+            "maxRank": null,
+            "titlePhoto": "https://media.geeksforgeeks.org/auth/profile/v0nl71cf5h8irckbx7zr",
+            "handle": "vegeta5224",
+            "university": "Pranveer Singh Institute of Technology (PSIT) Kanpur",
+            "contestBadgeName": null,
+            "languageList": null,
+            "level": null,
+            "userLevelName": null
+          },
+          "badgeStats": null,
+          "platformDetails": {
+            "types": [
+              "CP",
+              "DSA"
+            ]
+          },
+          "topicAnalysisStats": {
+            "topicWiseDistribution": {
+              "Bit Magic": 1,
+              "two-pointer-algorithm": 3,
+              "BFS": 1,
+              "sliding-window": 6,
+              "Design-Pattern": 1,
+              "Backtracking": 1,
+              "Matrix": 3,
+              "Dynamic Programming": 5,
+              "Divide and Conquer": 3,
+              "Graphs": 2,
+              "prefix-sum": 5,
+              "HashMap and Set": 8,
+              "Shortest Path": 1,
+              "Trees": 12,
+              "Misc": 1,
+              "Binary Search Tree": 3,
+              "Mathematical": 3,
+              "Queue and Stacks": 8,
+              "Recursion": 2,
+              "Binary Search": 2,
+              "Strings": 10,
+              "Sorting": 7,
+              "Greedy Algorithms": 4,
+              "Algorithms": 40,
+              "Searching": 12,
+              "Linked Lists": 3,
+              "Arrays": 40
+            }
+          },
+          "totalQuestionStats": {
+            "totalQuestionCounts": 107,
+            "easyQuestionCounts": 34,
+            "mediumQuestionCounts": 61,
+            "hardQuestionCounts": 10,
+            "basicQuestionCounts": 2,
+            "schoolQuestionCounts": 0,
+            "error": null
+          },
+          "contestActivityStats": null,
+          "dailyActivityStatsResponse": {
+            "activeYears": null,
+            "submissionCalendar": {
+              "1764028800": 2,
+              "1764115200": 1,
+              "1764201600": 3,
+              "1764288000": 2,
+              "1764633600": 3,
+              "1764806400": 2,
+              "1764979200": 6,
+              "1765065600": 1,
+              "1765152000": 2,
+              "1765238400": 2,
+              "1765324800": 1,
+              "1765497600": 1,
+              "1765584000": 1,
+              "1765843200": 1,
+              "1766016000": 1,
+              "1766102400": 2,
+              "1766188800": 1,
+              "1766275200": 1,
+              "1766361600": 1,
+              "1766448000": 2,
+              "1766534400": 1,
+              "1766620800": 1,
+              "1766707200": 1,
+              "1766966400": 1,
+              "1767052800": 2,
+              "1767225600": 1,
+              "1767312000": 1,
+              "1767398400": 3,
+              "1767484800": 1,
+              "1767571200": 3,
+              "1767657600": 1,
+              "1767744000": 2,
+              "1767830400": 1,
+              "1767916800": 2,
+              "1768176000": 1,
+              "1768262400": 1,
+              "1768348800": 1,
+              "1768435200": 1,
+              "1769212800": 1,
+              "1769472000": 4,
+              "1769644800": 1,
+              "1769904000": 1,
+              "1769990400": 1,
+              "1770076800": 1,
+              "1770163200": 1,
+              "1770249600": 1,
+              "1770336000": 1,
+              "1770422400": 1,
+              "1770508800": 1,
+              "1770595200": 1,
+              "1770681600": 1,
+              "1770940800": 1,
+              "1771113600": 1,
+              "1771200000": 1,
+              "1771459200": 1,
+              "1771632000": 1,
+              "1771804800": 1,
+              "1771891200": 1,
+              "1772064000": 1,
+              "1772236800": 1,
+              "1772323200": 1,
+              "1772409600": 1,
+              "1772496000": 1,
+              "1772582400": 1,
+              "1772668800": 1,
+              "1772755200": 1,
+              "1772841600": 1,
+              "1772928000": 1,
+              "1773014400": 1,
+              "1773100800": 1,
+              "1773187200": 1,
+              "1773273600": 1,
+              "1773360000": 1,
+              "1773446400": 1,
+              "1773532800": 1,
+              "1773619200": 1,
+              "1773705600": 1,
+              "1773792000": 1,
+              "1773878400": 1,
+              "1773964800": 1,
+              "1774051200": 1,
+              "1774137600": 1,
+              "1774224000": 1,
+              "1774310400": 1,
+              "1774396800": 1,
+              "1774483200": 1,
+              "1774742400": 1,
+              "1775174400": 1,
+              "1775606400": 1,
+              "1775692800": 1,
+              "1775779200": 1,
+              "1776124800": 1,
+              "1776211200": 1,
+              "1776297600": 1
+            },
+            "maxStreak": 27,
+            "totalActiveDays": null,
+            "error": null,
+            "timestamp": null,
+            "ratingWiseDistribution": null,
+            "topicWiseDistribution": null
+          },
+          "certificateStats": null,
+          "lastUpdatedAt": 615799414,
+          "categoryQuestionStats": null,
+          "isVerified": null,
+          "sheetProgress": null
+        },
+        {
+          "platform": "hackerrank",
+          "email": null,
+          "userStats": {
+            "stars": null,
+            "currentRating": null,
+            "maxRating": null,
+            "rank": null,
+            "maxRank": null,
+            "titlePhoto": null,
+            "handle": "csai1A_2511177",
+            "university": null,
+            "contestBadgeName": null,
+            "languageList": null,
+            "level": null,
+            "userLevelName": null
+          },
+          "badgeStats": {
+            "error": null,
+            "badgeList": [
+              {
+                "name": "Problem Solving",
+                "shortName": null,
+                "displayName": null,
+                "hoverText": null,
+                "creationDate": null,
+                "category": null,
+                "icon": null,
+                "stars": 3
+              }
+            ]
+          },
+          "platformDetails": {
+            "types": [
+              "DSA"
+            ]
+          },
+          "topicAnalysisStats": null,
+          "totalQuestionStats": {
+            "totalQuestionCounts": 27,
+            "easyQuestionCounts": 0,
+            "mediumQuestionCounts": 0,
+            "hardQuestionCounts": 0,
+            "basicQuestionCounts": null,
+            "schoolQuestionCounts": null,
+            "error": null
+          },
+          "contestActivityStats": null,
+          "dailyActivityStatsResponse": null,
+          "certificateStats": {
+            "certificates": [
+              {
+                "name": "Python (Basic)",
+                "type": "skill",
+                "imageUrl": null
+              },
+              {
+                "name": "Problem Solving (Basic)",
+                "type": "skill",
+                "imageUrl": null
+              },
+              {
+                "name": "Problem Solving (Intermediate)",
+                "type": "skill",
+                "imageUrl": null
+              }
+            ]
+          },
+          "lastUpdatedAt": 729326536,
+          "categoryQuestionStats": {
+            "categoryQuestionStatList": [
+              {
+                "category": "Problem Solving",
+                "count": 27
+              }
+            ]
+          },
+          "isVerified": null,
+          "sheetProgress": null
+        }
+      ]
+    },
+    "createdAt": 1763889920000,
+    "updatedAt": 1763889940000
+  }
+}

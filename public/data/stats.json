@@ -11,7 +11,7 @@
     "firstName": "Aditya",
     "secondName": "Yadav",
     "profileName": "vegeta",
-    "profileViews": 0,
+    "profileViews": 1,
     "imageUrl": "https://lh3.googleusercontent.com/a/ACg8ocL3bnHd_fvSr7PdHo3cbbm77zftGfX6i0Qei_ZL9FnN8ZZXBGkX=s96-c",
     "userDetails": {
       "email": "yadi.tya5224@gmail.com",
@@ -104,7 +104,7 @@
             "currentRating": 1463,
             "maxRating": 1471,
             "rank": null,
-            "maxRank": "488227",
+            "maxRank": "490978",
             "titlePhoto": "https://assets.leetcode.com/users/aditya-5224/avatar_1744610841.png",
             "handle": "aditya-5224",
             "university": null,
@@ -162,9 +162,9 @@
           "topicAnalysisStats": {
             "topicWiseDistribution": {
               "Quickselect": 2,
-              "Two Pointers": 40,
+              "Two Pointers": 41,
               "String": 60,
-              "Math": 45,
+              "Math": 47,
               "BFS": 4,
               "DFS": 11,
               "Design": 1,
@@ -176,26 +176,26 @@
               "Bit Manipulation": 23,
               "Divide and Conquer": 9,
               "Sliding Window": 8,
-              "HashMap and Set": 53,
+              "HashMap and Set": 54,
               "Trie": 1,
               "Trees": 10,
               "Enumeration": 5,
               "Binary Tree": 10,
               "Queue and Stacks": 2,
-              "Binary Search": 28,
+              "Binary Search": 29,
               "Recursion": 8,
               "Sorting": 28,
               "Greedy Algorithms": 17,
               "Simulation": 24,
               "Monotonic Stack": 5,
               "Linked Lists": 18,
-              "Arrays": 161
+              "Arrays": 163
             }
           },
           "totalQuestionStats": {
-            "totalQuestionCounts": 269,
-            "easyQuestionCounts": 163,
-            "mediumQuestionCounts": 96,
+            "totalQuestionCounts": 274,
+            "easyQuestionCounts": 165,
+            "mediumQuestionCounts": 99,
             "hardQuestionCounts": 10,
             "basicQuestionCounts": null,
             "schoolQuestionCounts": null,
@@ -503,17 +503,20 @@
               "1774828800": 2,
               "1774915200": 1,
               "1775001600": 1,
-              "1775347200": 1
+              "1775347200": 1,
+              "1776384000": 2,
+              "1776470400": 1,
+              "1776556800": 3
             },
             "maxStreak": 12,
-            "totalActiveDays": 57,
+            "totalActiveDays": 60,
             "error": null,
-            "timestamp": 617091279,
+            "timestamp": 399627469,
             "ratingWiseDistribution": null,
             "topicWiseDistribution": null
           },
           "certificateStats": null,
-          "lastUpdatedAt": 159355806,
+          "lastUpdatedAt": 108797520,
           "categoryQuestionStats": null,
           "isVerified": null,
           "sheetProgress": null
@@ -543,7 +546,7 @@
           },
           "topicAnalysisStats": null,
           "totalQuestionStats": {
-            "totalQuestionCounts": 69,
+            "totalQuestionCounts": 73,
             "easyQuestionCounts": null,
             "mediumQuestionCounts": null,
             "hardQuestionCounts": null,
@@ -622,18 +625,21 @@
               "1775692800": 2,
               "1776124800": 1,
               "1776211200": 1,
-              "1776297600": 1
+              "1776297600": 1,
+              "1776384000": 1,
+              "1776470400": 2,
+              "1776556800": 1
             },
             "maxStreak": 20,
             "totalActiveDays": null,
             "error": null,
             "timestamp": null,
             "ratingWiseDistribution": {
-              "800": 47,
+              "800": 48,
               "900": 5,
-              "1000": 5,
+              "1000": 7,
               "1100": 3,
-              "1200": 2,
+              "1200": 3,
               "1300": 5,
               "1400": 1,
               "1500": 1
@@ -642,13 +648,13 @@
               "binary search": 1,
               "expression parsing": 1,
               "graph matchings": 1,
-              "implementation": 44,
+              "implementation": 48,
               "hashing": 1,
               "constructive algorithms": 3,
-              "dp": 3,
-              "brute force": 15,
+              "dp": 4,
+              "brute force": 16,
               "graphs": 1,
-              "strings": 10,
+              "strings": 11,
               "dfs and similar": 1,
               "*special": 1,
               "shortest paths": 2,
@@ -657,14 +663,14 @@
               "games": 2,
               "sortings": 9,
               "greedy": 17,
-              "math": 21,
+              "math": 22,
               "bitmasks": 1,
               "combinatorics": 1,
               "number theory": 1
             }
           },
           "certificateStats": null,
-          "lastUpdatedAt": 177193038,
+          "lastUpdatedAt": 880342144,
           "categoryQuestionStats": null,
           "isVerified": null,
           "sheetProgress": null
@@ -695,41 +701,42 @@
           },
           "topicAnalysisStats": {
             "topicWiseDistribution": {
-              "Bit Magic": 1,
+              "Bit Magic": 2,
               "two-pointer-algorithm": 3,
               "BFS": 1,
               "sliding-window": 6,
+              "palindrome": 1,
               "Design-Pattern": 1,
               "Backtracking": 1,
               "Matrix": 3,
               "Dynamic Programming": 5,
               "Divide and Conquer": 3,
               "Graphs": 2,
+              "HashMap and Set": 9,
               "prefix-sum": 5,
-              "HashMap and Set": 8,
               "Shortest Path": 1,
               "Trees": 12,
               "Misc": 1,
               "Binary Search Tree": 3,
-              "Mathematical": 3,
+              "Mathematical": 4,
               "Queue and Stacks": 8,
               "Recursion": 2,
               "Binary Search": 2,
-              "Strings": 10,
+              "Strings": 11,
               "Sorting": 7,
               "Greedy Algorithms": 4,
-              "Algorithms": 40,
+              "Algorithms": 41,
               "Searching": 12,
               "Linked Lists": 3,
-              "Arrays": 40
+              "Arrays": 41
             }
           },
           "totalQuestionStats": {
-            "totalQuestionCounts": 107,
-            "easyQuestionCounts": 34,
-            "mediumQuestionCounts": 61,
+            "totalQuestionCounts": 115,
+            "easyQuestionCounts": 37,
+            "mediumQuestionCounts": 64,
             "hardQuestionCounts": 10,
-            "basicQuestionCounts": 2,
+            "basicQuestionCounts": 4,
             "schoolQuestionCounts": 0,
             "error": null
           },
@@ -830,7 +837,10 @@
               "1775779200": 1,
               "1776124800": 1,
               "1776211200": 1,
-              "1776297600": 1
+              "1776297600": 1,
+              "1776384000": 1,
+              "1776470400": 6,
+              "1776556800": 1
             },
             "maxStreak": 27,
             "totalActiveDays": null,
@@ -840,7 +850,7 @@
             "topicWiseDistribution": null
           },
           "certificateStats": null,
-          "lastUpdatedAt": 615799414,
+          "lastUpdatedAt": 807551806,
           "categoryQuestionStats": null,
           "isVerified": null,
           "sheetProgress": null
@@ -913,7 +923,7 @@
               }
             ]
           },
-          "lastUpdatedAt": 729326536,
+          "lastUpdatedAt": 157465293,
           "categoryQuestionStats": {
             "categoryQuestionStatList": [
               {

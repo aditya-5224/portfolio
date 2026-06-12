@@ -5,12 +5,12 @@ export default function Navbar() {
   const [showConnectMenu, setShowConnectMenu] = useState(false);
 
   const handleEmailClick = () => {
-    window.location.href = 'mailto:annuy8055@gmail.com';
+    window.location.href = 'mailto:yadi.tya5224@gmail.com';
     setShowConnectMenu(false);
   };
 
   const handleWhatsAppClick = () => {
-    window.location.href = 'https://wa.me/918932091318';
+    window.location.href = 'https://wa.me/7068731914';
     setShowConnectMenu(false);
   };
 

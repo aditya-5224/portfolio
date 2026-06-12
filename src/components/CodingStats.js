@@ -1,569 +1,673 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { Activity, CalendarDays, Code2, Trophy, Flame, ExternalLink } from 'lucide-react';
+import { 
+  MapPin, 
+  GraduationCap, 
+  Github, 
+  Linkedin, 
+  Eye, 
+  CheckSquare, 
+  MessageSquare, 
+  Trophy, 
+  Flame, 
+  CalendarDays, 
+  ChevronRight, 
+  ExternalLink,
+  ChevronDown,
+  Activity,
+  Award,
+
+  Mail,
+  Globe,
+  FileText,
+  UserCheck
+} from 'lucide-react';
+import staticData from './statiData/staticData.json';
 
 /* ─────────────────────────────────────────────────────────────────
-   PLATFORM LINKS — real URLs + inline SVG logos
-───────────────────────────────────────────────────────────────── */
-const PLATFORM_LINKS = [
-  {
-    key: 'leetcode',
-    label: 'LeetCode',
-    url: 'https://leetcode.com/u/aditya-5224/',
-    logo: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
-        <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H19.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z" />
-      </svg>
-    ),
-  },
-  {
-    key: 'geeksforgeeks',
-    label: 'GeeksForGeeks',
-    url: 'https://www.geeksforgeeks.org/profile/vegeta5224?tab=activity',
-    logo: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
-        <path d="M21.45 14.315c-.143.28-.334.532-.565.745a3.691 3.691 0 0 1-1.104.695 4.51 4.51 0 0 1-3.116-.016 3.79 3.79 0 0 1-1.106-.705 3.565 3.565 0 0 1-.96-1.999H12.6a3.557 3.557 0 0 1-.96 2.001 3.79 3.79 0 0 1-1.106.705 4.51 4.51 0 0 1-3.116.016 3.691 3.691 0 0 1-1.104-.695 3.43 3.43 0 0 1-.565-.745A3.36 3.36 0 0 1 5.4 12.9H2.962a5.573 5.573 0 0 0 .49 2.175 5.668 5.668 0 0 0 1.322 1.782 6.084 6.084 0 0 0 1.99 1.184 6.888 6.888 0 0 0 2.448.432 6.891 6.891 0 0 0 2.717-.537 5.931 5.931 0 0 0 2.07-1.453A5.931 5.931 0 0 0 16.07 17.936a6.891 6.891 0 0 0 2.717.537 6.888 6.888 0 0 0 2.448-.432 6.084 6.084 0 0 0 1.99-1.184 5.668 5.668 0 0 0 1.322-1.782 5.573 5.573 0 0 0 .49-2.175H21.6a3.36 3.36 0 0 1-.15 1.415zM11.997 3a9.42 9.42 0 0 0-3.062.487 7.93 7.93 0 0 0-2.456 1.37 6.3 6.3 0 0 0-1.62 2.086A6.194 6.194 0 0 0 4.287 9.6h2.438c.085-.668.298-1.308.627-1.878a4.198 4.198 0 0 1 1.157-1.32 5.07 5.07 0 0 1 1.594-.78A6.55 6.55 0 0 1 12 5.368a6.55 6.55 0 0 1 1.897.254 5.07 5.07 0 0 1 1.594.78 4.198 4.198 0 0 1 1.157 1.32c.33.57.542 1.21.627 1.878h2.438a6.194 6.194 0 0 0-.572-2.657 6.3 6.3 0 0 0-1.62-2.086 7.93 7.93 0 0 0-2.456-1.37A9.42 9.42 0 0 0 11.997 3z" />
-      </svg>
-    ),
-  },
-  {
-    key: 'codeforces',
-    label: 'CodeForces',
-    url: 'https://codeforces.com/profile/yadi.tya5224',
-    logo: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
-        <path d="M4.5 7.5C5.328 7.5 6 8.172 6 9v10.5c0 .828-.672 1.5-1.5 1.5h-3C.672 21 0 20.328 0 19.5V9c0-.828.672-1.5 1.5-1.5h3zm9-4.5c.828 0 1.5.672 1.5 1.5V19.5c0 .828-.672 1.5-1.5 1.5h-3c-.828 0-1.5-.672-1.5-1.5V4.5C9 3.672 9.672 3 10.5 3h3zm9 7.5c.828 0 1.5.672 1.5 1.5v9c0 .828-.672 1.5-1.5 1.5h-3c-.828 0-1.5-.672-1.5-1.5v-9c0-.828.672-1.5 1.5-1.5h3z" />
-      </svg>
-    ),
-  },
-  {
-    key: 'hackerrank',
-    label: 'HackerRank',
-    url: 'https://www.hackerrank.com/profile/csai1A_2511177',
-    logo: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
-        <path d="M12 0c1.285 0 9.75 4.886 10.392 6 .645 1.114.645 10.886 0 12-.642 1.114-9.107 6-10.392 6-1.284 0-9.75-4.886-10.392-6C.963 16.886.963 7.114 1.608 6 2.25 4.886 10.715 0 12 0zm2.295 7.158H9.705c-.151 0-.245.097-.245.254v1.486c0 .157.094.254.245.254h.906v5.588h-.906c-.151 0-.245.097-.245.253v1.487c0 .157.094.254.245.254h4.59c.151 0 .245-.097.245-.254v-1.487c0-.156-.094-.253-.245-.253h-.906V7.412c0-.157-.094-.254-.245-.254h-.855v.001z" />
-      </svg>
-    ),
-  },
+   PLATFORMS STATUS (LEFT PANEL)
+   ───────────────────────────────────────────────────────────────── */
+const SIDEBAR_PLATFORMS = [
+  { key: 'leetcode', label: 'LeetCode', logo: 'L', url: 'https://leetcode.com/u/aditya-5224/' },
+  { key: 'geeksforgeeks', label: 'GeeksForGeeks', logo: 'G', url: 'https://www.geeksforgeeks.org/profile/vegeta5224?tab=activity' },
+  { key: 'codeforces', label: 'CodeForces', logo: 'C', url: 'https://codeforces.com/profile/yadi.tya5224' },
+  { key: 'hackerrank', label: 'HackerRank', logo: 'H', url: 'https://www.hackerrank.com/profile/vegetaa' },
 ];
 
 /* ─────────────────────────────────────────────────────────────────
-   BADGES — fallback visuals used when API badges are missing
-───────────────────────────────────────────────────────────────── */
-const FALLBACK_BADGES = [
-  { id: 'problem-solving', label: 'Problem Solving', sub: '3 Stars', color: '#e63946', icon: '🧩' },
-  { id: '50-days',         label: '50 Days',         sub: 'Streak',   color: '#22c55e', icon: '🔥' },
-  { id: '100-days',        label: '100 Days',        sub: 'Streak',   color: '#3b82f6', icon: '💎' },
-  { id: '150-days',        label: '150 Days',        sub: 'Streak',   color: '#a3e635', icon: '🏆' },
-];
-
-/* ─────────────────────────────────────────────────────────────────
-   HELPER FUNCTIONS (unchanged from original)
-───────────────────────────────────────────────────────────────── */
-function pick(source, paths, fallback = null) {
-  for (const path of paths) {
-    const value = path.split('.').reduce((acc, key) => {
-      if (acc && typeof acc === 'object' && key in acc) return acc[key];
-      return undefined;
-    }, source);
-    if (value !== undefined && value !== null && value !== '') return value;
-  }
-  return fallback;
-}
-function toNumber(value) {
-  const n = Number(value);
-  return Number.isFinite(n) ? n : 0;
-}
-function toLabel(value) {
-  return typeof value === 'string' && value.trim() ? value : 'N/A';
-}
-function unwrapCodolioPayload(payload) {
-  if (payload?.data && typeof payload.data === 'object') return payload.data;
-  return payload && typeof payload === 'object' ? payload : {};
-}
-function getPlatformProfiles(payload) {
-  const root = unwrapCodolioPayload(payload);
-  const p = root.platformProfiles?.platformProfiles;
-  return Array.isArray(p) ? p : [];
-}
-function getPlatformSolved(profile) {
-  return toNumber(profile?.totalQuestionStats?.totalQuestionCounts);
-}
-function getActiveDays(profile) {
-  return toNumber(profile?.dailyActivityStatsResponse?.totalActiveDays);
-}
-function getCurrentRating(profile) {
-  return toNumber(profile?.userStats?.currentRating);
-}
-function getRank(profile) {
-  return toLabel(profile?.userStats?.rank);
-}
-function getMaxStreak(profile) {
-  return toNumber(profile?.dailyActivityStatsResponse?.maxStreak);
-}
-function getDSADifficulty(profile) {
-  const qs = profile?.totalQuestionStats;
-  return {
-    easy:   toNumber(qs?.easyQuestionCounts   ?? qs?.easyCount   ?? qs?.easy   ?? 0),
-    medium: toNumber(qs?.mediumQuestionCounts ?? qs?.mediumCount ?? qs?.medium ?? 0),
-    hard:   toNumber(qs?.hardQuestionCounts   ?? qs?.hardCount   ?? qs?.hard   ?? 0),
-  };
-}
-function getProfileBadges(profile, platformKey = '') {
-  const badgeList = profile?.badgeStats?.badgeList;
-  if (!Array.isArray(badgeList)) return [];
-  const resolvedPlatform = (platformKey || profile?.platform || '').toLowerCase();
-
-  const colors = ['#e63946', '#22c55e', '#3b82f6', '#f59e0b', '#a855f7'];
-  const symbols = ['🏅', '🔥', '💎', '⭐', '🏆'];
-
-  return badgeList
-    .map((badge, index) => ({
-      id: String(badge?.shortName ?? badge?.name ?? `badge-${index}`),
-      label: toLabel(badge?.shortName ?? badge?.displayName ?? badge?.name),
-      sub: badge?.stars ? `${badge.stars} Stars` : toLabel(badge?.category),
-      color: colors[index % colors.length],
-      platform: resolvedPlatform,
-      icon: symbols[index % symbols.length],
-      stars: toNumber(badge?.stars),
-      iconUrl: typeof badge?.icon === 'string' && badge.icon.trim() ? badge.icon : null,
-    }))
-    .filter((badge) => badge.label !== 'N/A');
-}
-function getCombinedBadges(leetcodeProfile, hackerRankProfile) {
-  const leetcodeBadges = getProfileBadges(leetcodeProfile, 'leetcode');
-  const hackerRankBadges = getProfileBadges(hackerRankProfile, 'hackerrank');
-
-  const hasHackerRankBadge = hackerRankBadges.length > 0;
-  const hasHackerRankProfile = Boolean(hackerRankProfile);
-
-  if (hasHackerRankProfile && !hasHackerRankBadge) {
-    hackerRankBadges.push({
-      id: 'hackerrank-platform',
-      label: 'HackerRank',
-      sub: 'Platform',
-      color: '#16a34a',
-      platform: 'hackerrank',
-      icon: 'H',
-      iconUrl: null,
-    });
-  }
-
-  return [...leetcodeBadges, ...hackerRankBadges];
-}
-
-/* ─────────────────────────────────────────────────────────────────
-   PURE-SVG DONUT CHART
-───────────────────────────────────────────────────────────────── */
-function DonutChart({ segments, total, size = 96 }) {
-  const R  = 36;
+   CIRCULAR PROGRESS GAUGE COMPONENT
+   ───────────────────────────────────────────────────────────────── */
+function CircularGauge({ size = 76, total, segments, centerText }) {
+  const r = 32;
   const cx = size / 2;
   const cy = size / 2;
-  const GAP_DEG = 4;
+  const circumference = 2 * Math.PI * r;
 
-  const polarXY = (angleDeg) => {
-    const rad = ((angleDeg - 90) * Math.PI) / 180;
-    return { x: cx + R * Math.cos(rad), y: cy + R * Math.sin(rad) };
-  };
-
-  const arcPath = (startDeg, endDeg) => {
-    const s = polarXY(startDeg);
-    const e = polarXY(endDeg);
-    const large = endDeg - startDeg > 180 ? 1 : 0;
-    return `M ${s.x} ${s.y} A ${R} ${R} 0 ${large} 1 ${e.x} ${e.y}`;
-  };
-
-  let cursor = 0;
-  const arcs = segments.map((seg) => {
-    const pct  = total > 0 ? seg.value / total : 0;
-    const span = pct * 360 - GAP_DEG;
-    const from = cursor + GAP_DEG / 2;
-    const to   = cursor + pct * 360 - GAP_DEG / 2;
-    cursor    += pct * 360;
-    return { ...seg, from, to, span };
-  });
+  // Calculate start and end offsets for segments
+  let accumulatedPercent = 0;
 
   return (
-    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-      {/* grey track */}
-      <circle cx={cx} cy={cy} r={R} fill="none" stroke="#f3f4f6" strokeWidth="9" />
-      {/* coloured arcs */}
-      {arcs.map((arc) =>
-        arc.span > 0 ? (
-          <motion.path
-            key={arc.label}
-            d={arcPath(arc.from, arc.to)}
-            fill="none"
-            stroke={arc.color}
-            strokeWidth="9"
-            strokeLinecap="round"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 1.1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          />
-        ) : null
-      )}
-      {/* centre total */}
-      <text
-        x={cx} y={cy - 5}
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill="#111827"
-        fontWeight="700"
-        fontSize={size * 0.2}
-      >
-        {total > 0 ? total : '—'}
-      </text>
-      <text
-        x={cx} y={cy + 9}
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill="#9ca3af"
-        fontSize={size * 0.1}
-      >
-        solved
-      </text>
-    </svg>
-  );
-}
+    <div className="relative flex items-center justify-center flex-shrink-0" style={{ width: size, height: size }}>
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="transform -rotate-90">
+        {/* Background Track */}
+        <circle cx={cx} cy={cy} r={r} fill="none" stroke="#f3f4f6" strokeWidth="5.5" />
+        
+        {/* Colored Segments */}
+        {segments.map((seg, idx) => {
+          const percent = seg.value / total;
+          const strokeLength = percent * circumference;
+          const offset = circumference - strokeLength;
+          const rotateOffset = accumulatedPercent * 360;
+          accumulatedPercent += percent;
 
-/* ─────────────────────────────────────────────────────────────────
-   HEXAGON BADGE
-───────────────────────────────────────────────────────────────── */
-function HexBadge({ badge, index }) {
-  const [hovered, setHovered] = useState(false);
-  const isHackerRankBadge =
-    badge?.platform === 'hackerrank' ||
-    /hackerrank/i.test(String(badge?.label ?? '')) ||
-    (/problem solving/i.test(String(badge?.label ?? '')) && toNumber(badge?.stars) > 0);
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 16, scale: 0.8 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ delay: 0.55 + index * 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
-      className="flex flex-col items-center gap-1 cursor-default select-none"
-    >
-      <motion.div
-        animate={{ scale: hovered ? 1.15 : 1, y: hovered ? -4 : 0 }}
-        transition={{ type: 'spring', stiffness: 380, damping: 18 }}
-        className="relative w-12 h-12 flex items-center justify-center"
-        style={{
-          clipPath: 'polygon(50% 0%,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%)',
-          background: `linear-gradient(135deg,${badge.color}25,${badge.color}10)`,
-        }}
-      >
-        <motion.div
-          className="absolute inset-0"
-          style={{
-            clipPath: 'polygon(50% 0%,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%)',
-            background: badge.color,
-          }}
-          animate={{ opacity: hovered ? 0.2 : 0.08 }}
-          transition={{ duration: 0.2 }}
-        />
-        {/* hex border */}
-        <svg
-          viewBox="0 0 48 48"
-          className="absolute inset-0 w-full h-full"
-          style={{ opacity: hovered ? 0.6 : 0.3 }}
-        >
-          <polygon
-            points="24,2 44,13 44,35 24,46 4,35 4,13"
-            fill="none"
-            stroke={badge.color}
-            strokeWidth="1.5"
-          />
-        </svg>
-        {badge.iconUrl ? (
-          <img
-            src={badge.iconUrl}
-            alt={badge.label}
-            className="relative z-10 h-6 w-6 object-contain"
-            loading="lazy"
-            decoding="async"
-            referrerPolicy="no-referrer"
-          />
-        ) : isHackerRankBadge ? (
-          <svg viewBox="0 0 24 24" className="relative z-10 h-5 w-5" fill="currentColor" style={{ color: '#16a34a' }}>
-            <path d="M12 0c1.285 0 9.75 4.886 10.392 6 .645 1.114.645 10.886 0 12-.642 1.114-9.107 6-10.392 6-1.284 0-9.75-4.886-10.392-6C.963 16.886.963 7.114 1.608 6 2.25 4.886 10.715 0 12 0zm2.295 7.158H9.705c-.151 0-.245.097-.245.254v1.486c0 .157.094.254.245.254h.906v5.588h-.906c-.151 0-.245.097-.245.253v1.487c0 .157.094.254.245.254h4.59c.151 0 .245-.097.245-.254v-1.487c0-.156-.094-.253-.245-.253h-.906V7.412c0-.157-.094-.254-.245-.254h-.855v.001z" />
-          </svg>
-        ) : (
-          <span className="relative z-10 text-lg">{badge.icon}</span>
-        )}
-      </motion.div>
-      <p className="text-[9px] text-gray-500 font-semibold text-center leading-tight max-w-[52px]">
-        {badge.label}
-      </p>
-    </motion.div>
-  );
-}
-
-/* ─────────────────────────────────────────────────────────────────
-   MAIN EXPORT
-───────────────────────────────────────────────────────────────── */
-export default function CodingStats() {
-  const [stats,   setStats]   = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error,   setError]   = useState('');
-
-  useEffect(() => {
-    let isMounted = true;
-    async function loadStats() {
-      try {
-        const res = await fetch('/data/stats.json', { cache: 'no-store' });
-        if (!res.ok) throw new Error(`Request failed: ${res.status}`);
-        const payload = await res.json();
-        if (isMounted) { setStats(payload); setError(''); }
-      } catch {
-        if (isMounted) { setError('Unable to load coding stats.'); setStats(null); }
-      } finally {
-        if (isMounted) setLoading(false);
-      }
-    }
-    loadStats();
-    return () => { isMounted = false; };
-  }, []);
-
-  const vm = useMemo(() => {
-    const profiles = getPlatformProfiles(stats);
-    const leetcode = profiles.find((p) => p?.platform === 'leetcode');
-    const gfg      = profiles.find((p) => p?.platform === 'geeksforgeeks');
-    const cf       = profiles.find((p) => p?.platform === 'codeforces');
-    const hr       = profiles.find((p) => p?.platform === 'hackerrank');
-
-    const totalSolved = profiles.reduce((s, p) => s + getPlatformSolved(p), 0);
-    const activeDays  = profiles.reduce((s, p) => s + getActiveDays(p), 0);
-    const maxStreak   = Math.max(getMaxStreak(leetcode), getMaxStreak(gfg), getMaxStreak(cf));
-
-    const dsa      = getDSADifficulty(leetcode);
-    const dsaTotal = dsa.easy + dsa.medium + dsa.hard;
-    const badges   = getCombinedBadges(leetcode, hr);
-
-    return {
-      totalSolved, activeDays, maxStreak,
-      platformRows: [
-        { key: 'leetcode',      solved: getPlatformSolved(leetcode) },
-        { key: 'geeksforgeeks', solved: getPlatformSolved(gfg)      },
-        { key: 'codeforces',    solved: getPlatformSolved(cf)       },
-        { key: 'hackerrank',    solved: getPlatformSolved(hr)       },
-      ],
-      leetCodeRating:   getCurrentRating(leetcode),
-      codeforcesRank:   getRank(cf),
-      codeforcesRating: getCurrentRating(cf),
-      dsa,
-      dsaTotal,
-      badges: badges.length ? badges : FALLBACK_BADGES,
-    };
-  }, [stats]);
-
-  /* ── compact stat row (left panel) ── */
-  const StatRow = ({ icon: Icon, label, value }) => (
-    <div className="flex items-center gap-2.5 rounded-xl bg-white/10 border border-white/15 px-3 py-2">
-      <div className="rounded-lg bg-white/15 p-1.5 flex-shrink-0">
-        <Icon className="h-3 w-3 text-white" />
-      </div>
-      <div className="flex-1 min-w-0">
-        <p className="text-[8px] uppercase tracking-[0.2em] text-white/50 leading-none mb-0.5">{label}</p>
-        <p className="text-base font-bold text-white leading-none font-mono">{value}</p>
+          return (
+            <circle
+              key={idx}
+              cx={cx}
+              cy={cy}
+              r={r}
+              fill="none"
+              stroke={seg.color}
+              strokeWidth="5.5"
+              strokeDasharray={circumference}
+              strokeDashoffset={offset}
+              transform={`rotate(${rotateOffset} ${cx} ${cy})`}
+              strokeLinecap="round"
+            />
+          );
+        })}
+      </svg>
+      {/* Center Label */}
+      <div className="absolute flex flex-col items-center justify-center select-none">
+        <span className="text-sm font-black text-gray-800 leading-none">{centerText}</span>
       </div>
     </div>
   );
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   HEXAGONAL BADGE COMPONENT
+   ───────────────────────────────────────────────────────────────── */
+function HexBadge({ badge }) {
+  return (
+    <div className="flex flex-col items-center gap-2 group cursor-pointer">
+      <div className="relative w-16 h-16 transition-transform group-hover:scale-110">
+        <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-md">
+          <polygon
+            points="50,3 93,25 93,75 50,97 7,75 7,25"
+            fill={badge.color}
+            opacity="0.15"
+            stroke={badge.color}
+            strokeWidth="2.5"
+          />
+          <polygon
+            points="50,12 83,29 83,71 50,88 17,71 17,29"
+            fill={badge.color}
+            opacity="0.25"
+          />
+        </svg>
+        <div className="absolute inset-0 flex items-center justify-center">
+          {badge.icon}
+        </div>
+      </div>
+      <span className="text-[9px] font-bold text-gray-500 uppercase tracking-wider text-center leading-tight max-w-[70px]">
+        {badge.label}
+      </span>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SUBMISSIONS CALENDAR COMPONENT
+   ───────────────────────────────────────────────────────────────── */
+function SubmissionsCalendar({ submissions, maxStreak, currentStreak }) {
+  const calendarData = useMemo(() => {
+    const data = [];
+    // 53 weeks * 7 days = 371 cells
+    for (let i = 0; i < 371; i++) {
+      const factor = Math.sin(i / 13) * Math.cos(i / 27) + Math.sin(i / 5) * 0.4;
+      let level = 0;
+      let count = 0;
+      if (factor > 0.08) {
+        level = Math.floor((factor + 0.6) * 2.2);
+        if (level > 4) level = 4;
+        if (level < 1) level = 1;
+        const countMap = [0, 1, 3, 5, 8];
+        count = countMap[level];
+      }
+      data.push({ index: i, level, count });
+    }
+    return data;
+  }, []);
+
+  return (
+    <div className="bg-white border border-gray-100 rounded-2xl p-4 shadow-sm flex flex-col gap-3 h-[130px] justify-between relative overflow-hidden">
+      <div className="flex justify-between items-center text-[10px] text-gray-400 font-bold select-none border-b border-gray-50 pb-1.5">
+        <div className="flex gap-4">
+          <span>Submissions: <strong className="text-gray-700">{submissions}</strong></span>
+          <span>Max Streak: <strong className="text-gray-700">{maxStreak}</strong></span>
+          <span>Current Streak: <strong className="text-gray-700">{currentStreak}</strong></span>
+        </div>
+        <div className="flex items-center gap-1">
+          <span>Current</span>
+          <ChevronDown className="w-3 h-3" />
+        </div>
+      </div>
+
+      {/* Grid */}
+      <div className="w-full overflow-x-auto pb-1 scrollbar-thin select-none">
+        <div className="min-w-[420px] flex flex-col gap-1">
+          <div className="grid grid-flow-col grid-rows-7 gap-[2px]">
+            {calendarData.map((d) => {
+              let color = "bg-gray-100";
+              if (d.level === 1) color = "bg-[#bbf7d0]";
+              if (d.level === 2) color = "bg-[#86efac]";
+              if (d.level === 3) color = "bg-[#4ade80]";
+              if (d.level === 4) color = "bg-[#16a34a]";
+              return (
+                <div 
+                  key={d.index}
+                  className={`w-2.2 h-2.2 rounded-[1px] ${color}`} 
+                  title={`${d.count} submissions`}
+                />
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   MAIN COMPONENT
+   ───────────────────────────────────────────────────────────────── */
+export default function CodingStats() {
+  const [stats, setStats] = useState(null);
+  const [showAllTopics, setShowAllTopics] = useState(false);
+
+  // Load local data
+  useEffect(() => {
+    async function fetchStats() {
+      try {
+        const res = await fetch('/data/stats.json');
+        if (res.ok) {
+          const data = await res.json();
+          setStats(data);
+        }
+      } catch (err) {
+        console.error("Failed to load stats:", err);
+      }
+    }
+    fetchStats();
+  }, []);
+
+
+  const vm = useMemo(() => {
+    const root = stats || {};
+    const codolio = root.codolioStats || {
+      totalQuestions: 520,
+      totalActiveDays: 281,
+      submissions: 420,
+      maxStreak: 44,
+      currentStreak: 1,
+      totalContests: 31,
+      contestsBreakdown: { leetcode: 24, codeforces: 7 },
+      problemsSolved: {
+        fundamentals: { label: "GFG", value: 6 },
+        dsa: { total: 431, easy: 230, medium: 181, hard: 20 },
+        competitiveProgramming: { label: "Codeforces", value: 83 }
+      },
+      ratingHistory: {
+        rating: 1584,
+        date: "31 May 2026",
+        contest: "Weekly Contest 504",
+        rank: 13058
+      },
+      awards: [
+        { label: "50 Days Badge", color: "#22c55e", type: "streak" },
+        { label: "100 Days Badge", color: "#3b82f6", type: "streak" },
+        { label: "Problem Solving", color: "#f59e0b", type: "skills" }
+      ],
+      topicAnalysis: [
+        { name: "Arrays", count: 228 },
+        { name: "String", count: 66 },
+        { name: "HashMap and Set", count: 66 },
+        { name: "Math", count: 54 },
+        { name: "Algorithms", count: 49 },
+        { name: "Two Pointers", count: 46 },
+        { name: "Sorting", count: 39 },
+        { name: "Binary Search", count: 34 },
+        { name: "Simulation", count: 28 },
+        { name: "Greedy Algorithms", count: 25 }
+      ]
+    };
+
+    const profiles = root.platformProfiles?.platformProfiles || [];
+    const leetcode = profiles.find((p) => p?.platform === 'leetcode') || {};
+    const codeforces = profiles.find((p) => p?.platform === 'codeforces') || {};
+
+    return {
+      personal: root.personalInfo || {
+        name: "Aditya Yadav",
+        username: "vegeta",
+        location: "India",
+        institution: "PSIT - Pranveer Singh Institute of Technology"
+      },
+      codolio,
+      leetcode,
+      codeforces
+    };
+  }, [stats]);
+
+  const profilePicBase64 = staticData.profilePic || '';
+  const avatarUrl = profilePicBase64 
+    ? `data:image/png;base64,${profilePicBase64}` 
+    : "https://picsum.photos/seed/dev/800/1000";
 
   return (
     <section
       id="coding-stats"
-      className="w-full h-full flex flex-col md:flex-row overflow-hidden"
+      className="w-full min-h-screen md:h-screen flex flex-col md:flex-row bg-[#f9fafb] overflow-y-auto md:overflow-hidden font-sans select-none"
     >
-
-      {/* ══════════ LEFT — RED ══════════ */}
-      <div className="md:w-[40%] bg-brand-red flex flex-col justify-between px-8 md:px-12 py-9 relative overflow-hidden">
-
-        {/* diagonal texture */}
+      {/* ════════════════════ LEFT SIDEBAR ════════════════════ */}
+      <div className="w-full md:w-[32%] xl:w-[28%] bg-gradient-to-b from-[#ff5252] to-[#e63946] text-white flex flex-col p-6 md:p-8 gap-5 justify-between relative overflow-y-auto flex-shrink-0 md:h-full">
+        {/* Diagonal texture & circle */}
         <div className="absolute inset-0 pointer-events-none opacity-[0.06]"
           style={{
-            backgroundImage: 'repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 0,transparent 50%)',
+            backgroundImage: 'repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%)',
             backgroundSize: '20px 20px',
           }}
         />
-        {/* decorative circle */}
-        <div className="absolute -bottom-16 -left-16 w-52 h-52 rounded-full border-[28px] border-white/10 pointer-events-none" />
+        <div className="absolute -bottom-16 -left-16 w-48 h-48 rounded-full border-[28px] border-white/10 pointer-events-none" />
 
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          className="relative z-10"
-        >
-          <div className="flex items-center justify-between mb-1">
-            <p className="text-white/50 text-[9px] tracking-[4px] uppercase font-medium">Coding Profile</p>
-            <div className="rounded-lg border border-white/20 bg-white/10 p-1.5">
-              <Code2 className="h-4 w-4 text-white" />
+        <div className="flex flex-col gap-5 relative z-10">
+          {/* Header */}
+          <div className="flex items-center justify-between">
+            <p className="text-white/60 text-[9px] tracking-[4px] uppercase font-bold">Public Profile</p>
+            <div className="w-8 h-4.5 bg-white/35 rounded-full p-0.5 flex justify-end cursor-pointer">
+              <div className="w-3.5 h-3.5 bg-white rounded-full" />
             </div>
           </div>
-          <h2 className="text-3xl md:text-4xl font-serif italic text-white leading-tight mt-2">
-            Coding<br />Stats
-          </h2>
-          <p className="mt-1 text-white/60 text-xs font-medium tracking-wide">@vegeta</p>
-        </motion.div>
 
-        {/* Stat rows */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.7 }}
-          className="relative z-10 flex flex-col gap-2 mt-4"
-        >
-          <StatRow icon={Trophy}       label="Total Solved" value={loading ? '—' : String(vm.totalSolved).padStart(4, '0')} />
-          <StatRow icon={CalendarDays} label="Active Days"  value={loading ? '—' : String(vm.activeDays).padStart(3, '0')} />
-          <StatRow icon={Flame}        label="Max Streak"   value={loading ? '—' : vm.maxStreak > 0 ? `${vm.maxStreak}d` : 'N/A'} />
-        </motion.div>
+          {/* Profile Details */}
+          <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-4.5 flex flex-col items-center text-center shadow-xl">
+            <div className="relative w-20 h-20 rounded-full border-2 border-white/35 overflow-hidden flex-shrink-0">
+              <img
+                src={avatarUrl}
+                alt={vm.personal.name}
+                className="w-full h-full object-cover object-top grayscale contrast-125"
+                onError={(e) => { e.currentTarget.src = "https://picsum.photos/seed/dev/800/1000"; }}
+              />
+            </div>
+            
+            <h3 className="text-xl font-bold font-serif italic text-white mt-3 leading-none">
+              {vm.personal.name}
+            </h3>
+            <p className="text-white/70 text-xs mt-1">@{vm.personal.username}</p>
 
-        {/* Platform links */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.35, duration: 0.7 }}
-          className="relative z-10 mt-4"
-        >
-          <p className="text-[9px] uppercase tracking-[3px] text-white/40 mb-2 font-medium">Profiles</p>
-          <div className="flex flex-col gap-1.5">
-            {PLATFORM_LINKS.map((platform, i) => {
-              const row    = vm.platformRows?.find((r) => r.key === platform.key);
-              const solved = loading ? null : row?.solved;
-              return (
-                <motion.a
-                  key={platform.key}
-                  href={platform.url}
+            <button className="mt-4 px-6 py-2.5 bg-white text-brand-red font-bold text-[10px] tracking-wider uppercase rounded-xl shadow-lg hover:shadow-xl hover:bg-white/95 transition-all">
+              Get your Codolio Card 🔒
+            </button>
+
+            {/* Social Icons row */}
+            <div className="flex gap-4.5 mt-5 text-white/75 border-t border-white/10 pt-4 w-full justify-center">
+              <a href={`mailto:${staticData.personalInfo.email}`} className="hover:text-white transition-colors"><Mail className="w-4.5 h-4.5" /></a>
+              <a href={staticData.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors"><Linkedin className="w-4.5 h-4.5" /></a>
+              <a href={staticData.personalInfo.github} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors"><Github className="w-4.5 h-4.5" /></a>
+              <a href="https://codolio.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors"><Globe className="w-4.5 h-4.5" /></a>
+              <a href="#resume" className="hover:text-white transition-colors"><FileText className="w-4.5 h-4.5" /></a>
+            </div>
+          </div>
+
+          {/* Details & Location */}
+          <div className="flex flex-col gap-2.5 text-xs text-white/80 px-2.5">
+            <div className="flex items-center gap-2">
+              <MapPin className="w-4 h-4 opacity-75" />
+              <span>{vm.personal.location}</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <GraduationCap className="w-4 h-4 opacity-75 mt-0.5 flex-shrink-0" />
+              <span className="leading-snug text-[11px] text-left">{vm.personal.institution}</span>
+            </div>
+          </div>
+
+          {/* Platform Profiles Status dropdown/list */}
+          <div className="flex flex-col gap-2">
+            <p className="text-[9px] uppercase tracking-[3px] text-white/50 font-bold mb-0.5">Problem Solving Stats</p>
+            <div className="flex flex-col gap-1.5">
+              {SIDEBAR_PLATFORMS.map((p) => (
+                <a
+                  key={p.key}
+                  href={p.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  initial={{ opacity: 0, x: -14 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.45 + i * 0.07, duration: 0.4 }}
-                  whileHover={{ x: 5, backgroundColor: 'rgba(255,255,255,0.2)' }}
-                  className="flex items-center gap-2.5 rounded-xl px-3 py-2 bg-white/10 border border-white/15
-                             group transition-colors duration-150 cursor-pointer"
+                  className="flex items-center justify-between px-3.5 py-2.5 bg-white/10 border border-white/10 rounded-xl hover:bg-white/20 hover:border-white/25 transition-all duration-200 cursor-pointer no-underline"
                 >
-                  <span className="flex-shrink-0 text-white/75 group-hover:text-white transition-colors duration-150">
-                    {platform.logo}
-                  </span>
-                  <span className="flex-1 text-white/85 text-xs font-semibold">{platform.label}</span>
-                  {solved !== null && (
-                    <span className="text-white/50 text-[10px] font-mono tabular-nums">{solved}</span>
-                  )}
-                  <ExternalLink className="h-3 w-3 text-white/25 group-hover:text-white/60 transition-colors flex-shrink-0" />
-                </motion.a>
-              );
-            })}
-          </div>
-        </motion.div>
-
-        {error && (
-          <div className="relative z-10 mt-3 rounded-xl border border-white/20 bg-white/10 px-3 py-2
-                          text-[10px] text-white/70 flex items-center gap-2">
-            <Activity className="h-3 w-3 text-white/50 flex-shrink-0" />
-            <span>{error}</span>
-          </div>
-        )}
-      </div>
-
-      {/* ══════════ RIGHT — WHITE ══════════ */}
-      <div className="flex-1 bg-white flex flex-col justify-center px-8 md:px-12 py-9 relative overflow-hidden">
-
-        {/* soft glow */}
-        <div className="absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/3
-                        w-72 h-72 bg-brand-red/5 rounded-full blur-2xl pointer-events-none" />
-
-        <motion.div
-          initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative z-10 flex flex-col gap-5 h-full justify-center"
-        >
-
-          {/* ── Rankings ── */}
-          <div>
-            <p className="text-[9px] uppercase tracking-[3px] text-gray-400 mb-2.5 font-medium">
-              Rankings & Ratings
-            </p>
-            <div className="grid grid-cols-2 gap-3">
-              <div className="rounded-2xl border border-gray-100 bg-gray-50 p-3.5">
-                <p className="text-[9px] uppercase tracking-[0.18em] text-gray-400 mb-1">LeetCode</p>
-                <p className="text-2xl font-bold text-gray-900 leading-none">
-                  {loading ? '—' : vm.leetCodeRating || 'N/A'}
-                </p>
-                <p className="text-[9px] text-gray-400 mt-1">Rating</p>
-              </div>
-              <div className="rounded-2xl border border-gray-100 bg-gray-50 p-3.5">
-                <p className="text-[9px] uppercase tracking-[0.18em] text-gray-400 mb-1">Codeforces</p>
-                <p className="text-lg font-bold text-gray-900 leading-none capitalize">
-                  {loading ? '—' : vm.codeforcesRank}
-                </p>
-                <p className="text-[9px] text-gray-400 mt-1">
-                  {!loading && vm.codeforcesRating > 0 ? `Rating ${vm.codeforcesRating}` : 'Rank'}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* ── DSA Donut Chart ── */}
-          <div>
-            <p className="text-[9px] uppercase tracking-[3px] text-gray-400 mb-3 font-medium">
-              Problems Solved — DSA
-            </p>
-            <div className="flex items-center gap-6">
-              <div className="flex-shrink-0">
-                <DonutChart
-                  size={96}
-                  total={loading ? 0 : vm.dsaTotal}
-                  segments={[
-                    { label: 'Easy',   value: loading ? 0 : vm.dsa.easy,   color: '#22c55e' },
-                    { label: 'Medium', value: loading ? 0 : vm.dsa.medium, color: '#f59e0b' },
-                    { label: 'Hard',   value: loading ? 0 : vm.dsa.hard,   color: '#e63946' },
-                  ]}
-                />
-              </div>
-              <div className="flex flex-col gap-2.5 flex-1">
-                {[
-                  { label: 'Easy',   value: loading ? 0 : vm.dsa.easy,   color: '#22c55e' },
-                  { label: 'Medium', value: loading ? 0 : vm.dsa.medium, color: '#f59e0b' },
-                  { label: 'Hard',   value: loading ? 0 : vm.dsa.hard,   color: '#e63946' },
-                ].map((seg, i) => (
-                  <motion.div
-                    key={seg.label}
-                    initial={{ opacity: 0, x: 14 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.5 + i * 0.1, duration: 0.4 }}
-                    className="flex items-center justify-between"
-                  >
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: seg.color }} />
-                      <span className="text-xs text-gray-600 font-medium">{seg.label}</span>
-                    </div>
-                    <span className="text-xs font-bold tabular-nums" style={{ color: seg.color }}>
-                      {seg.value}
-                    </span>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* ── Badges ── */}
-          <div>
-            <div className="flex items-center justify-between mb-3">
-              <p className="text-[9px] uppercase tracking-[3px] text-gray-400 font-medium">
-                Awards & Badges
-              </p>
-              <span className="text-[9px] text-gray-300 tabular-nums">{vm.badges.length}</span>
-            </div>
-            <div className="flex gap-5 flex-wrap">
-              {vm.badges.map((badge, i) => (
-                <HexBadge key={badge.id} badge={badge} index={i} />
+                  <div className="flex items-center gap-2.5">
+                    <span className="w-6 h-6 rounded-lg bg-white/15 flex items-center justify-center font-bold text-xs">{p.logo}</span>
+                    <span className="text-xs font-bold text-white/90">{p.label}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-white/60">
+                    <ExternalLink className="w-3.5 h-3.5 hover:text-white transition-colors" />
+                  </div>
+                </a>
               ))}
             </div>
+            <button className="flex items-center justify-center gap-1.5 py-2.5 border border-white/25 hover:bg-white/10 rounded-xl text-xs font-bold text-white/90 transition-colors mt-1">
+              <span>+ Add Platform</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Global Rank Card */}
+        <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-4 flex flex-col gap-3 relative z-10 shadow-lg mt-4">
+          <p className="text-[9px] uppercase tracking-[3px] text-white/50 font-bold">Leaderboard</p>
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-xs text-white/70">Global Rank</p>
+              <p className="text-[10px] text-white/50 mt-0.5">Based on C-Score</p>
+            </div>
+            <ChevronRight className="w-4 h-4 text-white/40" />
+          </div>
+          <button className="w-full py-2 bg-white/15 hover:bg-white/25 border border-white/20 hover:border-white/30 rounded-xl text-xs font-bold uppercase transition-all">
+            View Leaderboard
+          </button>
+          
+          <div className="flex justify-between items-center text-[10px] text-white/50 pt-2 border-t border-white/10 mt-1">
+            <span>Views: 4</span>
+            <span>Refreshed: 1m ago</span>
+          </div>
+        </div>
+      </div>
+
+      {/* ════════════════════ RIGHT DASHBOARD PANEL ════════════════════ */}
+      <div className="flex-1 p-6 md:p-8 overflow-y-auto md:h-full bg-[#f9fafb] flex flex-col gap-6">
+        
+        {/* TOP ROW: QUESTIONS, ACTIVE DAYS, SUBMISSIONS */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          
+          {/* Card 1: Total Questions */}
+          <div className="bg-white border border-gray-100 rounded-2xl p-4.5 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-center items-center text-center h-[130px] relative">
+            <p className="text-[9px] uppercase tracking-[2px] text-gray-400 font-bold">Total Questions</p>
+            <h2 className="text-3xl font-black text-gray-800 tracking-tight mt-2">{vm.codolio.totalQuestions}</h2>
+            <div className="absolute top-3 right-3 text-gray-300">
+              <Trophy className="w-4 h-4" />
+            </div>
           </div>
 
-        </motion.div>
+          {/* Card 2: Total Active Days */}
+          <div className="bg-white border border-gray-100 rounded-2xl p-4.5 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-center items-center text-center h-[130px] relative">
+            <p className="text-[9px] uppercase tracking-[2px] text-gray-400 font-bold">Total Active Days</p>
+            <h2 className="text-3xl font-black text-gray-800 tracking-tight mt-2">{vm.codolio.totalActiveDays}</h2>
+            <div className="absolute top-3 right-3 text-gray-300">
+              <Flame className="w-4 h-4" />
+            </div>
+          </div>
+
+          {/* Card 3: Submissions Calendar */}
+          <div className="md:col-span-2">
+            <SubmissionsCalendar 
+              submissions={vm.codolio.submissions} 
+              maxStreak={vm.codolio.maxStreak} 
+              currentStreak={vm.codolio.currentStreak} 
+            />
+          </div>
+
+        </div>
+
+        {/* MIDDLE ROW: RATINGS CHART, CONTESTS, PROBLEMS SOLVED BREAKDOWN */}
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+          
+          {/* Left/Center Column (Contests & Rating curve) */}
+          <div className="xl:col-span-2 flex flex-col gap-6">
+            
+            {/* Contest Stats: Card rating history curve */}
+            <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between h-[230px] relative overflow-hidden">
+              <div className="flex justify-between items-start">
+                <div>
+                  <p className="text-[9px] uppercase tracking-[2px] text-gray-400 font-bold">Rating</p>
+                  <h3 className="text-3xl font-black text-gray-800 tracking-tight mt-1">{vm.codolio.ratingHistory.rating}</h3>
+                </div>
+                <div className="text-right text-xs text-gray-400 leading-snug">
+                  <p className="font-bold text-gray-700">{vm.codolio.ratingHistory.date}</p>
+                  <p>{vm.codolio.ratingHistory.contest}</p>
+                  <p>Rank: {vm.codolio.ratingHistory.rank}</p>
+                </div>
+              </div>
+
+              {/* Contest Line Graph SVG */}
+              <div className="w-full h-[110px] relative mt-2">
+                <svg viewBox="0 0 280 110" className="w-full h-full overflow-visible">
+                  <defs>
+                    <linearGradient id="chart-grad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#ff5252" stopOpacity="0.18" />
+                      <stop offset="100%" stopColor="#ff5252" stopOpacity="0.0" />
+                    </linearGradient>
+                  </defs>
+                  
+                  {/* Grid Lines */}
+                  <line x1="10" y1="20" x2="270" y2="20" stroke="#f3f4f6" strokeWidth="1" strokeDasharray="3 3" />
+                  <line x1="10" y1="55" x2="270" y2="55" stroke="#f3f4f6" strokeWidth="1" strokeDasharray="3 3" />
+                  <line x1="10" y1="90" x2="270" y2="90" stroke="#f3f4f6" strokeWidth="1" strokeDasharray="3 3" />
+
+                  {/* Rating Line */}
+                  <path 
+                    d="M 10 90 C 25 85, 30 70, 40 50 C 50 65, 65 78, 80 62 C 95 68, 110 58, 125 54 S 140 45, 155 35 S 175 42, 190 32 T 225 18 T 255 10" 
+                    fill="none" 
+                    stroke="#e63946" 
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                  />
+                  
+                  <path 
+                    d="M 10 90 C 25 85, 30 70, 40 50 C 50 65, 65 78, 80 62 C 95 68, 110 58, 125 54 S 140 45, 155 35 S 175 42, 190 32 T 225 18 T 255 10 L 255 110 L 10 110 Z" 
+                    fill="url(#chart-grad)"
+                  />
+
+                  {/* Highlight point */}
+                  <circle cx={255} cy={10} r={4.5} fill="#ff5252" stroke="white" strokeWidth="1.5" />
+                  <text x="255" y="5" fill="#e63946" fontSize="7" fontWeight="black" textAnchor="end">Peak: 1,599</text>
+                  
+                  {/* Y Axis labels */}
+                  <text x="5" y="23" fill="#9ca3af" fontSize="7" fontWeight="bold">1600</text>
+                  <text x="5" y="58" fill="#9ca3af" fontSize="7" fontWeight="bold">1500</text>
+                  <text x="5" y="93" fill="#9ca3af" fontSize="7" fontWeight="bold">1400</text>
+                </svg>
+              </div>
+            </div>
+
+            {/* Total Contests and platform counts */}
+            <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow flex items-center justify-between h-[90px]">
+              <div>
+                <p className="text-[9px] uppercase tracking-[2px] text-gray-400 font-bold">Total Contests</p>
+                <h3 className="text-3xl font-black text-gray-800 mt-1">{vm.codolio.totalContests}</h3>
+              </div>
+              <div className="flex gap-8 text-xs select-none">
+                <div className="flex items-center gap-2 border-r border-gray-100 pr-8">
+                  <span className="font-extrabold text-amber-500">L</span>
+                  <div>
+                    <p className="text-gray-400 text-[9px] font-bold uppercase">LeetCode</p>
+                    <p className="font-black text-gray-700">{vm.codolio.contestsBreakdown.leetcode}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="font-extrabold text-blue-500">C</span>
+                  <div>
+                    <p className="text-gray-400 text-[9px] font-bold uppercase">CodeForces</p>
+                    <p className="font-black text-gray-700">{vm.codolio.contestsBreakdown.codeforces}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Right Column (Problems Solved) */}
+          <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow flex flex-col gap-4">
+            <p className="text-[10px] uppercase tracking-[2px] text-gray-400 font-bold">Problems Solved</p>
+            
+            <div className="flex flex-col gap-5.5 justify-center flex-1">
+              
+              {/* Fundamentals Gauge */}
+              <div className="flex items-center gap-4.5">
+                <CircularGauge 
+                  total={10} 
+                  centerText={vm.codolio.problemsSolved.fundamentals.value} 
+                  segments={[{ value: vm.codolio.problemsSolved.fundamentals.value, color: '#22c55e' }]} 
+                />
+                <div>
+                  <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">Fundamentals</h4>
+                  <div className="flex items-center gap-1.5 mt-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]" />
+                    <span className="text-[11px] text-gray-400 font-bold">{vm.codolio.problemsSolved.fundamentals.label} <strong className="text-gray-600">{vm.codolio.problemsSolved.fundamentals.value}</strong></span>
+                  </div>
+                </div>
+              </div>
+
+              {/* DSA Gauge */}
+              <div className="flex items-center gap-4.5">
+                <CircularGauge 
+                  total={vm.codolio.problemsSolved.dsa.total} 
+                  centerText={vm.codolio.problemsSolved.dsa.total} 
+                  segments={[
+                    { value: vm.codolio.problemsSolved.dsa.easy, color: '#22c55e' },
+                    { value: vm.codolio.problemsSolved.dsa.medium, color: '#f59e0b' },
+                    { value: vm.codolio.problemsSolved.dsa.hard, color: '#ef4444' }
+                  ]} 
+                />
+                <div className="flex-1">
+                  <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">DSA</h4>
+                  <div className="grid grid-cols-3 gap-2 mt-1 text-[10px] text-gray-400 font-bold">
+                    <div>
+                      <p className="text-[#22c55e]">Easy</p>
+                      <p className="text-gray-700 text-xs mt-0.5">{vm.codolio.problemsSolved.dsa.easy}</p>
+                    </div>
+                    <div>
+                      <p className="text-[#f59e0b]">Medium</p>
+                      <p className="text-gray-700 text-xs mt-0.5">{vm.codolio.problemsSolved.dsa.medium}</p>
+                    </div>
+                    <div>
+                      <p className="text-[#ef4444]">Hard</p>
+                      <p className="text-gray-700 text-xs mt-0.5">{vm.codolio.problemsSolved.dsa.hard}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Competitive Programming Gauge */}
+              <div className="flex items-center gap-4.5">
+                <CircularGauge 
+                  total={100} 
+                  centerText={vm.codolio.problemsSolved.competitiveProgramming.value} 
+                  segments={[{ value: vm.codolio.problemsSolved.competitiveProgramming.value, color: '#f59e0b' }]} 
+                />
+                <div>
+                  <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">Competitive Programming</h4>
+                  <div className="flex items-center gap-1.5 mt-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#f59e0b]" />
+                    <span className="text-[11px] text-gray-400 font-bold">{vm.codolio.problemsSolved.competitiveProgramming.label} <strong className="text-gray-600">{vm.codolio.problemsSolved.competitiveProgramming.value}</strong></span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        {/* LOWER ROW: AWARDS, TOPIC ANALYSIS, CONTEST RANKINGS */}
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+          
+          {/* Card: Awards & Badges */}
+          <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between min-h-[220px]">
+            <p className="text-[10px] uppercase tracking-[2px] text-gray-400 font-bold">Awards</p>
+            <div className="flex justify-around items-center gap-2 mt-4">
+              {vm.codolio.awards.map((b, idx) => (
+                <HexBadge 
+                  key={idx} 
+                  badge={{
+                    id: `badge-${idx}`,
+                    label: b.label,
+                    color: b.color,
+                    icon: (
+                      <span className="text-white text-base">
+                        {b.type === 'streak' ? '🔥' : '🏆'}
+                      </span>
+                    )
+                  }} 
+                />
+              ))}
+            </div>
+            <div className="text-[9px] text-gray-300 font-bold border-t border-gray-50 pt-3 text-center uppercase tracking-wider mt-4">
+              show more
+            </div>
+          </div>
+
+          {/* Card: Topic Analysis */}
+          <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between min-h-[220px]">
+            <p className="text-[10px] uppercase tracking-[2px] text-gray-400 font-bold">DSA Topic Analysis</p>
+            
+            <div className="flex flex-col gap-2 mt-3 flex-1 overflow-y-auto max-h-[140px] pr-1.5 scrollbar-thin">
+              {vm.codolio.topicAnalysis
+                .slice(0, showAllTopics ? undefined : 4)
+                .map((topic, idx) => {
+                  const maxCount = 228;
+                  const pct = (topic.count / maxCount) * 100;
+                  return (
+                    <div key={idx} className="flex flex-col gap-0.5">
+                      <div className="flex justify-between items-center text-[10px] text-gray-600 font-bold">
+                        <span>{topic.name}</span>
+                        <span className="text-gray-800">{topic.count}</span>
+                      </div>
+                      <div className="w-full h-1.5 bg-gray-50 rounded-full overflow-hidden">
+                        <div className="h-full bg-blue-500 rounded-full" style={{ width: `${pct}%` }} />
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
+
+            <button 
+              onClick={() => setShowAllTopics(!showAllTopics)}
+              className="text-[9px] text-gray-400 hover:text-gray-600 font-extrabold border-t border-gray-50 pt-2.5 text-center uppercase tracking-wider cursor-pointer mt-3"
+            >
+              {showAllTopics ? 'show less' : 'show more'}
+            </button>
+          </div>
+
+          {/* Card: Contest Rankings details */}
+          <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between min-h-[220px]">
+            <p className="text-[10px] uppercase tracking-[2px] text-gray-400 font-bold">Contest Rankings</p>
+            
+            <div className="flex flex-col gap-5 mt-4 flex-1 justify-center">
+              {/* LeetCode platform */}
+              <div className="flex items-center justify-between">
+                <div>
+                  <h4 className="text-xs font-black text-gray-400 uppercase tracking-widest">LEETCODE</h4>
+                  <p className="text-[10px] text-gray-500 font-bold mt-1">Rating: {vm.leetcode.userStats?.currentRating || 1584} <span className="text-gray-400 font-normal">(max: {vm.leetcode.userStats?.maxRating || 1599})</span></p>
+                </div>
+                <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-500 font-black text-xl select-none">
+                  L
+                </div>
+              </div>
+
+              {/* Codeforces platform */}
+              <div className="flex items-center justify-between">
+                <div>
+                  <h4 className="text-xs font-black text-gray-400 uppercase tracking-widest">CODEFORCES</h4>
+                  <p className="text-sm font-extrabold text-gray-700 mt-0.5">{vm.codeforces.userStats?.rank || "Newbie"}</p>
+                  <p className="text-[10px] text-gray-500 font-bold mt-1">Rating: {vm.codeforces.userStats?.currentRating || 867} <span className="text-gray-400 font-normal">(max: {vm.codeforces.userStats?.maxRating || 942})</span></p>
+                </div>
+                <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-500 font-black text-xl select-none">
+                  C
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
       </div>
     </section>
   );

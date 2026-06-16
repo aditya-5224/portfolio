@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'motion/react';
 
 export default function Hero({ personalInfo }) {
+  const [rotateX, setRotateX] = useState(0);
+  const [rotateY, setRotateY] = useState(0);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const containerRef = useRef(null);
+
   const handleDownloadResume = () => {
     if (!personalInfo.resume) {
       alert('Resume not available');
@@ -30,8 +35,49 @@ export default function Hero({ personalInfo }) {
     }
   };
 
+  const handleMouseMove = (e) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    
+    // Spotlight position
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    setMousePos({ x, y });
+
+    // Profile photo tilt calculation (relative to center of screen/container)
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const mouseX = e.clientX - rect.left - centerX;
+    const mouseY = e.clientY - rect.top - centerY;
+    
+    const maxRotate = 12;
+    const rX = -(mouseY / (rect.height / 2)) * maxRotate;
+    const rY = (mouseX / (rect.width / 2)) * maxRotate;
+    
+    setRotateX(rX);
+    setRotateY(rY);
+  };
+
+  const handleMouseLeave = () => {
+    setRotateX(0);
+    setRotateY(0);
+  };
+
   return (
-    <div className="relative w-full h-full flex flex-col md:flex-row overflow-hidden">
+    <div 
+      ref={containerRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="relative w-full h-full flex flex-col md:flex-row overflow-hidden select-none"
+    >
+      {/* Spotlight effect */}
+      <div 
+        className="absolute pointer-events-none w-[600px] h-[600px] rounded-full blur-[120px] bg-brand-red/10 z-20 transition-all duration-300 ease-out hidden md:block"
+        style={{
+          left: mousePos.x - 300,
+          top: mousePos.y - 300,
+        }}
+      />
 
       {/* Left Side - White */}
       <div className="flex-1 bg-white flex flex-col justify-center px-17 md:px-24 py-32 relative overflow-hidden">
@@ -41,14 +87,14 @@ export default function Hero({ personalInfo }) {
           transition={{ duration: 0.8 }}
           className="z-10 relative"
         >
-          <h1 className="text-3xl text-gray-400 mb-2  translate-x-20 font-medium">{personalInfo.name}</h1>
-          <h1 className="text-5xl md:text-6xl font-serif italic  translate-x-20 text-gray-900 mb-8 leading-tight">
+          <h1 className="text-3xl text-gray-400 mb-2 translate-x-20 font-medium">{personalInfo.name}</h1>
+          <h1 className="text-5xl md:text-6xl font-serif italic translate-x-20 text-gray-900 mb-8 leading-tight">
             Software<br />Developer
           </h1>
 
           <a
-            href="#experience"
-            className="text-brand-red text-sm font-bold tracking-widest uppercase border-b border-brand-red pb-1 hover:text-red-600 hover:border-red-600 transition-colors"
+            href="#projects"
+            className="text-brand-red text-sm font-bold tracking-widest uppercase border-b border-brand-red pb-1 hover:text-red-600 hover:border-red-600 transition-colors translate-x-20 inline-block"
           >
             Explore
           </a>
@@ -84,7 +130,12 @@ export default function Hero({ personalInfo }) {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7 }}
-          className="relative w-full h-full"
+          className="relative w-full h-full shadow-2xl rounded-full"
+          style={{
+            transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(30px)`,
+            transition: 'transform 0.15s ease-out',
+            transformStyle: 'preserve-3d',
+          }}
         >
           {/* Red circle background */}
           <div className="absolute inset-0 bg-brand-red rounded-full" />
@@ -98,7 +149,7 @@ export default function Hero({ personalInfo }) {
                   : "https://picsum.photos/seed/dev/800/1000"
               }
               alt={personalInfo.name}
-              className="w-full h-full object-cover object-top grayscale contrast-125"
+              className="w-full h-full object-cover object-top grayscale contrast-125 transition-transform duration-500 hover:scale-105"
               onError={(e) => { e.target.src = "https://picsum.photos/seed/dev/800/1000"; }}
             />
           </div>

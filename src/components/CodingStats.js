@@ -121,25 +121,6 @@ function HexBadge({ badge }) {
    SUBMISSIONS CALENDAR COMPONENT
    ───────────────────────────────────────────────────────────────── */
 function SubmissionsCalendar({ submissions, maxStreak, currentStreak }) {
-  const calendarData = useMemo(() => {
-    const data = [];
-    // 53 weeks * 7 days = 371 cells
-    for (let i = 0; i < 371; i++) {
-      const factor = Math.sin(i / 13) * Math.cos(i / 27) + Math.sin(i / 5) * 0.4;
-      let level = 0;
-      let count = 0;
-      if (factor > 0.08) {
-        level = Math.floor((factor + 0.6) * 2.2);
-        if (level > 4) level = 4;
-        if (level < 1) level = 1;
-        const countMap = [0, 1, 3, 5, 8];
-        count = countMap[level];
-      }
-      data.push({ index: i, level, count });
-    }
-    return data;
-  }, []);
-
   return (
     <div className="bg-white border border-gray-100 rounded-2xl p-4 shadow-sm flex flex-col gap-3 h-[130px] justify-between relative overflow-hidden">
       <div className="flex justify-between items-center text-[10px] text-gray-400 font-bold select-none border-b border-gray-50 pb-1.5">
@@ -149,30 +130,17 @@ function SubmissionsCalendar({ submissions, maxStreak, currentStreak }) {
           <span>Current Streak: <strong className="text-gray-700">{currentStreak}</strong></span>
         </div>
         <div className="flex items-center gap-1">
-          <span>Current</span>
+          <span>Live Data</span>
           <ChevronDown className="w-3 h-3" />
         </div>
       </div>
 
-      {/* Grid */}
-      <div className="w-full overflow-x-auto pb-1 scrollbar-thin select-none">
-        <div className="min-w-[420px] flex flex-col gap-1">
-          <div className="grid grid-flow-col grid-rows-7 gap-[2px]">
-            {calendarData.map((d) => {
-              let color = "bg-gray-100";
-              if (d.level === 1) color = "bg-[#bbf7d0]";
-              if (d.level === 2) color = "bg-[#86efac]";
-              if (d.level === 3) color = "bg-[#4ade80]";
-              if (d.level === 4) color = "bg-[#16a34a]";
-              return (
-                <div 
-                  key={d.index}
-                  className={`w-2.2 h-2.2 rounded-[1px] ${color}`} 
-                  title={`${d.count} submissions`}
-                />
-              );
-            })}
-          </div>
+      <div className="flex flex-1 items-center justify-center rounded-xl border border-dashed border-gray-200 bg-gray-50/60 px-4 text-center">
+        <div>
+          <p className="text-xs font-bold text-gray-700">Daily heatmap not exposed by the current Codolio payload</p>
+          <p className="mt-1 text-[11px] leading-snug text-gray-500">
+            This card shows the live aggregate submission and streak metrics only, so no synthetic daily cells are rendered.
+          </p>
         </div>
       </div>
     </div>
@@ -184,81 +152,94 @@ function SubmissionsCalendar({ submissions, maxStreak, currentStreak }) {
    ───────────────────────────────────────────────────────────────── */
 export default function CodingStats() {
   const [stats, setStats] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [showAllTopics, setShowAllTopics] = useState(false);
 
-  // Load local data
   useEffect(() => {
+    let mounted = true;
+
     async function fetchStats() {
       try {
-        const res = await fetch('/data/stats.json');
-        if (res.ok) {
-          const data = await res.json();
-          setStats(data);
+        setLoading(true);
+        setError('');
+        const res = await fetch('/api/codolio/stats', { cache: 'no-store' });
+        if (!res.ok) {
+          const body = await res.json().catch(() => ({}));
+          throw new Error(body.error || 'Failed to load live Codolio stats');
         }
+
+        const data = await res.json();
+        if (mounted) setStats(data);
       } catch (err) {
-        console.error("Failed to load stats:", err);
+        console.error('Failed to load live Codolio stats:', err);
+        if (mounted) {
+          setError(err instanceof Error ? err.message : 'Failed to load live Codolio stats');
+          setStats(null);
+        }
+      } finally {
+        if (mounted) setLoading(false);
       }
     }
+
+    // Initial fetch
     fetchStats();
+
+    // Poll for updates every 60 seconds (adjust as needed)
+    const interval = setInterval(fetchStats, 60 * 1000);
+
+    return () => {
+      mounted = false;
+      clearInterval(interval);
+    };
   }, []);
 
 
   const vm = useMemo(() => {
-    const root = stats || {};
-    const codolio = root.codolioStats || {
-      totalQuestions: 520,
-      totalActiveDays: 281,
-      submissions: 420,
-      maxStreak: 44,
-      currentStreak: 1,
-      totalContests: 31,
-      contestsBreakdown: { leetcode: 24, codeforces: 7 },
-      problemsSolved: {
-        fundamentals: { label: "GFG", value: 6 },
-        dsa: { total: 431, easy: 230, medium: 181, hard: 20 },
-        competitiveProgramming: { label: "Codeforces", value: 83 }
-      },
-      ratingHistory: {
-        rating: 1584,
-        date: "31 May 2026",
-        contest: "Weekly Contest 504",
-        rank: 13058
-      },
-      awards: [
-        { label: "50 Days Badge", color: "#22c55e", type: "streak" },
-        { label: "100 Days Badge", color: "#3b82f6", type: "streak" },
-        { label: "Problem Solving", color: "#f59e0b", type: "skills" }
-      ],
-      topicAnalysis: [
-        { name: "Arrays", count: 228 },
-        { name: "String", count: 66 },
-        { name: "HashMap and Set", count: 66 },
-        { name: "Math", count: 54 },
-        { name: "Algorithms", count: 49 },
-        { name: "Two Pointers", count: 46 },
-        { name: "Sorting", count: 39 },
-        { name: "Binary Search", count: 34 },
-        { name: "Simulation", count: 28 },
-        { name: "Greedy Algorithms", count: 25 }
-      ]
-    };
+    if (!stats) return null;
 
-    const profiles = root.platformProfiles?.platformProfiles || [];
+    const codolio = stats.codolioStats || null;
+    if (!codolio) return null;
+
+    const profiles = stats.platformProfiles?.platformProfiles || [];
     const leetcode = profiles.find((p) => p?.platform === 'leetcode') || {};
     const codeforces = profiles.find((p) => p?.platform === 'codeforces') || {};
 
     return {
-      personal: root.personalInfo || {
-        name: "Aditya Yadav",
-        username: "vegeta",
-        location: "India",
-        institution: "PSIT - Pranveer Singh Institute of Technology"
-      },
+      personal: stats.personalInfo || null,
       codolio,
       leetcode,
       codeforces
     };
   }, [stats]);
+
+  if (loading) {
+    return (
+      <section
+        id="coding-stats"
+        className="w-full min-h-screen md:h-screen flex items-center justify-center bg-[#f9fafb] font-sans"
+      >
+        <div className="text-center">
+          <p className="text-[10px] uppercase tracking-[4px] text-gray-400 font-bold">Loading live coding stats</p>
+          <p className="mt-3 text-sm text-gray-600">Fetching Codolio data from your live account.</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (error || !vm || !vm.personal) {
+    return (
+      <section
+        id="coding-stats"
+        className="w-full min-h-screen md:h-screen flex items-center justify-center bg-[#f9fafb] font-sans"
+      >
+        <div className="max-w-md text-center px-6">
+          <p className="text-[10px] uppercase tracking-[4px] text-gray-400 font-bold">Coding stats unavailable</p>
+          <p className="mt-3 text-sm text-gray-600">{error || 'Live Codolio stats could not be loaded.'}</p>
+        </div>
+      </section>
+    );
+  }
 
   const profilePicBase64 = staticData.profilePic || '';
   const avatarUrl = profilePicBase64 
@@ -422,7 +403,7 @@ export default function CodingStats() {
           {/* Left/Center Column (Contests & Rating curve) */}
           <div className="xl:col-span-2 flex flex-col gap-6">
             
-            {/* Contest Stats: Card rating history curve */}
+            {/* Contest Stats: Live rating summary */}
             <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between h-[230px] relative overflow-hidden">
               <div className="flex justify-between items-start">
                 <div>
@@ -436,44 +417,23 @@ export default function CodingStats() {
                 </div>
               </div>
 
-              {/* Contest Line Graph SVG */}
-              <div className="w-full h-[110px] relative mt-2">
-                <svg viewBox="0 0 280 110" className="w-full h-full overflow-visible">
-                  <defs>
-                    <linearGradient id="chart-grad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#ff5252" stopOpacity="0.18" />
-                      <stop offset="100%" stopColor="#ff5252" stopOpacity="0.0" />
-                    </linearGradient>
-                  </defs>
-                  
-                  {/* Grid Lines */}
-                  <line x1="10" y1="20" x2="270" y2="20" stroke="#f3f4f6" strokeWidth="1" strokeDasharray="3 3" />
-                  <line x1="10" y1="55" x2="270" y2="55" stroke="#f3f4f6" strokeWidth="1" strokeDasharray="3 3" />
-                  <line x1="10" y1="90" x2="270" y2="90" stroke="#f3f4f6" strokeWidth="1" strokeDasharray="3 3" />
-
-                  {/* Rating Line */}
-                  <path 
-                    d="M 10 90 C 25 85, 30 70, 40 50 C 50 65, 65 78, 80 62 C 95 68, 110 58, 125 54 S 140 45, 155 35 S 175 42, 190 32 T 225 18 T 255 10" 
-                    fill="none" 
-                    stroke="#e63946" 
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                  />
-                  
-                  <path 
-                    d="M 10 90 C 25 85, 30 70, 40 50 C 50 65, 65 78, 80 62 C 95 68, 110 58, 125 54 S 140 45, 155 35 S 175 42, 190 32 T 225 18 T 255 10 L 255 110 L 10 110 Z" 
-                    fill="url(#chart-grad)"
-                  />
-
-                  {/* Highlight point */}
-                  <circle cx={255} cy={10} r={4.5} fill="#ff5252" stroke="white" strokeWidth="1.5" />
-                  <text x="255" y="5" fill="#e63946" fontSize="7" fontWeight="black" textAnchor="end">Peak: 1,599</text>
-                  
-                  {/* Y Axis labels */}
-                  <text x="5" y="23" fill="#9ca3af" fontSize="7" fontWeight="bold">1600</text>
-                  <text x="5" y="58" fill="#9ca3af" fontSize="7" fontWeight="bold">1500</text>
-                  <text x="5" y="93" fill="#9ca3af" fontSize="7" fontWeight="bold">1400</text>
-                </svg>
+              <div className="mt-4 grid grid-cols-2 gap-3 text-xs">
+                <div className="rounded-2xl bg-gray-50 border border-gray-100 p-4">
+                  <p className="text-[9px] uppercase tracking-[2px] text-gray-400 font-bold">Current rating</p>
+                  <p className="mt-2 text-2xl font-black text-gray-800">{vm.codolio.ratingHistory.rating}</p>
+                </div>
+                <div className="rounded-2xl bg-gray-50 border border-gray-100 p-4">
+                  <p className="text-[9px] uppercase tracking-[2px] text-gray-400 font-bold">LeetCode max</p>
+                  <p className="mt-2 text-2xl font-black text-gray-800">{vm.leetcode?.userStats?.maxRating ?? 'N/A'}</p>
+                </div>
+                <div className="rounded-2xl bg-gray-50 border border-gray-100 p-4">
+                  <p className="text-[9px] uppercase tracking-[2px] text-gray-400 font-bold">Latest contest rank</p>
+                  <p className="mt-2 text-2xl font-black text-gray-800">{vm.codolio.ratingHistory.rank}</p>
+                </div>
+                <div className="rounded-2xl bg-gray-50 border border-gray-100 p-4">
+                  <p className="text-[9px] uppercase tracking-[2px] text-gray-400 font-bold">Latest contest</p>
+                  <p className="mt-2 text-sm font-bold text-gray-700 leading-snug">{vm.codolio.ratingHistory.contest}</p>
+                </div>
               </div>
             </div>
 

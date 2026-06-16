@@ -156,7 +156,13 @@ portfolio/
    npm run build
    ```
 
-5. **Lint TypeScript**:
+5. **Run the live stats server**:
+   ```bash
+   npm run start
+   ```
+   This serves the built app and the live `/api/codolio/stats` endpoint that reads `CODOLIO_TOKEN` from your local environment.
+
+6. **Lint TypeScript**:
    ```bash
    npm run lint
    ```

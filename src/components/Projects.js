@@ -46,15 +46,16 @@ const ProjectCard = ({ project, index }) => {
       {/* Glow border effect on hover */}
       <div
         className="absolute -inset-[1px] rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{ background: 'linear-gradient(135deg, #ff5252, #ff525280, transparent, #ff525240, #ff5252)', borderRadius: '16px' }}
+        style={{ background: 'linear-gradient(135deg, #ffffff, rgba(255,255,255,0.5), transparent, rgba(255,255,255,0.3), #ffffff)', borderRadius: '16px' }}
       />
       
       <div
         className="relative p-7 rounded-2xl overflow-hidden h-full"
         style={{
-          background: 'rgba(255,255,255,0.03)',
-          border: '1px solid rgba(255,255,255,0.06)',
+          background: 'rgba(255,255,255,0.95)',
+          border: '1px solid rgba(255,255,255,0.2)',
           backdropFilter: 'blur(10px)',
+          boxShadow: '0 10px 30px rgba(0,0,0,0.06)',
         }}
       >
         {/* Top glow */}
@@ -68,18 +69,18 @@ const ProjectCard = ({ project, index }) => {
           <div className="flex items-center justify-between mb-5">
             <span
               className="text-[11px] font-bold tracking-[0.3em] uppercase px-3 py-1 rounded-full"
-              style={{ color: '#ff5252', background: 'rgba(255,82,82,0.1)', border: '1px solid rgba(255,82,82,0.2)' }}
+              style={{ color: '#ff5252', background: 'rgba(255,82,82,0.08)', border: '1px solid rgba(255,82,82,0.15)' }}
             >
               {techTags[0] || 'Project'}
             </span>
-            <span className="text-white/20 text-xs font-mono">0{index + 1}</span>
+            <span className="text-gray-300 text-xs font-mono">0{index + 1}</span>
           </div>
           
-          <h4 className="text-xl font-serif text-white mb-3 group-hover:text-brand-red transition-colors duration-300">
+          <h4 className="text-xl font-serif text-gray-900 mb-3 group-hover:text-brand-red transition-colors duration-300">
             {project.title}
           </h4>
           
-          <p className="text-sm text-white/50 leading-relaxed mb-6 line-clamp-3">
+          <p className="text-sm text-gray-600 leading-relaxed mb-6 line-clamp-3">
             {project.description}
           </p>
           
@@ -88,8 +89,8 @@ const ProjectCard = ({ project, index }) => {
             {techTags.map((tag, i) => (
               <span
                 key={i}
-                className="text-[10px] font-medium px-2.5 py-1 rounded-full text-white/50 group-hover:text-white/70 transition-colors"
-                style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}
+                className="text-[10px] font-bold px-2.5 py-1 rounded-full text-brand-red group-hover:text-brand-red/90 transition-colors"
+                style={{ background: 'rgba(255,82,82,0.05)', border: '1px solid rgba(255,82,82,0.1)' }}
               >
                 {tag}
               </span>
@@ -99,7 +100,7 @@ const ProjectCard = ({ project, index }) => {
 
         {/* Corner accent */}
         <div className="absolute bottom-0 right-0 w-16 h-16 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-          <div className="absolute bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 rounded-br-lg" style={{ borderColor: 'rgba(255,82,82,0.4)' }} />
+          <div className="absolute bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 rounded-br-lg" style={{ borderColor: 'rgba(255,82,82,0.3)' }} />
         </div>
       </div>
     </motion.div>
@@ -109,7 +110,7 @@ const ProjectCard = ({ project, index }) => {
 export default function Projects({ projects }) {
   return (
     <section id="projects" className="w-full h-full overflow-y-auto py-24 px-8 md:px-24 flex flex-col justify-center select-none relative"
-      style={{ background: 'linear-gradient(135deg, #0a0a0f 0%, #0f0808 30%, #0a050a 60%, #0f0a0a 100%)' }}
+      style={{ background: 'linear-gradient(135deg, #ff7a00 0%, #ff5252 50%, #e63946 100%)' }}
     >
       {/* Floating 3D orbs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -117,18 +118,18 @@ export default function Projects({ projects }) {
           animate={{ y: [0, -25, 0], x: [0, 10, 0] }}
           transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
           className="absolute top-[15%] right-[10%] w-72 h-72 rounded-full"
-          style={{ background: 'radial-gradient(circle, rgba(255,82,82,0.12) 0%, transparent 70%)', filter: 'blur(40px)' }}
+          style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%)', filter: 'blur(40px)' }}
         />
         <motion.div
           animate={{ y: [0, 20, 0], x: [0, -15, 0] }}
           transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
           className="absolute bottom-[20%] left-[8%] w-60 h-60 rounded-full"
-          style={{ background: 'radial-gradient(circle, rgba(255,82,82,0.08) 0%, transparent 70%)', filter: 'blur(35px)' }}
+          style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%)', filter: 'blur(35px)' }}
         />
         
         {/* Grid overlay */}
         <div className="absolute inset-0" style={{
-          backgroundImage: 'linear-gradient(rgba(255,82,82,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,82,82,0.03) 1px, transparent 1px)',
+          backgroundImage: 'linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)',
           backgroundSize: '80px 80px'
         }} />
 
@@ -136,14 +137,14 @@ export default function Projects({ projects }) {
         {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 rounded-full"
+            className="absolute w-1.5 h-1.5 rounded-full"
             style={{
               left: `${10 + i * 12}%`,
               top: `${20 + (i % 4) * 18}%`,
-              background: '#ff5252',
-              boxShadow: '0 0 4px #ff5252'
+              background: '#ffffff',
+              boxShadow: '0 0 6px #ffffff'
             }}
-            animate={{ y: [0, -15, 0], opacity: [0.3, 0.8, 0.3] }}
+            animate={{ y: [0, -15, 0], opacity: [0.4, 0.9, 0.4] }}
             transition={{ duration: 4 + i * 0.5, repeat: Infinity, delay: i * 0.3 }}
           />
         ))}
@@ -156,11 +157,11 @@ export default function Projects({ projects }) {
           viewport={{ once: true }}
           className="mb-16 text-center"
         >
-          <span className="inline-block text-[11px] font-bold tracking-[0.4em] uppercase text-brand-red mb-4 px-4 py-1.5 rounded-full border border-brand-red/30" style={{ background: 'rgba(255,82,82,0.1)' }}>
+          <span className="inline-block text-[11px] font-bold tracking-[0.4em] uppercase text-white mb-4 px-4 py-1.5 rounded-full border border-white/30" style={{ background: 'rgba(255,255,255,0.15)' }}>
             Portfolio
           </span>
           <h3 className="text-4xl md:text-5xl font-serif italic text-white mt-2">
-            Selected <span style={{ color: '#ff5252' }}>Projects</span>
+            Selected <span style={{ color: '#ffffff', textDecoration: 'underline', textDecorationColor: 'rgba(255,255,255,0.4)' }}>Projects</span>
           </h3>
         </motion.div>
 

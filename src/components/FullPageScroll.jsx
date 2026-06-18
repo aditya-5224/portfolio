@@ -19,7 +19,7 @@ export default function FullPageScroll({ children }) {
       setDirection(next > current ? 1 : -1);
       setAnimating(true);
       setCurrent(next);
-      setTimeout(() => setAnimating(false), 900);
+      setTimeout(() => setAnimating(false), 1050);
     },
     [animating, current, total]
   );
@@ -193,7 +193,7 @@ export default function FullPageScroll({ children }) {
               zIndex:             isVisible ? zIndex : -1,
               // Apply transition ONLY while animating to avoid flicker on mount
               transition: animating
-                ? 'transform 0.85s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.85s cubic-bezier(0.76, 0, 0.24, 1)'
+                ? 'transform 1.0s cubic-bezier(0.76, 0, 0.24, 1), opacity 1.0s cubic-bezier(0.76, 0, 0.24, 1)'
                 : 'none',
               willChange:         'transform, opacity',
               backfaceVisibility: 'hidden',
@@ -218,27 +218,34 @@ export default function FullPageScroll({ children }) {
           alignItems:     'center',
         }}
       >
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => goTo(i)}
-            title={`Go to slide ${i + 1}`}
-            style={{
-              // Active dot = tall pill  |  Inactive dot = small circle
-              width:        i === current ? '10px'  : '8px',
-              height:       i === current ? '32px'  : '8px',
-              borderRadius: i === current ? '5px'   : '50%',
-              background:   i === current ? '#e63946' : 'rgba(255,255,255,0.5)',
-              border:       '2px solid rgba(0,0,0,0.15)',
-              cursor:       'pointer',
-              // Spring cubic-bezier gives a satisfying overshoot on expand
-              transition:   'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
-              padding:      0,
-              outline:      'none',
-              boxShadow:    i === current ? '0 0 0 3px rgba(230,57,70,0.25)' : 'none',
-            }}
-          />
-        ))}
+        {slides.map((_, i) => {
+          const isLightSlide = current === 1 || current === 3 || current === 4;
+          return (
+            <button
+              key={i}
+              onClick={() => goTo(i)}
+              title={`Go to slide ${i + 1}`}
+              style={{
+                // Active dot = tall pill  |  Inactive dot = small circle
+                width:        i === current ? '10px'  : '8px',
+                height:       i === current ? '32px'  : '8px',
+                borderRadius: i === current ? '5px'   : '50%',
+                background:   i === current 
+                  ? '#ff5252' 
+                  : (isLightSlide ? 'rgba(0,0,0,0.25)' : 'rgba(255,255,255,0.35)'),
+                border:       isLightSlide 
+                  ? '2px solid rgba(0,0,0,0.05)' 
+                  : '2px solid rgba(255,255,255,0.08)',
+                cursor:       'pointer',
+                // Spring cubic-bezier gives a satisfying overshoot on expand
+                transition:   'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                padding:      0,
+                outline:      'none',
+                boxShadow:    i === current ? '0 0 12px rgba(255,82,82,0.4), 0 0 0 3px rgba(255,82,82,0.15)' : 'none',
+              }}
+            />
+          );
+        })}
       </nav>
 
       {/* ── Slide counter (bottom-right) ── */}
@@ -251,8 +258,10 @@ export default function FullPageScroll({ children }) {
           fontFamily:    'serif',
           fontSize:      '12px',
           letterSpacing: '2px',
-          color:         'rgba(0,0,0,0.35)',
-          mixBlendMode:  'multiply',
+          color:         (current === 1 || current === 3 || current === 4) 
+            ? 'rgba(0,0,0,0.35)' 
+            : 'rgba(255,255,255,0.4)',
+          mixBlendMode:  'normal',
           pointerEvents: 'none',
         }}
       >

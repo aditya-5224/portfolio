@@ -52,7 +52,7 @@ export default function FullPageScroll({ children }) {
               ? 'translateY(0) translateZ(0) rotateX(0deg)'
               : 'translateY(60px) translateZ(-300px) rotateX(8deg)',
             transformOrigin: 'center bottom',
-            transition: 'transform 0.85s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.85s cubic-bezier(0.76, 0, 0.24, 1)',
+            transition: 'transform 1.0s cubic-bezier(0.76, 0, 0.24, 1), opacity 1.0s cubic-bezier(0.76, 0, 0.24, 1)',
             willChange: 'transform, opacity',
             perspective: '1200px',
           }}

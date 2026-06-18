@@ -56,8 +56,9 @@ const EducationCard = ({ edu, index }) => {
         <div
           className="flex-1 p-6 rounded-2xl relative overflow-hidden mb-4 group-hover:border-brand-red/30 transition-all duration-300"
           style={{
-            background: 'rgba(255,255,255,0.03)',
-            border: '1px solid rgba(255,255,255,0.06)',
+            background: 'rgba(255,255,255,0.85)',
+            border: '1px solid rgba(0,0,0,0.06)',
+            boxShadow: '0 10px 30px rgba(0,0,0,0.03)',
             backdropFilter: 'blur(10px)',
           }}
         >
@@ -69,15 +70,15 @@ const EducationCard = ({ edu, index }) => {
           
           <div style={{ transform: 'translateZ(20px)', transformStyle: 'preserve-3d' }}>
             <div className="flex justify-between items-start mb-2">
-              <h4 className="text-lg font-serif text-white group-hover:text-brand-red transition-colors duration-300">{edu.degree}</h4>
+              <h4 className="text-lg font-serif text-gray-900 group-hover:text-brand-red transition-colors duration-300">{edu.degree}</h4>
               <span
                 className="text-xs font-bold px-3 py-1 rounded-full flex-shrink-0 ml-4"
-                style={{ color: '#ff5252', background: 'rgba(255,82,82,0.1)', border: '1px solid rgba(255,82,82,0.2)' }}
+                style={{ color: '#ff5252', background: 'rgba(255,82,82,0.08)', border: '1px solid rgba(255,82,82,0.15)' }}
               >
                 {edu.year}
               </span>
             </div>
-            <p className="text-sm text-white/40">{edu.institution}</p>
+            <p className="text-sm text-gray-500 font-medium">{edu.institution}</p>
           </div>
 
           {/* Corner accent */}
@@ -92,8 +93,8 @@ const EducationCard = ({ edu, index }) => {
 
 export default function Education({ education }) {
   return (
-    <section id="education" className="w-full h-full overflow-y-auto py-24 px-8 md:px-24 flex flex-col justify-center select-none relative"
-      style={{ background: 'linear-gradient(135deg, #0a0a0f 0%, #0d0808 30%, #0a0a0a 60%, #0f0a0a 100%)' }}
+    <section id="education" className="w-full h-full overflow-y-auto py-20 pb-10 px-8 md:px-24 flex flex-col justify-center select-none relative"
+      style={{ background: 'linear-gradient(135deg, #ffffff 0%, #f9fafb 100%)' }}
     >
       {/* Floating 3D orbs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -112,7 +113,7 @@ export default function Education({ education }) {
         
         {/* Grid overlay */}
         <div className="absolute inset-0" style={{
-          backgroundImage: 'linear-gradient(rgba(255,82,82,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,82,82,0.03) 1px, transparent 1px)',
+          backgroundImage: 'linear-gradient(rgba(255,82,82,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,82,82,0.05) 1px, transparent 1px)',
           backgroundSize: '70px 70px'
         }} />
 
@@ -120,12 +121,12 @@ export default function Education({ education }) {
         {[...Array(6)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 rounded-full"
+            className="absolute w-1.5 h-1.5 rounded-full"
             style={{
               left: `${15 + i * 14}%`,
               top: `${25 + (i % 3) * 20}%`,
               background: '#ff5252',
-              boxShadow: '0 0 4px #ff5252'
+              boxShadow: '0 0 5px rgba(255, 82, 82, 0.4)'
             }}
             animate={{ y: [0, -12, 0], opacity: [0.3, 0.7, 0.3] }}
             transition={{ duration: 4 + i * 0.6, repeat: Infinity, delay: i * 0.4 }}
@@ -140,10 +141,10 @@ export default function Education({ education }) {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <span className="inline-block text-[11px] font-bold tracking-[0.4em] uppercase text-brand-red mb-4 px-4 py-1.5 rounded-full border border-brand-red/30" style={{ background: 'rgba(255,82,82,0.1)' }}>
+          <span className="inline-block text-[11px] font-bold tracking-[0.4em] uppercase text-brand-red mb-4 px-4 py-1.5 rounded-full border border-brand-red/30" style={{ background: 'rgba(255,82,82,0.08)' }}>
             Academic Background
           </span>
-          <h3 className="text-4xl md:text-5xl font-serif italic text-white mt-2">
+          <h3 className="text-4xl md:text-5xl font-serif italic text-gray-900 mt-2">
             Education & <span style={{ color: '#ff5252' }}>Qualification</span>
           </h3>
         </motion.div>

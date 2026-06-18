@@ -44,15 +44,16 @@ const CertificationCard = ({ cert, index }) => {
       {/* Glow border on hover */}
       <div
         className="absolute -inset-[1px] rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{ background: 'linear-gradient(135deg, #ff5252, transparent 40%, transparent 60%, #ff525280)', borderRadius: '16px' }}
+        style={{ background: 'linear-gradient(135deg, #ffffff, rgba(255,255,255,0.4), transparent, rgba(255,255,255,0.4), #ffffff)', borderRadius: '16px' }}
       />
 
       <div
         className="relative p-6 rounded-2xl overflow-hidden h-full"
         style={{
-          background: 'rgba(255,255,255,0.03)',
-          border: '1px solid rgba(255,255,255,0.06)',
+          background: 'rgba(255,255,255,0.95)',
+          border: '1px solid rgba(255,255,255,0.2)',
           backdropFilter: 'blur(10px)',
+          boxShadow: '0 10px 30px rgba(0,0,0,0.06)',
         }}
       >
         {/* Top glow line */}
@@ -74,24 +75,24 @@ const CertificationCard = ({ cert, index }) => {
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 mt-1"
             style={{
-              background: 'linear-gradient(135deg, #ff5252, #ff3b3b)',
-              boxShadow: isHovered ? '0 0 20px rgba(255,82,82,0.5)' : '0 4px 12px rgba(255,82,82,0.2)',
+              background: 'linear-gradient(135deg, #ff7a00, #ff5252)',
+              boxShadow: isHovered ? '0 0 20px rgba(255,82,82,0.4)' : '0 4px 12px rgba(255,82,82,0.15)',
             }}
           >
             <span className="text-white text-lg">★</span>
           </motion.div>
 
           <div className="flex-1 min-w-0">
-            <h4 className="text-base font-bold text-white mb-1.5 group-hover:text-brand-red transition-colors duration-300">
+            <h4 className="text-base font-bold text-gray-900 mb-1.5 group-hover:text-brand-red transition-colors duration-300">
               {cert.name}
             </h4>
             <p className="text-sm font-semibold mb-1" style={{ color: '#ff5252' }}>
               {cert.organization}
             </p>
-            <p className="text-xs text-white/30 mb-2.5">
+            <p className="text-xs text-gray-400 mb-2.5">
               {cert.date}
             </p>
-            <p className="text-sm text-white/45 leading-relaxed">
+            <p className="text-sm text-gray-600 leading-relaxed">
               {cert.description}
             </p>
           </div>
@@ -112,8 +113,8 @@ export default function Certifications({ certifications }) {
   }
 
   return (
-    <section id="certifications" className="w-full h-full overflow-y-auto py-24 px-8 md:px-24 flex flex-col justify-center select-none relative"
-      style={{ background: 'linear-gradient(135deg, #0f0a0a 0%, #0a0808 30%, #0d0a0a 60%, #0a0a0f 100%)' }}
+    <section id="certifications" className="w-full h-full overflow-y-auto pt-10 pb-20 px-8 md:px-24 flex flex-col justify-center select-none relative"
+      style={{ background: 'linear-gradient(135deg, #ff7a00 0%, #ff5252 50%, #e63946 100%)' }}
     >
       {/* Floating 3D orbs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -121,18 +122,18 @@ export default function Certifications({ certifications }) {
           animate={{ y: [0, -20, 0], x: [0, 12, 0], scale: [1, 1.1, 1] }}
           transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
           className="absolute top-[12%] right-[15%] w-60 h-60 rounded-full"
-          style={{ background: 'radial-gradient(circle, rgba(255,82,82,0.12) 0%, transparent 70%)', filter: 'blur(35px)' }}
+          style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%)', filter: 'blur(35px)' }}
         />
         <motion.div
           animate={{ y: [0, 18, 0], x: [0, -10, 0] }}
           transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
           className="absolute bottom-[18%] left-[12%] w-56 h-56 rounded-full"
-          style={{ background: 'radial-gradient(circle, rgba(255,82,82,0.08) 0%, transparent 70%)', filter: 'blur(30px)' }}
+          style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%)', filter: 'blur(30px)' }}
         />
 
         {/* Grid overlay */}
         <div className="absolute inset-0" style={{
-          backgroundImage: 'linear-gradient(rgba(255,82,82,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,82,82,0.03) 1px, transparent 1px)',
+          backgroundImage: 'linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)',
           backgroundSize: '70px 70px'
         }} />
 
@@ -140,12 +141,12 @@ export default function Certifications({ certifications }) {
         {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 rounded-full"
+            className="absolute w-1.5 h-1.5 rounded-full"
             style={{
               left: `${12 + i * 11}%`,
               top: `${18 + (i % 4) * 18}%`,
-              background: '#ff5252',
-              boxShadow: '0 0 4px #ff5252'
+              background: '#ffffff',
+              boxShadow: '0 0 6px #ffffff'
             }}
             animate={{ y: [0, -15, 0], opacity: [0.3, 0.8, 0.3] }}
             transition={{ duration: 3.5 + i * 0.4, repeat: Infinity, delay: i * 0.3 }}
@@ -160,11 +161,11 @@ export default function Certifications({ certifications }) {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <span className="inline-block text-[11px] font-bold tracking-[0.4em] uppercase text-brand-red mb-4 px-4 py-1.5 rounded-full border border-brand-red/30" style={{ background: 'rgba(255,82,82,0.1)' }}>
+          <span className="inline-block text-[11px] font-bold tracking-[0.4em] uppercase text-white mb-4 px-4 py-1.5 rounded-full border border-white/30" style={{ background: 'rgba(255,255,255,0.15)' }}>
             Achievements
           </span>
           <h3 className="text-4xl md:text-5xl font-serif italic text-white mt-2">
-            My <span style={{ color: '#ff5252' }}>Certifications</span>
+            My <span style={{ color: '#ffffff', textDecoration: 'underline', textDecorationColor: 'rgba(255,255,255,0.4)' }}>Certifications</span>
           </h3>
         </motion.div>
 

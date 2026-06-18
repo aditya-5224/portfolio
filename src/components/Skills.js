@@ -127,7 +127,7 @@ const SkillIcon = ({ name, size = 32 }) => {
     firebase: (
       <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
         <path d="M3.89 18.4L2.1 9.1C2 8.7 2.3 8.4 2.7 8.5L5.7 9.8L3.89 18.4Z" fill="#FFC107" />
-        <path d="M12 2L9.1 7.6L3.89 18.4L12 22L20.1 18.4L14.9 2L12 2Z" fill="#FF9800" />
+        <path d="M12 2L9.1 7.6L3.89 18.4L12 22L20.1 18.4L14.9 2L12 22Z" fill="#FF9800" />
         <path d="M12 22L20.1 18.4L21.9 9.1C22 8.7 21.7 8.4 21.3 8.5L18.3 9.8L12 22Z" fill="#FFC107" />
         <path d="M12 22L9.1 7.6L14.9 2L12 22Z" fill="#DD2C00" />
       </svg>
@@ -244,7 +244,6 @@ const SkillCard = ({ name, percentage }) => {
   const [width, setWidth] = useState(0);
   const key = name.toLowerCase().replace(/[^a-z0-9]/g, '');
   const themeColor = techThemeColors[key] || '#ff5252';
-  const isExpert = percentage >= 80;
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -253,34 +252,31 @@ const SkillCard = ({ name, percentage }) => {
     return () => clearTimeout(timer);
   }, [percentage]);
 
-  const barColor = isExpert 
-    ? 'linear-gradient(90deg, #05c389, #00e0a0)' 
-    : 'linear-gradient(90deg, #f59e0b, #ef4444)';
-
   return (
     <TiltCard className="group p-5 rounded-2xl border cursor-pointer relative overflow-hidden" style={{
-      background: 'rgba(255,255,255,0.04)',
-      borderColor: 'rgba(255,255,255,0.08)',
-      backdropFilter: 'blur(10px)'
+      background: 'rgba(255,255,255,0.85)',
+      borderColor: 'rgba(0,0,0,0.06)',
+      backdropFilter: 'blur(10px)',
+      boxShadow: '0 10px 30px rgba(0,0,0,0.03)'
     }}>
       {/* Glow on hover */}
       <div
         className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-        style={{ background: `radial-gradient(circle at 50% 0%, ${themeColor}25, transparent 70%)` }}
+        style={{ background: `radial-gradient(circle at 50% 0%, ${themeColor}18, transparent 70%)` }}
       />
       <div className="flex items-center gap-3 mb-4 relative z-10">
         <div 
           className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300"
-          style={{ background: `${themeColor}20`, border: `1.5px solid ${themeColor}50` }}
+          style={{ background: `${themeColor}15`, border: `1.5px solid ${themeColor}40` }}
         >
           <SkillIcon name={name} size={28} />
         </div>
         <div className="flex-1">
           <div className="flex justify-between items-baseline">
-            <h4 className="text-sm font-bold text-white">{name}</h4>
+            <h4 className="text-sm font-bold text-gray-900">{name}</h4>
             <span 
               className="text-xs font-bold px-2 py-0.5 rounded-full"
-              style={{ color: themeColor, background: `${themeColor}20` }}
+              style={{ color: themeColor, background: `${themeColor}15` }}
             >
               {percentage}%
             </span>
@@ -289,17 +285,17 @@ const SkillCard = ({ name, percentage }) => {
       </div>
       
       <div className="space-y-1.5 relative z-10">
-        <div className="w-full h-2 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.08)' }}>
+        <div className="w-full h-2 rounded-full overflow-hidden" style={{ background: 'rgba(0,0,0,0.06)' }}>
           <div 
             className="h-full rounded-full transition-all duration-1200 ease-out" 
             style={{ 
               width: `${width}%`,
               background: `linear-gradient(90deg, ${themeColor}, ${themeColor}cc)`,
-              boxShadow: `0 0 8px ${themeColor}80`
+              boxShadow: `0 0 8px ${themeColor}60`
             }} 
           />
         </div>
-        <div className="flex justify-between text-[9px] text-white/30 font-bold uppercase tracking-wider">
+        <div className="flex justify-between text-[9px] text-gray-400 font-bold uppercase tracking-wider">
           <span>Basic</span>
           <span>Advanced</span>
           <span>Expert</span>
@@ -314,8 +310,8 @@ const InfiniteMarquee = ({ items, speed = 20, direction = 'left' }) => {
   return (
     <div className="relative w-full overflow-hidden py-4">
       {/* Edge fades */}
-      <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: 'linear-gradient(90deg, #0f0a0a, transparent)' }} />
-      <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: 'linear-gradient(-90deg, #0f0a0a, transparent)' }} />
+      <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: 'linear-gradient(90deg, #ffffff, transparent)' }} />
+      <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: 'linear-gradient(-90deg, #ffffff, transparent)' }} />
       <motion.div
         className="flex gap-5 whitespace-nowrap"
         animate={{
@@ -336,14 +332,15 @@ const InfiniteMarquee = ({ items, speed = 20, direction = 'left' }) => {
               key={index}
               className="inline-flex flex-col items-center justify-center hover:scale-110 transition-all duration-300 rounded-2xl w-24 h-24 flex-shrink-0 cursor-pointer group relative overflow-hidden"
               style={{
-                background: 'rgba(255,255,255,0.04)',
-                border: `1px solid rgba(255,255,255,0.08)`,
-                backdropFilter: 'blur(10px)'
+                background: 'rgba(255,255,255,0.85)',
+                border: `1px solid rgba(0,0,0,0.06)`,
+                backdropFilter: 'blur(10px)',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.03)'
               }}
             >
-              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: `${themeColor}20` }} />
+              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: `${themeColor}12` }} />
               <SkillIcon name={skill} size={34} />
-              <span className="text-[10px] font-bold text-white/60 mt-2 text-center group-hover:text-white transition-colors">{skill}</span>
+              <span className="text-[10px] font-bold text-gray-650 mt-2 text-center group-hover:text-gray-900 transition-colors">{skill}</span>
             </div>
           );
         })}
@@ -402,25 +399,9 @@ export default function Skills() {
 
   const [activeTab, setActiveTab] = useState('all');
 
-  // Helper to determine the tab's background style when active
-  const getTabGradientStyle = (tabId) => {
-    switch (tabId) {
-      case 'all':
-        return 'bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-lg';
-      case 'frontend':
-        return 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg';
-      case 'backend':
-        return 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg';
-      case 'tools':
-        return 'bg-gradient-to-r from-amber-500 to-red-500 text-white shadow-lg';
-      default:
-        return '';
-    }
-  };
-
   return (
     <section id="skills" className="w-full h-full overflow-y-auto py-24 px-8 md:px-24 flex flex-col justify-center select-none relative"
-      style={{ background: 'linear-gradient(135deg, #0f0a0a 0%, #1a0808 25%, #110505 50%, #0d0707 75%, #0f0a0a 100%)' }}
+      style={{ background: 'linear-gradient(135deg, #ffffff 0%, #f9fafb 100%)' }}
     >
       {/* Floating 3D orbs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -428,30 +409,30 @@ export default function Skills() {
           animate={{ y: [0, -30, 0], x: [0, 15, 0], scale: [1, 1.15, 1] }}
           transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
           className="absolute top-[10%] left-[5%] w-64 h-64 rounded-full"
-          style={{ background: 'radial-gradient(circle, rgba(255,82,82,0.18) 0%, transparent 70%)', filter: 'blur(30px)' }}
+          style={{ background: 'radial-gradient(circle, rgba(255,82,82,0.12) 0%, transparent 70%)', filter: 'blur(30px)' }}
         />
         <motion.div
           animate={{ y: [0, 25, 0], x: [0, -20, 0], scale: [1, 1.2, 1] }}
           transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
           className="absolute top-[30%] right-[8%] w-80 h-80 rounded-full"
-          style={{ background: 'radial-gradient(circle, rgba(255,82,82,0.12) 0%, transparent 70%)', filter: 'blur(40px)' }}
+          style={{ background: 'radial-gradient(circle, rgba(255,82,82,0.08) 0%, transparent 70%)', filter: 'blur(40px)' }}
         />
         <motion.div
           animate={{ y: [0, -20, 0], scale: [1, 1.1, 1] }}
           transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
           className="absolute bottom-[15%] left-[25%] w-72 h-72 rounded-full"
-          style={{ background: 'radial-gradient(circle, rgba(255,82,82,0.1) 0%, transparent 70%)', filter: 'blur(35px)' }}
+          style={{ background: 'radial-gradient(circle, rgba(255,82,82,0.06) 0%, transparent 70%)', filter: 'blur(35px)' }}
         />
         {/* Grid lines */}
         <div className="absolute inset-0" style={{
-          backgroundImage: 'linear-gradient(rgba(255,82,82,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,82,82,0.04) 1px, transparent 1px)',
+          backgroundImage: 'linear-gradient(rgba(255,82,82,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,82,82,0.05) 1px, transparent 1px)',
           backgroundSize: '60px 60px'
         }} />
         {/* Floating particles */}
         {[...Array(12)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 rounded-full"
+            className="absolute w-1.5 h-1.5 rounded-full"
             style={{
               left: `${8 + i * 8}%`,
               top: `${15 + (i % 5) * 16}%`,
@@ -472,13 +453,13 @@ export default function Skills() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="inline-block text-[11px] font-bold tracking-[0.4em] uppercase text-brand-red mb-4 px-4 py-1.5 rounded-full border border-brand-red/30" style={{ background: 'rgba(255,82,82,0.1)' }}>
+            <span className="inline-block text-[11px] font-bold tracking-[0.4em] uppercase text-brand-red mb-4 px-4 py-1.5 rounded-full border border-brand-red/30" style={{ background: 'rgba(255,82,82,0.08)' }}>
               Expertise
             </span>
-            <h3 className="text-4xl md:text-5xl font-serif italic text-white mb-3 mt-2">
+            <h3 className="text-4xl md:text-5xl font-serif italic text-gray-900 mb-3 mt-2">
               My <span style={{ color: '#ff5252' }}>Skills</span>
             </h3>
-            <p className="text-white/50 text-sm font-medium">
+            <p className="text-gray-550 text-sm font-medium">
               Technologies I've mastered and my proficiency levels
             </p>
           </motion.div>
@@ -498,12 +479,12 @@ export default function Skills() {
                 className={`px-7 py-3 rounded-full text-sm font-bold tracking-wide transition-all duration-300 cursor-pointer border ${
                   isActive
                     ? 'text-white border-transparent shadow-lg'
-                    : 'text-white/60 border-white/10 hover:border-brand-red/50 hover:text-white'
+                    : 'text-gray-650 border-gray-200 hover:border-brand-red/50 hover:text-gray-900'
                 }`}
                 style={isActive ? {
                   background: 'linear-gradient(135deg, #ff5252, #ff3b3b)',
                   boxShadow: '0 0 20px rgba(255,82,82,0.4), 0 4px 15px rgba(255,82,82,0.25)'
-                } : { background: 'rgba(255,255,255,0.05)' }}
+                } : { background: 'rgba(0,0,0,0.03)' }}
               >
                 {tab.label}
               </motion.button>

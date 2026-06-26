@@ -202,7 +202,7 @@ export default function Hero({ personalInfo }) {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative w-full h-full flex flex-col md:flex-row overflow-hidden select-none"
+      className="relative w-full min-h-screen md:h-screen flex flex-col md:flex-row overflow-hidden select-none"
     >
       {/* Spotlight effect */}
       <div 

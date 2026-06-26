@@ -39,30 +39,29 @@ export default function App() {
           <Skills skills={data.skills} />
           <Education education={data.education} />
           <Certifications certifications={data.certifications} />
+          <footer className="py-12 px-8 md:px-24 w-full h-full flex flex-col justify-center items-center relative"
+            style={{
+              background: 'linear-gradient(135deg, #ffffff 0%, #f9fafb 100%)',
+              borderTop: '1px solid rgba(255, 82, 82, 0.15)',
+            }}
+          >
+            <div className="max-w-6xl w-full flex flex-col md:flex-row justify-between items-center gap-8">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 bg-brand-red rounded-full flex items-center justify-center">
+                  <div className="w-3 h-3 bg-white rounded-tr-full"></div>
+                </div>
+                <span className="font-serif italic text-xl text-gray-900">{data.personalInfo.name}</span>
+              </div>
+              
+              <div className="flex gap-8 text-[10px] font-bold tracking-widest uppercase text-gray-500">
+                <p>© 2026 {data.personalInfo.name}</p>
+                <a href={`mailto:${data.personalInfo.email}`} className="hover:text-brand-red transition-colors duration-300">Email</a>
+                <a href={data.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-brand-red transition-colors duration-300">LinkedIn</a>
+              </div>
+            </div>
+          </footer>
         </FullPageScroll>
       </main>
-      
-      <footer className="py-12 px-8 md:px-24 relative"
-        style={{
-          background: 'linear-gradient(135deg, #ffffff 0%, #f9fafb 100%)',
-          borderTop: '1px solid rgba(255, 82, 82, 0.15)',
-        }}
-      >
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 bg-brand-red rounded-full flex items-center justify-center">
-              <div className="w-3 h-3 bg-white rounded-tr-full"></div>
-            </div>
-            <span className="font-serif italic text-xl text-gray-900">{data.personalInfo.name}</span>
-          </div>
-          
-          <div className="flex gap-8 text-[10px] font-bold tracking-widest uppercase text-gray-500">
-            <p>© 2026 {data.personalInfo.name}</p>
-            <a href={`mailto:${data.personalInfo.email}`} className="hover:text-brand-red transition-colors duration-300">Email</a>
-            <a href={data.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-brand-red transition-colors duration-300">LinkedIn</a>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

@@ -1,17 +1,17 @@
 import React, { useMemo, useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
-import { 
-  MapPin, 
-  GraduationCap, 
-  Github, 
-  Linkedin, 
-  Eye, 
-  CheckSquare, 
-  MessageSquare, 
-  Trophy, 
-  Flame, 
-  CalendarDays, 
-  ChevronRight, 
+import {
+  MapPin,
+  GraduationCap,
+  Github,
+  Linkedin,
+  Eye,
+  CheckSquare,
+  MessageSquare,
+  Trophy,
+  Flame,
+  CalendarDays,
+  ChevronRight,
   ExternalLink,
   ChevronDown,
   Activity,
@@ -100,7 +100,7 @@ function CircularGauge({ size = 76, total, segments, centerText }) {
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="transform -rotate-90">
         {/* Background Track */}
         <circle cx={cx} cy={cy} r={r} fill="none" stroke="rgba(0,0,0,0.06)" strokeWidth="5.5" />
-        
+
         {/* Colored Segments */}
         {segments.map((seg, idx) => {
           const percent = seg.value / total;
@@ -141,7 +141,7 @@ function CircularGauge({ size = 76, total, segments, centerText }) {
 function HexBadge({ badge }) {
   return (
     <div className="flex flex-col items-center gap-2 group cursor-pointer">
-      <motion.div 
+      <motion.div
         className="relative w-16 h-16"
         whileHover={{ scale: 1.15, rotate: 5 }}
         transition={{ type: 'spring', stiffness: 300 }}
@@ -225,7 +225,7 @@ function StatCard({ label, value, icon: Icon, delay = 0 }) {
       >
         {/* Shimmer overlay */}
         <div className="absolute inset-0 animate-shimmer pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
-        
+
         <p className="text-[9px] uppercase tracking-[2px] text-gray-400 font-bold">{label}</p>
         <h2 className="text-3xl font-black text-gray-900 tracking-tight mt-2"
           style={{ textShadow: '0 0 20px rgba(255,82,82,0.1)' }}
@@ -344,8 +344,8 @@ export default function CodingStats() {
   }
 
   const profilePicBase64 = staticData.profilePic || '';
-  const avatarUrl = profilePicBase64 
-    ? `data:image/png;base64,${profilePicBase64}` 
+  const avatarUrl = profilePicBase64
+    ? `data:image/png;base64,${profilePicBase64}`
     : "https://picsum.photos/seed/dev/800/1000";
 
   return (
@@ -384,7 +384,7 @@ export default function CodingStats() {
         <div className="flex flex-col gap-5 relative z-10">
           {/* Profile Details */}
           <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-4.5 flex flex-col items-center text-center shadow-xl">
-            <motion.div 
+            <motion.div
               className="relative w-20 h-20 rounded-full border-2 border-white/35 overflow-hidden flex-shrink-0"
               whileHover={{ scale: 1.08, boxShadow: '0 0 25px rgba(255,255,255,0.3)' }}
               transition={{ type: 'spring', stiffness: 300 }}
@@ -396,7 +396,7 @@ export default function CodingStats() {
                 onError={(e) => { e.currentTarget.src = "https://picsum.photos/seed/dev/800/1000"; }}
               />
             </motion.div>
-            
+
             <h3 className="text-xl font-bold font-serif italic text-white mt-3 leading-none">
               {vm.personal.name}
             </h3>
@@ -438,7 +438,7 @@ export default function CodingStats() {
                   className="flex items-center justify-between px-3.5 py-2.5 bg-white/10 border border-white/10 rounded-xl hover:border-white/25 transition-all duration-200 cursor-pointer no-underline"
                 >
                   <div className="flex items-center gap-2.5">
-                     <span className="w-6 h-6 rounded-lg bg-white/15 flex items-center justify-center font-bold text-xs">{p.logo}</span>
+                    <span className="w-6 h-6 rounded-lg bg-white/15 flex items-center justify-center font-bold text-xs">{p.logo}</span>
                     <span className="text-xs font-bold text-white/90">{p.label}</span>
                   </div>
                   <div className="flex items-center gap-2 text-white/60">
@@ -453,10 +453,10 @@ export default function CodingStats() {
 
       {/* ════════════════════ RIGHT DASHBOARD PANEL ════════════════════ */}
       <div className="flex-1 p-6 md:p-8 overflow-y-auto md:h-full flex flex-col gap-6 relative z-10">
-        
+
         {/* TOP ROW: QUESTIONS, ACTIVE DAYS, SUBMISSIONS */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          
+
           {/* Card 1: Total Questions */}
           <StatCard label="Total Questions" value={vm.codolio.totalQuestions} icon={Trophy} delay={0} />
 
@@ -464,17 +464,17 @@ export default function CodingStats() {
           <StatCard label="Total Active Days" value={vm.codolio.totalActiveDays} icon={Flame} delay={0.1} />
 
           {/* Card 3: Submissions Calendar */}
-          <motion.div 
+          <motion.div
             className="md:col-span-2"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <SubmissionsCalendar 
-              submissions={vm.codolio.submissions} 
-              maxStreak={vm.codolio.maxStreak} 
-              currentStreak={vm.codolio.currentStreak} 
+            <SubmissionsCalendar
+              submissions={vm.codolio.submissions}
+              maxStreak={vm.codolio.maxStreak}
+              currentStreak={vm.codolio.currentStreak}
             />
           </motion.div>
 
@@ -482,10 +482,10 @@ export default function CodingStats() {
 
         {/* MIDDLE ROW: RATINGS CHART, CONTESTS, PROBLEMS SOLVED BREAKDOWN */}
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-          
+
           {/* Left/Center Column (Contests & Rating curve) */}
           <div className="xl:col-span-2 flex flex-col gap-6">
-            
+
             {/* Contest Stats: Live rating summary */}
             <TiltCard>
               <motion.div
@@ -577,15 +577,15 @@ export default function CodingStats() {
               className="glass-card p-5 flex flex-col gap-4"
             >
               <p className="text-[10px] uppercase tracking-[2px] text-gray-400 font-bold">Problems Solved</p>
-              
+
               <div className="flex flex-col gap-5.5 justify-center flex-1">
-                
+
                 {/* Fundamentals Gauge */}
                 <div className="flex items-center gap-4.5">
-                  <CircularGauge 
-                    total={10} 
-                    centerText={vm.codolio.problemsSolved.fundamentals.value} 
-                    segments={[{ value: vm.codolio.problemsSolved.fundamentals.value, color: '#22c55e' }]} 
+                  <CircularGauge
+                    total={10}
+                    centerText={vm.codolio.problemsSolved.fundamentals.value}
+                    segments={[{ value: vm.codolio.problemsSolved.fundamentals.value, color: '#22c55e' }]}
                   />
                   <div>
                     <h4 className="text-xs font-bold text-gray-750 uppercase tracking-wider">Fundamentals</h4>
@@ -598,14 +598,14 @@ export default function CodingStats() {
 
                 {/* DSA Gauge */}
                 <div className="flex items-center gap-4.5">
-                  <CircularGauge 
-                    total={vm.codolio.problemsSolved.dsa.total} 
-                    centerText={vm.codolio.problemsSolved.dsa.total} 
+                  <CircularGauge
+                    total={vm.codolio.problemsSolved.dsa.total}
+                    centerText={vm.codolio.problemsSolved.dsa.total}
                     segments={[
                       { value: vm.codolio.problemsSolved.dsa.easy, color: '#22c55e' },
                       { value: vm.codolio.problemsSolved.dsa.medium, color: '#f59e0b' },
                       { value: vm.codolio.problemsSolved.dsa.hard, color: '#ef4444' }
-                    ]} 
+                    ]}
                   />
                   <div className="flex-1">
                     <h4 className="text-xs font-bold text-gray-755 uppercase tracking-wider">DSA</h4>
@@ -628,10 +628,10 @@ export default function CodingStats() {
 
                 {/* Competitive Programming Gauge */}
                 <div className="flex items-center gap-4.5">
-                  <CircularGauge 
-                    total={100} 
-                    centerText={vm.codolio.problemsSolved.competitiveProgramming.value} 
-                    segments={[{ value: vm.codolio.problemsSolved.competitiveProgramming.value, color: '#f59e0b' }]} 
+                  <CircularGauge
+                    total={100}
+                    centerText={vm.codolio.problemsSolved.competitiveProgramming.value}
+                    segments={[{ value: vm.codolio.problemsSolved.competitiveProgramming.value, color: '#f59e0b' }]}
                   />
                   <div>
                     <h4 className="text-xs font-bold text-gray-755 uppercase tracking-wider">Competitive Programming</h4>
@@ -650,7 +650,7 @@ export default function CodingStats() {
 
         {/* LOWER ROW: AWARDS, TOPIC ANALYSIS, CONTEST RANKINGS */}
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-          
+
           {/* Card: Awards & Badges */}
           <TiltCard>
             <motion.div
@@ -663,8 +663,8 @@ export default function CodingStats() {
               <p className="text-[10px] uppercase tracking-[2px] text-gray-400 font-bold">Awards</p>
               <div className="flex justify-around items-center gap-2 mt-4">
                 {vm.codolio.awards.map((b, idx) => (
-                  <HexBadge 
-                    key={idx} 
+                  <HexBadge
+                    key={idx}
                     badge={{
                       id: `badge-${idx}`,
                       label: b.label,
@@ -674,7 +674,7 @@ export default function CodingStats() {
                           {b.type === 'streak' ? '🔥' : '🏆'}
                         </span>
                       )
-                    }} 
+                    }}
                   />
                 ))}
               </div>
@@ -696,7 +696,7 @@ export default function CodingStats() {
               className="glass-card p-5 flex flex-col justify-between min-h-[220px]"
             >
               <p className="text-[10px] uppercase tracking-[2px] text-gray-400 font-bold">DSA Topic Analysis</p>
-              
+
               <div className="flex flex-col gap-2 mt-3 flex-1 overflow-y-auto max-h-[140px] pr-1.5 scrollbar-thin">
                 {vm.codolio.topicAnalysis
                   .slice(0, showAllTopics ? undefined : 4)
@@ -710,13 +710,13 @@ export default function CodingStats() {
                           <span className="text-gray-800">{topic.count}</span>
                         </div>
                         <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(0,0,0,0.05)' }}>
-                          <motion.div 
-                            className="h-full rounded-full" 
+                          <motion.div
+                            className="h-full rounded-full"
                             initial={{ width: 0 }}
                             whileInView={{ width: `${pct}%` }}
                             viewport={{ once: true }}
                             transition={{ duration: 1, delay: idx * 0.1 }}
-                            style={{ background: 'linear-gradient(90deg, #ff5252, #ff7b7b)', boxShadow: '0 0 8px rgba(255,82,82,0.3)' }} 
+                            style={{ background: 'linear-gradient(90deg, #ff5252, #ff7b7b)', boxShadow: '0 0 8px rgba(255,82,82,0.3)' }}
                           />
                         </div>
                       </div>
@@ -724,7 +724,7 @@ export default function CodingStats() {
                   })}
               </div>
 
-              <button 
+              <button
                 onClick={() => setShowAllTopics(!showAllTopics)}
                 className="text-[9px] text-gray-400 hover:text-gray-600 font-extrabold pt-2.5 text-center uppercase tracking-wider cursor-pointer mt-3"
                 style={{ borderTop: '1px solid rgba(0,0,0,0.06)' }}
@@ -744,7 +744,7 @@ export default function CodingStats() {
               className="glass-card p-5 flex flex-col justify-between min-h-[220px]"
             >
               <p className="text-[10px] uppercase tracking-[2px] text-gray-400 font-bold">Contest Rankings</p>
-              
+
               <div className="flex flex-col gap-5 mt-4 flex-1 justify-center">
                 {/* LeetCode platform */}
                 <div className="flex items-center justify-between">
@@ -752,7 +752,7 @@ export default function CodingStats() {
                     <h4 className="text-xs font-black text-gray-400 uppercase tracking-widest">LEETCODE</h4>
                     <p className="text-[10px] text-gray-500 font-bold mt-1">Rating: {vm.leetcode.userStats?.currentRating || 1584} <span className="text-gray-400 font-normal">(max: {vm.leetcode.userStats?.maxRating || 1599})</span></p>
                   </div>
-                  <motion.div 
+                  <motion.div
                     whileHover={{ scale: 1.1, boxShadow: '0 0 20px rgba(245,158,11,0.2)' }}
                     className="w-12 h-12 rounded-xl flex items-center justify-center text-amber-500 font-black text-xl select-none"
                     style={{ background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.2)' }}
@@ -768,7 +768,7 @@ export default function CodingStats() {
                     <p className="text-sm font-extrabold text-gray-700 mt-0.5">{vm.codeforces.userStats?.rank || "Newbie"}</p>
                     <p className="text-[10px] text-gray-500 font-bold mt-1">Rating: {vm.codeforces.userStats?.currentRating || 867} <span className="text-gray-400 font-normal">(max: {vm.codeforces.userStats?.maxRating || 942})</span></p>
                   </div>
-                  <motion.div 
+                  <motion.div
                     whileHover={{ scale: 1.1, boxShadow: '0 0 20px rgba(59,130,246,0.2)' }}
                     className="w-12 h-12 rounded-xl flex items-center justify-center text-blue-500 font-black text-xl select-none"
                     style={{ background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.2)' }}

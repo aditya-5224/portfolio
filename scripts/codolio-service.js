@@ -1,7 +1,17 @@
 import axios from 'axios';
 
 export function normalizeBearerToken(token) {
-	const trimmed = typeof token === 'string' ? token.trim() : '';
+	let trimmed = typeof token === 'string' ? token.trim() : '';
+	if (!trimmed) return '';
+	
+	// Strip surrounding double or single quotes if present
+	if (
+		(trimmed.startsWith('"') && trimmed.endsWith('"')) ||
+		(trimmed.startsWith("'") && trimmed.endsWith("'"))
+	) {
+		trimmed = trimmed.slice(1, -1).trim();
+	}
+	
 	if (!trimmed) return '';
 	return trimmed.toLowerCase().startsWith('bearer ') ? trimmed : `Bearer ${trimmed}`;
 }

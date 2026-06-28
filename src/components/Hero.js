@@ -254,7 +254,7 @@ export default function Hero({ personalInfo }) {
             initial={{ x: -100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 1 }}
-            className="absolute bottom-1/4 left-1/4 w-40 h-20 bg-brand-red rounded-t-full opacity-10"
+            className="absolute bottom-[8%] left-[8%] w-40 h-20 bg-brand-red rounded-t-full opacity-10"
           />
 
           {/* Floating particles */}

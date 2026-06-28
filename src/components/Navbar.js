@@ -89,51 +89,18 @@ export default function Navbar() {
 
       {/* Connect button */}
       <div className="relative">
-        <motion.button 
-          onClick={() => setShowConnectMenu(!showConnectMenu)}
+        <motion.a 
+          href="#connect"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="rounded-full px-5 py-1.5 text-[11px] font-extrabold tracking-widest uppercase text-brand-red hover:text-red-600 transition-all duration-300"
+          className="inline-block rounded-full px-5 py-1.5 text-[11px] font-extrabold tracking-widest uppercase text-brand-red hover:text-red-600 transition-all duration-300 no-underline"
           style={{
             border: '1px solid rgba(255, 82, 82, 0.25)',
             background: 'rgba(255, 82, 82, 0.05)',
           }}
         >
           Connect
-        </motion.button>
-
-        {/* Connection menu opens upward */}
-        <AnimatePresence>
-          {showConnectMenu && (
-            <motion.div
-              initial={{ opacity: 0, y: 10, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 10, scale: 0.95 }}
-              transition={{ duration: 0.2 }}
-              className="absolute bottom-12 right-0 mb-2 w-44 rounded-xl overflow-hidden z-50"
-              style={{
-                background: 'rgba(255, 255, 255, 0.95)',
-                border: '1px solid rgba(255, 82, 82, 0.15)',
-                backdropFilter: 'blur(20px)',
-                boxShadow: '0 -15px 40px rgba(0,0,0,0.1), 0 0 30px rgba(255,82,82,0.05)',
-              }}
-            >
-              <button
-                onClick={handleEmailClick}
-                className="w-full px-6 py-3 text-left text-[11px] font-extrabold tracking-widest uppercase text-gray-700 hover:bg-brand-red/10 hover:text-brand-red transition-all duration-200"
-              >
-                Gmail
-              </button>
-              <button
-                onClick={handleWhatsAppClick}
-                className="w-full px-6 py-3 text-left text-[11px] font-extrabold tracking-widest uppercase text-gray-700 hover:bg-brand-red/10 hover:text-brand-red transition-all duration-200"
-                style={{ borderTop: '1px solid rgba(0,0,0,0.06)' }}
-              >
-                WhatsApp
-              </button>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        </motion.a>
       </div>
     </motion.nav>
   );

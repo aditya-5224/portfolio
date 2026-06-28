@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 
 export default function FullPageScroll({ children }) {
   const [current, setCurrent]     = useState(0);
@@ -23,6 +23,37 @@ export default function FullPageScroll({ children }) {
     },
     [animating, current, total]
   );
+
+  // ── Hash navigation synchronization ──
+  const idToIndex = useMemo(() => {
+    const map = {};
+    slides.forEach((slide, i) => {
+      if (slide.props && slide.props.id) {
+        map[`#${slide.props.id}`] = i;
+      }
+    });
+    // Fallback static map based on component names or hierarchy
+    map['#coding-stats'] = 1;
+    map['#projects'] = 2;
+    map['#skills'] = 3;
+    map['#education'] = 4;
+    map['#certifications'] = 5;
+    map['#connect'] = 6;
+    return map;
+  }, [slides]);
+
+  useEffect(() => {
+    const handleHash = () => {
+      const hash = window.location.hash;
+      if (hash && idToIndex[hash] !== undefined) {
+        goTo(idToIndex[hash]);
+      }
+    };
+    window.addEventListener('hashchange', handleHash);
+    // Trigger on initial mount if a hash is present
+    handleHash();
+    return () => window.removeEventListener('hashchange', handleHash);
+  }, [idToIndex, goTo]);
 
   // ── Wheel handler ─────────────────────────────────────────
   // Smart boundary detection: if the wheel event originates inside

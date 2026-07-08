@@ -452,18 +452,12 @@ export default function CodingStats() {
       </div>
 
       {/* ════════════════════ RIGHT DASHBOARD PANEL ════════════════════ */}
-      <div className="flex-1 p-6 md:p-8 overflow-y-auto md:h-full flex flex-col gap-6 relative z-10">
+      <div className="flex-1 p-5 md:p-6 overflow-y-auto md:overflow-hidden md:h-full flex flex-col gap-4 relative z-10">
 
-        {/* TOP ROW: QUESTIONS, ACTIVE DAYS, SUBMISSIONS */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-
-          {/* Card 1: Total Questions */}
+        {/* TOP ROW: QUESTIONS, ACTIVE DAYS, TOTAL CONTESTS */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <StatCard label="Total Questions" value={vm.codolio.totalQuestions} icon={Trophy} delay={0} />
-
-          {/* Card 2: Total Active Days */}
           <StatCard label="Total Active Days" value={vm.codolio.totalActiveDays} icon={Flame} delay={0.1} />
-
-          {/* Card 3: Submissions Calendar */}
           <motion.div
             className="md:col-span-2"
             initial={{ opacity: 0, y: 30 }}
@@ -471,36 +465,52 @@ export default function CodingStats() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <SubmissionsCalendar
-              submissions={vm.codolio.submissions}
-              maxStreak={vm.codolio.maxStreak}
-              currentStreak={vm.codolio.currentStreak}
-            />
+            <TiltCard>
+              <div className="glass-card p-5 flex items-center justify-between h-[130px] relative overflow-hidden">
+                <div>
+                  <p className="text-[9px] uppercase tracking-[2px] text-gray-400 font-bold">Total Contests</p>
+                  <h3 className="text-3xl font-black text-gray-900 mt-1" style={{ textShadow: '0 0 20px rgba(255,82,82,0.1)' }}>{vm.codolio.totalContests}</h3>
+                </div>
+                <div className="flex gap-8 text-xs select-none">
+                  <div className="flex items-center gap-2 pr-8" style={{ borderRight: '1px solid rgba(0,0,0,0.08)' }}>
+                    <span className="font-extrabold text-amber-500 text-lg" style={{ textShadow: '0 0 8px rgba(245,158,11,0.2)' }}>L</span>
+                    <div>
+                      <p className="text-gray-400 text-[9px] font-bold uppercase">LeetCode</p>
+                      <p className="font-black text-gray-800">{vm.codolio.contestsBreakdown.leetcode}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-extrabold text-blue-500 text-lg" style={{ textShadow: '0 0 8px rgba(59,130,246,0.2)' }}>C</span>
+                    <div>
+                      <p className="text-gray-400 text-[9px] font-bold uppercase">CodeForces</p>
+                      <p className="font-black text-gray-800">{vm.codolio.contestsBreakdown.codeforces}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </TiltCard>
           </motion.div>
-
         </div>
 
-        {/* MIDDLE ROW: RATINGS CHART, CONTESTS, PROBLEMS SOLVED BREAKDOWN */}
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        {/* MIDDLE SECTION: TWO-COLUMN DASHBOARD */}
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
 
-          {/* Left/Center Column (Contests & Rating curve) */}
-          <div className="xl:col-span-2 flex flex-col gap-6">
+          {/* Left/Center Column */}
+          <div className="xl:col-span-2 flex flex-col gap-4">
 
-            {/* Contest Stats: Live rating summary */}
+            {/* Rating Card */}
             <TiltCard>
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.15 }}
-                className="glass-card p-5 flex flex-col justify-between h-[230px] relative overflow-hidden"
+                className="glass-card p-5 flex flex-col justify-between h-[180px] relative overflow-hidden"
               >
                 <div className="flex justify-between items-start">
                   <div>
                     <p className="text-[9px] uppercase tracking-[2px] text-gray-400 font-bold">Rating</p>
-                    <h3 className="text-3xl font-black text-gray-900 tracking-tight mt-1"
-                      style={{ textShadow: '0 0 20px rgba(255,82,82,0.1)' }}
-                    >{vm.codolio.ratingHistory.rating}</h3>
+                    <h3 className="text-3xl font-black text-gray-900 tracking-tight mt-1" style={{ textShadow: '0 0 20px rgba(255,82,82,0.1)' }}>{vm.codolio.ratingHistory.rating}</h3>
                   </div>
                   <div className="text-right text-xs text-gray-400 leading-snug">
                     <p className="font-bold text-gray-700">{vm.codolio.ratingHistory.date}</p>
@@ -508,7 +518,6 @@ export default function CodingStats() {
                     <p>Rank: {vm.codolio.ratingHistory.rank}</p>
                   </div>
                 </div>
-
                 <div className="mt-4 grid grid-cols-2 gap-3 text-xs">
                   <div className="rounded-2xl p-4 relative overflow-hidden" style={{ background: 'rgba(0,0,0,0.02)', border: '1px solid rgba(0,0,0,0.05)' }}>
                     <div className="absolute inset-0 animate-shimmer pointer-events-none" />
@@ -519,47 +528,106 @@ export default function CodingStats() {
                     <p className="text-[9px] uppercase tracking-[2px] text-gray-400 font-bold">LeetCode max</p>
                     <p className="mt-2 text-2xl font-black text-gray-900">{vm.leetcode?.userStats?.maxRating ?? 'N/A'}</p>
                   </div>
-                  <div className="rounded-2xl p-4" style={{ background: 'rgba(0,0,0,0.02)', border: '1px solid rgba(0,0,0,0.05)' }}>
-                    <p className="text-[9px] uppercase tracking-[2px] text-gray-400 font-bold">Latest contest rank</p>
-                    <p className="mt-2 text-2xl font-black text-gray-900">{vm.codolio.ratingHistory.rank}</p>
-                  </div>
-                  <div className="rounded-2xl p-4" style={{ background: 'rgba(0,0,0,0.02)', border: '1px solid rgba(0,0,0,0.05)' }}>
-                    <p className="text-[9px] uppercase tracking-[2px] text-gray-400 font-bold">Latest contest</p>
-                    <p className="mt-2 text-sm font-bold text-gray-700 leading-snug">{vm.codolio.ratingHistory.contest}</p>
-                  </div>
                 </div>
               </motion.div>
             </TiltCard>
 
-            {/* Total Contests and platform counts */}
+            {/* Awards + DSA Topic Analysis side by side */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <TiltCard>
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                  className="glass-card p-5 flex flex-col justify-between h-[220px]"
+                >
+                  <p className="text-[10px] uppercase tracking-[2px] text-gray-400 font-bold">Awards</p>
+                  <div className="flex justify-around items-center gap-2 mt-4">
+                    {vm.codolio.awards.map((b, idx) => (
+                      <HexBadge
+                        key={idx}
+                        badge={{
+                          id: `badge-${idx}`,
+                          label: b.label,
+                          color: b.color,
+                          icon: <span className="text-white text-base">{b.type === 'streak' ? '🔥' : '🏆'}</span>
+                        }}
+                      />
+                    ))}
+                  </div>
+                  <div className="text-[9px] text-gray-300 font-bold pt-3 text-center uppercase tracking-wider mt-4" style={{ borderTop: '1px solid rgba(0,0,0,0.06)' }}>show more</div>
+                </motion.div>
+              </TiltCard>
+
+              <TiltCard>
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.15 }}
+                  className="glass-card p-5 flex flex-col justify-between h-[220px]"
+                >
+                  <p className="text-[10px] uppercase tracking-[2px] text-gray-400 font-bold">DSA Topic Analysis</p>
+                  <div className="flex flex-col gap-2 mt-3 flex-1 overflow-y-auto max-h-[110px] pr-1.5 scrollbar-thin">
+                    {vm.codolio.topicAnalysis.slice(0, showAllTopics ? undefined : 3).map((topic, idx) => {
+                      const pct = (topic.count / 228) * 100;
+                      return (
+                        <div key={idx} className="flex flex-col gap-0.5">
+                          <div className="flex justify-between items-center text-[10px] text-gray-500 font-bold">
+                            <span>{topic.name}</span>
+                            <span className="text-gray-800">{topic.count}</span>
+                          </div>
+                          <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(0,0,0,0.05)' }}>
+                            <motion.div
+                              className="h-full rounded-full"
+                              initial={{ width: 0 }}
+                              whileInView={{ width: `${pct}%` }}
+                              viewport={{ once: true }}
+                              transition={{ duration: 1, delay: idx * 0.1 }}
+                              style={{ background: 'linear-gradient(90deg, #ff5252, #ff7b7b)', boxShadow: '0 0 8px rgba(255,82,82,0.3)' }}
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <button
+                    onClick={() => setShowAllTopics(!showAllTopics)}
+                    className="text-[9px] text-gray-400 hover:text-gray-600 font-extrabold pt-2.5 text-center uppercase tracking-wider cursor-pointer mt-3"
+                    style={{ borderTop: '1px solid rgba(0,0,0,0.06)' }}
+                  >
+                    {showAllTopics ? 'show less' : 'show more'}
+                  </button>
+                </motion.div>
+              </TiltCard>
+            </div>
+
+            {/* Contest Rankings — horizontal bar */}
             <TiltCard>
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="glass-card p-5 flex items-center justify-between h-[90px]"
+                className="glass-card p-5 flex items-center justify-between h-[96px]"
               >
-                <div>
-                  <p className="text-[9px] uppercase tracking-[2px] text-gray-400 font-bold">Total Contests</p>
-                  <h3 className="text-3xl font-black text-gray-900 mt-1"
-                    style={{ textShadow: '0 0 20px rgba(255,82,82,0.1)' }}
-                  >{vm.codolio.totalContests}</h3>
-                </div>
-                <div className="flex gap-8 text-xs select-none">
-                  <div className="flex items-center gap-2 pr-8" style={{ borderRight: '1px solid rgba(0,0,0,0.08)' }}>
-                    <span className="font-extrabold text-amber-500" style={{ textShadow: '0 0 8px rgba(245,158,11,0.2)' }}>L</span>
+                <p className="text-[10px] uppercase tracking-[2px] text-gray-400 font-bold">Contest Rankings</p>
+                <div className="flex gap-10 text-xs select-none">
+                  <div className="flex items-center gap-3 pr-10" style={{ borderRight: '1px solid rgba(0,0,0,0.08)' }}>
                     <div>
-                      <p className="text-gray-400 text-[9px] font-bold uppercase">LeetCode</p>
-                      <p className="font-black text-gray-800">{vm.codolio.contestsBreakdown.leetcode}</p>
+                      <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest leading-none">LEETCODE</h4>
+                      <p className="text-[10px] text-gray-500 font-bold mt-1">Rating: {vm.leetcode.userStats?.currentRating || 1584} <span className="text-gray-400 font-normal">(max: {vm.leetcode.userStats?.maxRating || 1599})</span></p>
                     </div>
+                    <div className="w-9 h-9 rounded-xl flex items-center justify-center text-amber-500 font-black text-base" style={{ background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.2)' }}>L</div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <span className="font-extrabold text-blue-500" style={{ textShadow: '0 0 8px rgba(59,130,246,0.2)' }}>C</span>
+                  <div className="flex items-center gap-3">
                     <div>
-                      <p className="text-gray-400 text-[9px] font-bold uppercase">CodeForces</p>
-                      <p className="font-black text-gray-800">{vm.codolio.contestsBreakdown.codeforces}</p>
+                      <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest leading-none">CODEFORCES</h4>
+                      <p className="text-[10px] font-extrabold text-gray-700 mt-0.5">{vm.codeforces.userStats?.rank || 'Newbie'}</p>
+                      <p className="text-[10px] text-gray-500 font-bold">Rating: {vm.codeforces.userStats?.currentRating || 867} <span className="text-gray-400 font-normal">(max: {vm.codeforces.userStats?.maxRating || 942})</span></p>
                     </div>
+                    <div className="w-9 h-9 rounded-xl flex items-center justify-center text-blue-500 font-black text-base" style={{ background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.2)' }}>C</div>
                   </div>
                 </div>
               </motion.div>
@@ -567,28 +635,22 @@ export default function CodingStats() {
 
           </div>
 
-          {/* Right Column (Problems Solved) */}
+          {/* Right Column — Problems Solved (vertical gauges) */}
           <TiltCard>
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.25 }}
-              className="glass-card p-5 flex flex-col gap-4"
+              className="glass-card p-5 flex flex-col gap-4 h-full"
             >
               <p className="text-[10px] uppercase tracking-[2px] text-gray-400 font-bold">Problems Solved</p>
+              <div className="flex flex-col gap-6 justify-center flex-1">
 
-              <div className="flex flex-col gap-5.5 justify-center flex-1">
-
-                {/* Fundamentals Gauge */}
-                <div className="flex items-center gap-4.5">
-                  <CircularGauge
-                    total={10}
-                    centerText={vm.codolio.problemsSolved.fundamentals.value}
-                    segments={[{ value: vm.codolio.problemsSolved.fundamentals.value, color: '#22c55e' }]}
-                  />
+                <div className="flex items-center gap-4">
+                  <CircularGauge total={10} centerText={vm.codolio.problemsSolved.fundamentals.value} segments={[{ value: vm.codolio.problemsSolved.fundamentals.value, color: '#22c55e' }]} />
                   <div>
-                    <h4 className="text-xs font-bold text-gray-750 uppercase tracking-wider">Fundamentals</h4>
+                    <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">Fundamentals</h4>
                     <div className="flex items-center gap-1.5 mt-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]" style={{ boxShadow: '0 0 6px rgba(34,197,94,0.3)' }} />
                       <span className="text-[11px] text-gray-400 font-bold">{vm.codolio.problemsSolved.fundamentals.label} <strong className="text-gray-700">{vm.codolio.problemsSolved.fundamentals.value}</strong></span>
@@ -596,8 +658,7 @@ export default function CodingStats() {
                   </div>
                 </div>
 
-                {/* DSA Gauge */}
-                <div className="flex items-center gap-4.5">
+                <div className="flex items-center gap-4">
                   <CircularGauge
                     total={vm.codolio.problemsSolved.dsa.total}
                     centerText={vm.codolio.problemsSolved.dsa.total}
@@ -608,33 +669,19 @@ export default function CodingStats() {
                     ]}
                   />
                   <div className="flex-1">
-                    <h4 className="text-xs font-bold text-gray-755 uppercase tracking-wider">DSA</h4>
+                    <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">DSA</h4>
                     <div className="grid grid-cols-3 gap-2 mt-1 text-[10px] text-gray-400 font-bold">
-                      <div>
-                        <p className="text-[#22c55e]">Easy</p>
-                        <p className="text-gray-800 text-xs mt-0.5">{vm.codolio.problemsSolved.dsa.easy}</p>
-                      </div>
-                      <div>
-                        <p className="text-[#f59e0b]">Medium</p>
-                        <p className="text-gray-800 text-xs mt-0.5">{vm.codolio.problemsSolved.dsa.medium}</p>
-                      </div>
-                      <div>
-                        <p className="text-[#ef4444]">Hard</p>
-                        <p className="text-gray-800 text-xs mt-0.5">{vm.codolio.problemsSolved.dsa.hard}</p>
-                      </div>
+                      <div><p className="text-[#22c55e]">Easy</p><p className="text-gray-800 text-xs mt-0.5">{vm.codolio.problemsSolved.dsa.easy}</p></div>
+                      <div><p className="text-[#f59e0b]">Medium</p><p className="text-gray-800 text-xs mt-0.5">{vm.codolio.problemsSolved.dsa.medium}</p></div>
+                      <div><p className="text-[#ef4444]">Hard</p><p className="text-gray-800 text-xs mt-0.5">{vm.codolio.problemsSolved.dsa.hard}</p></div>
                     </div>
                   </div>
                 </div>
 
-                {/* Competitive Programming Gauge */}
-                <div className="flex items-center gap-4.5">
-                  <CircularGauge
-                    total={100}
-                    centerText={vm.codolio.problemsSolved.competitiveProgramming.value}
-                    segments={[{ value: vm.codolio.problemsSolved.competitiveProgramming.value, color: '#f59e0b' }]}
-                  />
+                <div className="flex items-center gap-4">
+                  <CircularGauge total={100} centerText={vm.codolio.problemsSolved.competitiveProgramming.value} segments={[{ value: vm.codolio.problemsSolved.competitiveProgramming.value, color: '#f59e0b' }]} />
                   <div>
-                    <h4 className="text-xs font-bold text-gray-755 uppercase tracking-wider">Competitive Programming</h4>
+                    <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">Competitive Prog.</h4>
                     <div className="flex items-center gap-1.5 mt-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#f59e0b]" style={{ boxShadow: '0 0 6px rgba(245,158,11,0.3)' }} />
                       <span className="text-[11px] text-gray-400 font-bold">{vm.codolio.problemsSolved.competitiveProgramming.label} <strong className="text-gray-700">{vm.codolio.problemsSolved.competitiveProgramming.value}</strong></span>
@@ -647,141 +694,6 @@ export default function CodingStats() {
           </TiltCard>
 
         </div>
-
-        {/* LOWER ROW: AWARDS, TOPIC ANALYSIS, CONTEST RANKINGS */}
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-
-          {/* Card: Awards & Badges */}
-          <TiltCard>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="glass-card p-5 flex flex-col justify-between min-h-[220px]"
-            >
-              <p className="text-[10px] uppercase tracking-[2px] text-gray-400 font-bold">Awards</p>
-              <div className="flex justify-around items-center gap-2 mt-4">
-                {vm.codolio.awards.map((b, idx) => (
-                  <HexBadge
-                    key={idx}
-                    badge={{
-                      id: `badge-${idx}`,
-                      label: b.label,
-                      color: b.color,
-                      icon: (
-                        <span className="text-white text-base">
-                          {b.type === 'streak' ? '🔥' : '🏆'}
-                        </span>
-                      )
-                    }}
-                  />
-                ))}
-              </div>
-              <div className="text-[9px] text-gray-300 font-bold pt-3 text-center uppercase tracking-wider mt-4"
-                style={{ borderTop: '1px solid rgba(0,0,0,0.06)' }}
-              >
-                show more
-              </div>
-            </motion.div>
-          </TiltCard>
-
-          {/* Card: Topic Analysis */}
-          <TiltCard>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.15 }}
-              className="glass-card p-5 flex flex-col justify-between min-h-[220px]"
-            >
-              <p className="text-[10px] uppercase tracking-[2px] text-gray-400 font-bold">DSA Topic Analysis</p>
-
-              <div className="flex flex-col gap-2 mt-3 flex-1 overflow-y-auto max-h-[140px] pr-1.5 scrollbar-thin">
-                {vm.codolio.topicAnalysis
-                  .slice(0, showAllTopics ? undefined : 4)
-                  .map((topic, idx) => {
-                    const maxCount = 228;
-                    const pct = (topic.count / maxCount) * 100;
-                    return (
-                      <div key={idx} className="flex flex-col gap-0.5">
-                        <div className="flex justify-between items-center text-[10px] text-gray-500 font-bold">
-                          <span>{topic.name}</span>
-                          <span className="text-gray-800">{topic.count}</span>
-                        </div>
-                        <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(0,0,0,0.05)' }}>
-                          <motion.div
-                            className="h-full rounded-full"
-                            initial={{ width: 0 }}
-                            whileInView={{ width: `${pct}%` }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 1, delay: idx * 0.1 }}
-                            style={{ background: 'linear-gradient(90deg, #ff5252, #ff7b7b)', boxShadow: '0 0 8px rgba(255,82,82,0.3)' }}
-                          />
-                        </div>
-                      </div>
-                    );
-                  })}
-              </div>
-
-              <button
-                onClick={() => setShowAllTopics(!showAllTopics)}
-                className="text-[9px] text-gray-400 hover:text-gray-600 font-extrabold pt-2.5 text-center uppercase tracking-wider cursor-pointer mt-3"
-                style={{ borderTop: '1px solid rgba(0,0,0,0.06)' }}
-              >
-                {showAllTopics ? 'show less' : 'show more'}
-              </button>
-            </motion.div>
-          </TiltCard>
-
-          {/* Card: Contest Rankings details */}
-          <TiltCard>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="glass-card p-5 flex flex-col justify-between min-h-[220px]"
-            >
-              <p className="text-[10px] uppercase tracking-[2px] text-gray-400 font-bold">Contest Rankings</p>
-
-              <div className="flex flex-col gap-5 mt-4 flex-1 justify-center">
-                {/* LeetCode platform */}
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h4 className="text-xs font-black text-gray-400 uppercase tracking-widest">LEETCODE</h4>
-                    <p className="text-[10px] text-gray-500 font-bold mt-1">Rating: {vm.leetcode.userStats?.currentRating || 1584} <span className="text-gray-400 font-normal">(max: {vm.leetcode.userStats?.maxRating || 1599})</span></p>
-                  </div>
-                  <motion.div
-                    whileHover={{ scale: 1.1, boxShadow: '0 0 20px rgba(245,158,11,0.2)' }}
-                    className="w-12 h-12 rounded-xl flex items-center justify-center text-amber-500 font-black text-xl select-none"
-                    style={{ background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.2)' }}
-                  >
-                    L
-                  </motion.div>
-                </div>
-
-                {/* Codeforces platform */}
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h4 className="text-xs font-black text-gray-400 uppercase tracking-widest">CODEFORCES</h4>
-                    <p className="text-sm font-extrabold text-gray-700 mt-0.5">{vm.codeforces.userStats?.rank || "Newbie"}</p>
-                    <p className="text-[10px] text-gray-500 font-bold mt-1">Rating: {vm.codeforces.userStats?.currentRating || 867} <span className="text-gray-400 font-normal">(max: {vm.codeforces.userStats?.maxRating || 942})</span></p>
-                  </div>
-                  <motion.div
-                    whileHover={{ scale: 1.1, boxShadow: '0 0 20px rgba(59,130,246,0.2)' }}
-                    className="w-12 h-12 rounded-xl flex items-center justify-center text-blue-500 font-black text-xl select-none"
-                    style={{ background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.2)' }}
-                  >
-                    C
-                  </motion.div>
-                </div>
-              </div>
-            </motion.div>
-          </TiltCard>
-
-        </div>
-
       </div>
     </section>
   );

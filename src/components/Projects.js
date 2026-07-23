@@ -1,173 +1,121 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import { motion } from 'motion/react';
 
-const ProjectCard = ({ project, index }) => {
-  const [rotateX, setRotateX] = useState(0);
-  const [rotateY, setRotateY] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-  const cardRef = useRef(null);
+const projectsList = [
+  {
+    id: 1,
+    title: 'Career Compass',
+    image: '/career_compass.png',
+    link: 'https://carrer-compass-ruddy.vercel.app',
+    github: 'https://github.com/aditya-5224',
+  },
+  {
+    id: 2,
+    title: 'Helping Bug',
+    image: '/helping_bug.jpg',
+    link: 'https://github.com/aditya-5224/Helping-Bug',
+    github: 'https://github.com/aditya-5224/Helping-Bug',
+  },
+];
 
-  const handleMouseMove = (e) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left - rect.width / 2;
-    const mouseY = e.clientY - rect.top - rect.height / 2;
-    
-    const maxRotate = 12;
-    setRotateX(-(mouseY / (rect.height / 2)) * maxRotate);
-    setRotateY((mouseX / (rect.width / 2)) * maxRotate);
-  };
-
-  const handleMouseLeave = () => {
-    setRotateX(0);
-    setRotateY(0);
-    setIsHovered(false);
-  };
-
-  const techTags = project.technologies ? project.technologies.split(',').map(t => t.trim()) : [];
-
+export default function Projects() {
   return (
-    <motion.div
-      ref={cardRef}
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={handleMouseLeave}
-      className="group cursor-pointer relative"
+    <section
+      id="projects"
+      className="w-full min-h-screen overflow-y-auto py-24 px-6 md:px-24 flex flex-col justify-start select-none relative"
       style={{
-        transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(${isHovered ? '20px' : '0px'})`,
-        transition: 'transform 0.15s ease-out',
-        transformStyle: 'preserve-3d',
+        background: 'linear-gradient(135deg, #fffbf9 0%, #fff5f0 50%, #fffaf7 100%)',
+        fontFamily: 'ui-sans-serif, system-ui, -apple-system, sans-serif',
       }}
     >
-      {/* Glow border effect on hover */}
-      <div
-        className="absolute -inset-[1px] rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{ background: 'linear-gradient(135deg, #ffffff, rgba(255,255,255,0.5), transparent, rgba(255,255,255,0.3), #ffffff)', borderRadius: '16px' }}
-      />
-      
-      <div
-        className="relative p-7 rounded-2xl overflow-hidden h-full"
-        style={{
-          background: 'rgba(255,255,255,0.95)',
-          border: '1px solid rgba(255,255,255,0.2)',
-          backdropFilter: 'blur(10px)',
-          boxShadow: '0 10px 30px rgba(0,0,0,0.06)',
-        }}
-      >
-        {/* Top glow */}
-        <div
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-          style={{ background: 'linear-gradient(90deg, transparent, #ff5252, transparent)' }}
-        />
-        
-        <div style={{ transform: 'translateZ(30px)', transformStyle: 'preserve-3d' }}>
-          {/* Project number */}
-          <div className="flex items-center justify-between mb-5">
-            <span
-              className="text-[11px] font-bold tracking-[0.3em] uppercase px-3 py-1 rounded-full"
-              style={{ color: '#ff5252', background: 'rgba(255,82,82,0.08)', border: '1px solid rgba(255,82,82,0.15)' }}
-            >
-              {techTags[0] || 'Project'}
-            </span>
-            <span className="text-gray-300 text-xs font-mono">0{index + 1}</span>
-          </div>
-          
-          <h4 className="text-xl font-serif text-gray-900 mb-3 group-hover:text-brand-red transition-colors duration-300">
-            {project.title}
-          </h4>
-          
-          <p className="text-sm text-gray-600 leading-relaxed mb-6 line-clamp-3">
-            {project.description}
-          </p>
-          
-          {/* Tech tags */}
-          <div className="flex flex-wrap gap-2">
-            {techTags.map((tag, i) => (
-              <span
-                key={i}
-                className="text-[10px] font-bold px-2.5 py-1 rounded-full text-brand-red group-hover:text-brand-red/90 transition-colors"
-                style={{ background: 'rgba(255,82,82,0.05)', border: '1px solid rgba(255,82,82,0.1)' }}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Corner accent */}
-        <div className="absolute bottom-0 right-0 w-16 h-16 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-          <div className="absolute bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 rounded-br-lg" style={{ borderColor: 'rgba(255,82,82,0.3)' }} />
-        </div>
-      </div>
-    </motion.div>
-  );
-};
-
-export default function Projects({ projects }) {
-  return (
-    <section id="projects" className="w-full h-full overflow-y-auto py-24 px-8 md:px-24 flex flex-col justify-center select-none relative"
-      style={{ background: 'linear-gradient(135deg, #ff7a00 0%, #ff5252 50%, #e63946 100%)' }}
-    >
-      {/* Floating 3D orbs */}
+      {/* Background Soft Glows & Grid */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <motion.div
-          animate={{ y: [0, -25, 0], x: [0, 10, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-[15%] right-[10%] w-72 h-72 rounded-full"
-          style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%)', filter: 'blur(40px)' }}
+        {/* Soft coral glows in corners */}
+        <div
+          className="absolute -top-40 -left-40 w-96 h-96 rounded-full"
+          style={{ background: 'radial-gradient(circle, rgba(255,122,0,0.15) 0%, transparent 70%)', filter: 'blur(50px)' }}
         />
-        <motion.div
-          animate={{ y: [0, 20, 0], x: [0, -15, 0] }}
-          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
-          className="absolute bottom-[20%] left-[8%] w-60 h-60 rounded-full"
-          style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%)', filter: 'blur(35px)' }}
+        <div
+          className="absolute -bottom-40 -right-40 w-96 h-96 rounded-full"
+          style={{ background: 'radial-gradient(circle, rgba(255,82,82,0.15) 0%, transparent 70%)', filter: 'blur(50px)' }}
         />
-        
         {/* Grid overlay */}
-        <div className="absolute inset-0" style={{
-          backgroundImage: 'linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)',
-          backgroundSize: '80px 80px'
-        }} />
-
-        {/* Floating particles */}
-        {[...Array(8)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1.5 h-1.5 rounded-full"
-            style={{
-              left: `${10 + i * 12}%`,
-              top: `${20 + (i % 4) * 18}%`,
-              background: '#ffffff',
-              boxShadow: '0 0 6px #ffffff'
-            }}
-            animate={{ y: [0, -15, 0], opacity: [0.4, 0.9, 0.4] }}
-            transition={{ duration: 4 + i * 0.5, repeat: Infinity, delay: i * 0.3 }}
-          />
-        ))}
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              'linear-gradient(rgba(255,82,82,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,82,82,0.03) 1px, transparent 1px)',
+            backgroundSize: '60px 60px',
+          }}
+        />
       </div>
 
-      <div className="max-w-6xl mx-auto w-full relative z-10">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-16 text-center"
-        >
-          <span className="inline-block text-[11px] font-bold tracking-[0.4em] uppercase text-white mb-4 px-4 py-1.5 rounded-full border border-white/30" style={{ background: 'rgba(255,255,255,0.15)' }}>
-            Portfolio
+      <div className="max-w-4xl mx-auto w-full relative z-10">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <span
+            className="inline-block text-[10px] font-bold tracking-[0.25em] uppercase text-brand-red mb-3 px-3 py-1 rounded-full border border-brand-red/10 bg-brand-red/5"
+            style={{ color: '#ff5252' }}
+          >
+            MY WORK
           </span>
-          <h3 className="text-4xl md:text-5xl font-serif italic text-white mt-2">
-            Selected <span style={{ color: '#ffffff', textDecoration: 'underline', textDecorationColor: 'rgba(255,255,255,0.4)' }}>Projects</span>
-          </h3>
-        </motion.div>
+          <h2 className="text-4xl md:text-5xl font-serif text-gray-900 mt-2">
+            Selected <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-[#ff7a00] to-[#ff5252]">Projects</span>
+          </h2>
+          <div className="w-16 h-[2px] bg-gradient-to-r from-[#ff7a00] to-[#ff5252] mx-auto mt-6 rounded-full" />
+        </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
-            <ProjectCard key={index} project={project} index={index} />
+        {/* Projects Grid Stack */}
+        <div className="grid md:grid-cols-2 gap-10">
+          {projectsList.map((project, index) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.15 }}
+              className="bg-white rounded-[2rem] border border-gray-100 p-5 flex flex-col gap-5 justify-between relative overflow-hidden group"
+              style={{
+                boxShadow: '0 10px 40px rgba(255, 122, 0, 0.03), 0 2px 10px rgba(0, 0, 0, 0.01)',
+              }}
+            >
+              {/* Image with Frame - click redirects to live app */}
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-center bg-gray-50 rounded-2xl p-3 border border-gray-100 overflow-hidden relative min-h-[220px] md:min-h-[260px]"
+              >
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-auto max-h-[240px] object-contain rounded-xl shadow-sm transition-transform duration-500 group-hover:scale-[1.03]"
+                />
+              </a>
+
+              {/* Action Buttons right below the image */}
+              <div className="flex gap-3 justify-center w-full">
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 flex items-center justify-center gap-1.5 py-3 rounded-full bg-gradient-to-r from-[#ff7a00] to-[#ff5252] text-white font-bold text-xs shadow-md shadow-orange-500/10 hover:shadow-orange-500/20 hover:scale-[1.02] transition-all duration-300"
+                >
+                  🚀 Live Demo
+                </a>
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 flex items-center justify-center gap-1.5 py-3 rounded-full bg-white border border-gray-200 text-gray-700 font-bold text-xs shadow-sm hover:bg-gray-50 hover:scale-[1.02] transition-all duration-300"
+                >
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z" />
+                  </svg>
+                  GitHub
+                </a>
+              </div>
+            </motion.div>
           ))}
         </div>
       </div>

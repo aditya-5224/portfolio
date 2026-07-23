@@ -36,7 +36,7 @@ export default function App() {
           <Hero personalInfo={personalInfoWithPic} />
           <CodingStats />
           {/* <Experience experience={data.experience} /> */}
-          <Projects projects={data.projects} />
+          <Projects />
           <Skills skills={data.skills} />
           <Education education={data.education} />
           <Certifications certifications={data.certifications} />
